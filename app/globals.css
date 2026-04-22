@@ -434,7 +434,7 @@ button { cursor: pointer; border: none; outline: none; }
   border-left: 1px solid rgba(255,255,255,0.07);
   padding: 0 36px;
   overflow-y: auto; height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex; flex-direction: column; justify-content: flex-start; padding-top: 90px;
   scrollbar-width: thin; scrollbar-color: var(--accent-dark) transparent;
 }
 .lightbox-panel::-webkit-scrollbar { width: 3px; }
@@ -446,7 +446,7 @@ button { cursor: pointer; border: none; outline: none; }
 .lightbox-panel-left { display: flex; flex-direction: column; gap: 24px; }
 .lightbox-panel-right { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
 
-.lightbox .lb-model-name { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--cream); line-height: 1.1; }
+.lightbox .lb-model-name { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--cream); line-height: 1.1; min-height: 2.3em; display: flex; align-items: flex-end; }
 .lightbox .lb-model-code { font-size: 15px; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; font-weight: 600; margin-top: 10px; }
 
 .lightbox .lb-divider { height: 1px; background: var(--divider); }
@@ -454,9 +454,9 @@ button { cursor: pointer; border: none; outline: none; }
 .lightbox .lb-section-title { font-size: 13px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 16px; }
 
 .lightbox .lb-dims { display: flex; flex-direction: column; gap: 4px; }
-.lightbox .lb-dim-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.lightbox .lb-dim-row { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .lightbox .lb-dim-label { font-size: 14px; color: var(--text-secondary); letter-spacing: 1.5px; text-transform: uppercase; }
-.lightbox .lb-dim-value { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--cream); font-weight: 600; }
+.lightbox .lb-dim-value { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--cream); font-weight: 600; text-align: right; white-space: nowrap; }
 
 .lightbox .lb-features { display: flex; flex-direction: column; gap: 11px; }
 .lightbox .lb-feature { display: flex; align-items: center; gap: 14px; font-size: 17px; color: var(--text-secondary); font-weight: 300; }
