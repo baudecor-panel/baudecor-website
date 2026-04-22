@@ -446,7 +446,8 @@ button { cursor: pointer; border: none; outline: none; }
 .lightbox-panel-left { display: flex; flex-direction: column; gap: 24px; }
 .lightbox-panel-right { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
 
-.lightbox .lb-model-name { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--cream); line-height: 1.1; min-height: 2.3em; display: flex; align-items: flex-end; }
+.lightbox .lb-model-header { margin-bottom: 20px; }
+.lightbox .lb-model-name { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; color: var(--cream); line-height: 1.1; }
 .lightbox .lb-model-code { font-size: 15px; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; font-weight: 600; margin-top: 10px; }
 
 .lightbox .lb-divider { height: 1px; background: var(--divider); }

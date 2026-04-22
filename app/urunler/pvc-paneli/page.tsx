@@ -433,26 +433,26 @@ export default function PvcPanelPage() {
 
         {/* Info panel */}
         <div className="lightbox-panel">
+          {/* Model adı — tam genişlik, kolonların dışında */}
+          <div className="lb-model-header">
+            <p className="lb-model-name">{MODELS[lbIndex].name}</p>
+            <p className="lb-model-code">{MODELS[lbIndex].code}</p>
+          </div>
+          <div className="lb-divider" />
+
           <div className="lightbox-panel-cols">
-            {/* Sol: isim + ölçüler */}
+            {/* Sol: ölçüler */}
             <div className="lightbox-panel-left">
-              <div>
-                <p className="lb-model-name">{MODELS[lbIndex].name}</p>
-                <p className="lb-model-code">{MODELS[lbIndex].code}</p>
-              </div>
-              <div className="lb-divider" />
-              <div>
-                <p className="lb-section-title">
-                  {lang === "me" ? "Dimenzije" : lang === "tr" ? "Ölçüler" : "Dimensions"}
-                </p>
-                <div className="lb-dims">
-                  {DIMS.map((d, i) => (
-                    <div key={i} className="lb-dim-row">
-                      <span className="lb-dim-label">{tx(d.label, lang)}</span>
-                      <span className="lb-dim-value">{d.value}</span>
-                    </div>
-                  ))}
-                </div>
+              <p className="lb-section-title">
+                {lang === "me" ? "Dimenzije" : lang === "tr" ? "Ölçüler" : "Dimensions"}
+              </p>
+              <div className="lb-dims">
+                {DIMS.map((d, i) => (
+                  <div key={i} className="lb-dim-row">
+                    <span className="lb-dim-label">{tx(d.label, lang)}</span>
+                    <span className="lb-dim-value">{d.value}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
