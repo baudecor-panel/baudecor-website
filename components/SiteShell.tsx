@@ -29,7 +29,7 @@ const PRODUCTS = [
     badge: { tr: "Çok Satan",   me: "Bestseler",  en: "Best Seller" },
     name:  { tr: "PVC Paneller", me: "PVC Paneli", en: "PVC Panels"  },
     text:  { tr: "Su geçirmez parlak yüzeyli paneller. Banyo, mutfak ve ıslak mekanlar için ideal. Mevcut yüzey kaldırılmadan montaj.", me: "Vodootporni paneli sa sjajnom površinom. Idealni za kupatila, kuhinje i vlažne prostorije. Montaža bez uklanjanja postojećeg materijala.", en: "Waterproof panels with glossy surface. Ideal for bathrooms, kitchens and wet areas. Installation without removing existing material." },
-    img: "https://images.unsplash.com/photo-1600566753376-12c8ab7a5a0c?w=800&q=80",
+    img: "/Wall-Panel-1-27-Kopya.jpg",
   },
   {
     num: "02",

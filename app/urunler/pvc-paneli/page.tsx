@@ -14,17 +14,47 @@ const LANGS: { code: Lang; label: string }[] = [
   { code: "tr", label: "TR" },
 ];
 
-const SPECS: { label: Txt; value: Txt }[] = [
-  { label: { tr: "Kalınlık",          me: "Debljina",          en: "Thickness"       }, value: { tr: "5 / 8 / 10 mm",         me: "5 / 8 / 10 mm",         en: "5 / 8 / 10 mm"         } },
-  { label: { tr: "Genişlik",          me: "Širina",            en: "Width"           }, value: { tr: "25 / 37,5 / 100 cm",    me: "25 / 37,5 / 100 cm",    en: "25 / 37.5 / 100 cm"    } },
-  { label: { tr: "Uzunluk",           me: "Dužina",            en: "Length"          }, value: { tr: "260 / 280 / 300 cm",    me: "260 / 280 / 300 cm",    en: "260 / 280 / 300 cm"    } },
-  { label: { tr: "Ağırlık",           me: "Težina",            en: "Weight"          }, value: { tr: "1,2 – 2,5 kg/m²",      me: "1,2 – 2,5 kg/m²",      en: "1.2 – 2.5 kg/m²"       } },
-  { label: { tr: "Sıcaklık Aralığı", me: "Temp. Opseg",       en: "Temp. Range"     }, value: { tr: "-30°C — +60°C",         me: "-30°C — +60°C",         en: "-30°C — +60°C"          } },
-  { label: { tr: "Su Geçirmezlik",   me: "Vodootpornost",     en: "Waterproof"      }, value: { tr: "100%",                  me: "100%",                  en: "100%"                   } },
-  { label: { tr: "Yangın Sınıfı",    me: "Klasa Požarnosti",  en: "Fire Class"      }, value: { tr: "B-s1, d0",             me: "B-s1, d0",             en: "B-s1, d0"               } },
-  { label: { tr: "UV Dayanımı",      me: "UV Otpornost",      en: "UV Resistance"   }, value: { tr: "Evet",                 me: "Da",                    en: "Yes"                    } },
-  { label: { tr: "Antibakteriyal",   me: "Antibakterijski",   en: "Antibacterial"   }, value: { tr: "Evet",                 me: "Da",                    en: "Yes"                    } },
-  { label: { tr: "Garanti",          me: "Garancija",         en: "Warranty"        }, value: { tr: "10 Yıl",              me: "10 Godina",              en: "10 Years"               } },
+type Profile = { name: Txt; size: string; color: Txt; img: string };
+const PROFILE_GROUPS: { type: Txt; items: Profile[] }[] = [
+  {
+    type: { tr: "Bitiş Profili",   me: "Završni Profil",   en: "End Profile"       },
+    items: [
+      { name: { tr: "Krom",  me: "Hrom",  en: "Chrome" }, size: "10mm", color: { tr: "Gümüş", me: "Srebrna", en: "Silver" }, img: "/10-MM-ALUMINYUM-BITIS-PROFILI.jpg" },
+      { name: { tr: "Siyah", me: "Crna",  en: "Black"  }, size: "10mm", color: { tr: "Siyah", me: "Crna",    en: "Black"  }, img: "/10-MM-ALUMINYUM-BITIS-PROFILI_SIYAH.jpg" },
+    ],
+  },
+  {
+    type: { tr: "T Geçiş Profili", me: "T Prijelazni Profil", en: "T Transition Profile" },
+    items: [
+      { name: { tr: "Krom",  me: "Hrom",   en: "Chrome" }, size: "10mm", color: { tr: "Gümüş", me: "Srebrna", en: "Silver" }, img: "/10-MM-ALUMINYUM-T-GECIS-PROFILI.jpg" },
+      { name: { tr: "Altın", me: "Zlatna", en: "Gold"   }, size: "10mm", color: { tr: "Altın", me: "Zlatna",  en: "Gold"   }, img: "/10-MM-ALUMINYUM-T-GECIS-PROFILI-ALTIN.jpg" },
+      { name: { tr: "Siyah", me: "Crna",   en: "Black"  }, size: "10mm", color: { tr: "Siyah", me: "Crna",    en: "Black"  }, img: "/10-MM-ALUMINYUM-T-GECIS-PROFILI_SIYAH.jpg" },
+    ],
+  },
+  {
+    type: { tr: "İç Köşe Profili", me: "Unutrašnji Ugaoni Profil", en: "Inner Corner Profile" },
+    items: [
+      { name: { tr: "Krom",  me: "Hrom",   en: "Chrome" }, size: "12mm", color: { tr: "Gümüş", me: "Srebrna", en: "Silver" }, img: "/12-MM-ALUMINYUM-IC-KOSE-PROFILI.jpg" },
+      { name: { tr: "Altın", me: "Zlatna", en: "Gold"   }, size: "12mm", color: { tr: "Altın", me: "Zlatna",  en: "Gold"   }, img: "/12-MM-ALUMINYUM-IC-KOSE-PROFILI-ALTIN.jpg" },
+      { name: { tr: "Siyah", me: "Crna",   en: "Black"  }, size: "12mm", color: { tr: "Siyah", me: "Crna",    en: "Black"  }, img: "/12-MM-ALUMINYUM-IC-KOSE-PROFILI_SIYAH.jpg" },
+    ],
+  },
+  {
+    type: { tr: "H Geçiş Profili", me: "H Prijelazni Profil", en: "H Transition Profile" },
+    items: [
+      { name: { tr: "Krom",  me: "Hrom",   en: "Chrome" }, size: "13mm", color: { tr: "Gümüş", me: "Srebrna", en: "Silver" }, img: "/13-MM-ALUMINYUM-H-GECIS-PROFILI.jpg" },
+      { name: { tr: "Altın", me: "Zlatna", en: "Gold"   }, size: "13mm", color: { tr: "Altın", me: "Zlatna",  en: "Gold"   }, img: "/13-MM-ALUMINYUM-H-GECIS-PROFILI-ALTIN.jpg" },
+      { name: { tr: "Siyah", me: "Crna",   en: "Black"  }, size: "13mm", color: { tr: "Siyah", me: "Crna",    en: "Black"  }, img: "/13-MM-ALUMINYUM-H-GECIS-PROFILI_SIYAH.jpg" },
+    ],
+  },
+  {
+    type: { tr: "Dış Köşe Profili", me: "Spoljašnji Ugaoni Profil", en: "Outer Corner Profile" },
+    items: [
+      { name: { tr: "Krom",  me: "Hrom",   en: "Chrome" }, size: "16mm", color: { tr: "Gümüş", me: "Srebrna", en: "Silver" }, img: "/16-MM-ALUMINYUM-DIS-KOSE-PROFILI.jpg" },
+      { name: { tr: "Altın", me: "Zlatna", en: "Gold"   }, size: "16mm", color: { tr: "Altın", me: "Zlatna",  en: "Gold"   }, img: "/16-MM-ALUMINYUM-DIS-KOSE-PROFILI-ALTIN.jpg" },
+      { name: { tr: "Siyah", me: "Crna",   en: "Black"  }, size: "16mm", color: { tr: "Siyah", me: "Crna",    en: "Black"  }, img: "/16-MM-ALUMINYUM-DIS-KOSE-PROFILI_SIYAH.jpg" },
+    ],
+  },
 ];
 
 type AdvItem = { icon: ReactNode; title: Txt; text: Txt };
@@ -128,6 +158,8 @@ export default function PvcPanelPage() {
   const [lbOpen, setLbOpen] = useState(false);
   const [lbIndex, setLbIndex] = useState(0);
   const thumbsRef = useRef<HTMLDivElement>(null);
+  const profilesRef = useRef<HTMLDivElement>(null);
+  const profilesDrag = useRef({ active: false, startX: 0, scrollLeft: 0 });
 
   useEffect(() => {
     const onScroll = () => {
@@ -257,13 +289,11 @@ export default function PvcPanelPage() {
             ))}
           </div>
         </div>
-        <div className="pp-intro-image">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://images.unsplash.com/photo-1600566753376-12c8ab7a5a0c?w=1200&q=80"
-            alt="PVC Panel"
-            loading="lazy"
-          />
+        <div className="pp-intro-image-grid">
+          {[MODELS[0], MODELS[1], MODELS[2], MODELS[3]].map((m) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={m.code} src={m.img} alt={m.name} loading="lazy" />
+          ))}
         </div>
       </section>
 
@@ -299,33 +329,55 @@ export default function PvcPanelPage() {
         </div>
       </section>
 
-      {/* TECHNICAL SPECS */}
+      {/* ALUMINIUM PROFILES */}
       <section className="pp-specs">
         <div className="section-header reveal">
           <div>
             <p className="section-label">
-              {lang === "me" ? "Tehničke Specifikacije" : lang === "tr" ? "Teknik Özellikler" : "Technical Specifications"}
+              {lang === "me" ? "Dodaci" : lang === "tr" ? "Tamamlayıcı Ürünler" : "Accessories"}
             </p>
             <h2 className="section-title">
-              {lang === "me" ? "Dimenzije i Karakteristike"
-               : lang === "tr" ? "Boyutlar ve Özellikler"
-               : "Dimensions & Properties"}
+              {lang === "me" ? <>Aluminijumski <em>Profili</em></> : lang === "tr" ? <>Tamamlayıcı <em>Alüminyum Profiller</em></> : <>Complementary <em>Aluminium Profiles</em></>}
             </h2>
           </div>
           <p className="section-desc">
-            {lang === "me" ? "Sve tehničke karakteristike PVC panela iz naše kolekcije."
-             : lang === "tr" ? "Koleksiyonumuzdaki PVC panellerin tüm teknik özellikleri."
-             : "All technical specifications of PVC panels from our collection."}
+            {lang === "me" ? "Aluminijumski profili za savršenu završnu obradu PVC panela."
+             : lang === "tr" ? "PVC panellerin mükemmel montajı için tamamlayıcı alüminyum profiller."
+             : "Aluminium profiles for a perfect PVC panel installation finish."}
           </p>
         </div>
-        <div className="specs-grid reveal">
-          {SPECS.map((s, i) => (
-            <div key={i} className="spec-row">
-              <span className="spec-label">{tx(s.label, lang)}</span>
-              <span className="spec-divider" />
-              <span className="spec-value">{tx(s.value, lang)}</span>
-            </div>
-          ))}
+        <div
+          className="profiles-row reveal"
+          ref={profilesRef}
+          onMouseDown={(e) => {
+            if (!profilesRef.current) return;
+            profilesDrag.current = { active: true, startX: e.clientX, scrollLeft: profilesRef.current.scrollLeft };
+            profilesRef.current.style.cursor = "grabbing";
+            profilesRef.current.style.userSelect = "none";
+          }}
+          onMouseMove={(e) => {
+            if (!profilesDrag.current.active || !profilesRef.current) return;
+            profilesRef.current.scrollLeft = profilesDrag.current.scrollLeft - (e.clientX - profilesDrag.current.startX);
+          }}
+          onMouseUp={() => { profilesDrag.current.active = false; if (profilesRef.current) { profilesRef.current.style.cursor = "grab"; profilesRef.current.style.userSelect = ""; } }}
+          onMouseLeave={() => { profilesDrag.current.active = false; if (profilesRef.current) { profilesRef.current.style.cursor = "grab"; profilesRef.current.style.userSelect = ""; } }}
+          style={{ cursor: "grab" }}
+        >
+          {PROFILE_GROUPS.flatMap((group) =>
+            group.items.map((p, pi) => (
+              <div key={`${tx(group.type, "en")}-${pi}`} className="profile-card">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.img} alt={`${tx(group.type, lang)} ${tx(p.color, lang)}`} loading="lazy" />
+                <div className="profile-card-label">
+                  <span className="profile-color-dot" data-color={tx(p.color, lang).toLowerCase()} />
+                  <div>
+                    <p className="profile-card-type">{tx(group.type, lang)}</p>
+                    <p className="profile-color-name">{p.size} · {tx(p.color, lang)}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </section>
 
