@@ -33,19 +33,19 @@ const PRODUCTS = [
   },
   {
     num: "02",
-    href: null,
+    href: "/urunler/mdf-paneli",
     badge: null,
     name:  { tr: "MDF Paneller", me: "MDF Paneli", en: "MDF Panels"  },
     text:  { tr: "Konutları ve ticari alanları güzelleştiren ahşap MDF paneller. Doğal ahşap görünümü, modern dayanıklılık.", me: "Drveni medijapan paneli koji oplemenjuju stambene i poslovne prostore. Prirodan izgled drveta uz modernu izdržljivost.", en: "Wooden MDF panels that enhance residential and commercial spaces. Natural wood look with modern durability." },
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    img: "/anasayfa%20mdf.jpg",
   },
   {
     num: "03",
-    href: null,
+    href: "/urunler/moduler-duvar-paneli",
     badge: { tr: "Yeni", me: "Novo", en: "New" },
-    name:  { tr: "Modüler Paneller", me: "Modularni Paneli", en: "Modular Panels" },
-    text:  { tr: "Yaratıcı özgürlük için esnek modüler sistem. Benzersiz iç mekan için şekil ve dokuları birleştirin.", me: "Fleksibilni modularni sistem za kreativnu slobodu. Kombinujte oblike i teksture za jedinstven enterijer.", en: "Flexible modular system for creative freedom. Combine shapes and textures for a unique interior." },
-    img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80",
+    name:  { tr: "Modüler Duvar Paneli", me: "Modularni Zidni Panel", en: "Modular Wall Panel" },
+    text:  { tr: "Hafif ABS polimerden üretilen rölyefli Modüler duvar panelleri. Modüler yapısıyla sınırsız kombinasyon — otel, restoran ve konut projelerine mükemmel uyum.", me: "Reljefni modularni zidni paneli izrađeni od laganog ABS polimera. Modularni sistem za beskrajne kombinacije — savršeni za hotele, restorane i stambene projekte.", en: "Relief modular wall panels made from lightweight ABS polymer. Modular system for endless combinations — perfect for hotels, restaurants and residential projects." },
+    img: "/KAPAK%20PENTA.jpg",
   },
 ];
 

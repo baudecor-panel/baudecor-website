@@ -161,6 +161,7 @@ export default function PvcPanelPage() {
   const profilesRef = useRef<HTMLDivElement>(null);
   const profilesDrag = useRef({ active: false, startX: 0, scrollLeft: 0 });
 
+
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 80);
@@ -205,8 +206,9 @@ export default function PvcPanelPage() {
 
   return (
     <>
+      <style>{`body{zoom:0.8}`}</style>
       {/* NAVBAR */}
-      <nav className={`navbar${scrolled ? " scrolled" : ""}`}>
+      <nav className={`navbar${scrolled ? " scrolled" : ""}`} style={{ zoom: 1.25 }}>
         <Link href="/" className="logo-btn" aria-label="Baudecor">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.svg" alt="Baudecor" height={64} style={{ height: 64, width: "auto", display: "block" }} />
