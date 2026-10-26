@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { useLang } from "@/lib/useLang";
 import { PHONE, pick, type Txt } from "@/lib/site";
-import { MOD_COLORS, MOD_MATERIAL, MOD_MODELS, tilesPerM2, type ColorId, type ModModel } from "@/lib/moduler";
+import { MOD_COLORS, MOD_MATERIAL, MOD_MODELS, tilesPerM2 } from "@/lib/moduler";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
-import ModulerStory from "./ModulerStory";
 import h from "../home/Home.module.css";
 import s from "@/components/site/Product.module.css";
 import m from "./Moduler.module.css";
@@ -51,11 +50,8 @@ const ADVANTAGES: { icon: ReactNode; title: Txt; text: Txt }[] = [
 export default function ModulerPage() {
   const [lang, setLang] = useLang();
   const L = pick(lang);
-  const [model3d, setModel3d] = useState<ModModel>(MOD_MODELS[0]);
-  const [color, setColor] = useState<ColorId>("white");
   const [open, setOpen] = useState<number | null>(null);
   const [img, setImg] = useState<string | null>(null);
-  const storyRef = useRef<HTMLDivElement>(null);
 
   // kaydırınca beliren bölümler
   useEffect(() => {
@@ -81,22 +77,8 @@ export default function ModulerPage() {
     return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [open]);
 
-  // model değişince seçili renk o modelde yoksa beyaza döner
-  const chooseModel = (md: ModModel) => {
-    setModel3d(md);
-    if (!md.colors.some((c) => c.id === color)) setColor("white");
-  };
   const openModel = (i: number) => { setOpen(i); setImg(null); };
   const step = (d: number) => { setOpen((i) => (i === null ? i : (i + d + MOD_MODELS.length) % MOD_MODELS.length)); setImg(null); };
-
-  // pencereden 3D duvarda göster (model sahnesi)
-  const viewIn3d = (md: ModModel) => {
-    chooseModel(md);
-    setOpen(null);
-    const el = storyRef.current;
-    if (!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + window.innerHeight, behavior: "smooth" });
-  };
 
   const cur = open === null ? null : MOD_MODELS[open];
   const main = cur ? img ?? cur.info : null;
@@ -105,16 +87,12 @@ export default function ModulerPage() {
     <div className={`${h.page} ${s.page}`}>
       <PageHeader lang={lang} setLang={setLang} crumbs={[{ href: "/", label: L("Početna", "Ana sayfa", "Home") }, { label: L("Modularni paneli", "Modüler paneller", "Modular panels") }]} />
 
-      <div ref={storyRef}>
-        <ModulerStory lang={lang} model={model3d} onModel={chooseModel} color={color} onColor={setColor} />
-      </div>
-
       {/* ===== MODELLER ===== */}
-      <section id="modeli" className={h.section}>
+      <section id="modeli" className={`${h.section} ${m.first}`}>
         <header className={h.head} data-reveal>
           <div>
             <p className={h.kicker}>{L("Kolekcija", "Koleksiyon", "Collection")}</p>
-            <h2 className={h.h2}>{MOD_MODELS.length} {L("modela,", "model,", "models,")} <em>{L("beskrajne kombinacije", "sonsuz kombinasyon", "endless combinations")}</em></h2>
+            <h1 className={h.h2}>{L("Modularni 3D paneli —", "Modüler 3D paneller —", "Modular 3D panels —")} <em>{MOD_MODELS.length} {L("modela", "model", "models")}</em></h1>
           </div>
           <p className={h.headDesc}>{L("Kliknite na model za opis, boje, galeriju i tehničku dokumentaciju.", "Açıklama, renkler, galeri ve teknik belgeler için bir modele tıklayın.", "Click a model for its description, colours, gallery and technical documents.")}</p>
         </header>
@@ -280,8 +258,8 @@ export default function ModulerPage() {
               </div>
 
               <div className={s.sheetBtns}>
-                <button className={h.btnPrimary} onClick={() => viewIn3d(cur)}>{L("Pogledaj na 3D zidu", "3D duvarda gör", "See on the 3D wall")} <span>→</span></button>
-                <a className={h.btnGhost} href={`${PHONE.wa}?text=${encodeURIComponent(`${L("Modularni panel", "Modüler panel", "Modular panel")} ${cur.name}`)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a className={h.btnPrimary} href={`${PHONE.wa}?text=${encodeURIComponent(`${L("Modularni panel", "Modüler panel", "Modular panel")} ${cur.name}`)}`} target="_blank" rel="noopener noreferrer">{L("Pitajte na WhatsApp-u", "WhatsApp'tan sorun", "Ask on WhatsApp")} <span>→</span></a>
+                <a className={h.btnGhost} href={PHONE.href}>{L("Pozovite nas", "Bizi arayın", "Call us")}</a>
               </div>
               <div className={s.sheetNav}>
                 <button onClick={() => step(-1)}>← {MOD_MODELS[(open - 1 + MOD_MODELS.length) % MOD_MODELS.length].name}</button>

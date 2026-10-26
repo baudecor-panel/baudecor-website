@@ -58,3 +58,6 @@
   .thumbs { padding: 0 12px 12px; }
   .docs { grid-template-columns: 1fr 1fr; }
 }
+
+/* Sayfanın ilk bölümü: üst çubuğun hemen altında */
+.first { padding-top: clamp(48px, 6vw, 84px); }

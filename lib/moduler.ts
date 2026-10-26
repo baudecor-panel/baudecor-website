@@ -1,20 +1,20 @@
-/* Modüler (3D) duvar paneli kataloğu — 8 model, renkler, galeriler, belgeler ve 3D dizilim kuralları */
+/* Modüler (3D) duvar paneli kataloğu — 8 model, renkler, galeriler, belgeler ve karo dizilimi (m² hesabı için) */
 import type { Txt } from "./site";
 
 const T = (me: string, tr: string, en: string): Txt => ({ me, tr, en });
 
 /* ===== Renkler (ABS + akrilik boya) ===== */
 export type ColorId = "white" | "mink" | "black" | "gold" | "silver" | "smoke";
-export const MOD_COLORS: Record<ColorId, { name: Txt; swatch: string; rough: number; metal: number }> = {
-  white: { name: T("Bijela", "Beyaz", "White"), swatch: "#efede8", rough: 0.55, metal: 0 },
-  mink: { name: T("Vizon", "Vizon", "Mink"), swatch: "#5b4b3f", rough: 0.5, metal: 0.08 },
-  black: { name: T("Crna", "Siyah", "Black"), swatch: "#222121", rough: 0.42, metal: 0 },
-  gold: { name: T("Zlatna", "Altın", "Gold"), swatch: "#c9a46a", rough: 0.34, metal: 0.8 },
-  silver: { name: T("Srebrna", "Gümüş", "Silver"), swatch: "#c9cbcd", rough: 0.3, metal: 0.85 },
-  smoke: { name: T("Dimljena", "Füme", "Smoke"), swatch: "#3b3936", rough: 0.36, metal: 0.25 },
+export const MOD_COLORS: Record<ColorId, { name: Txt; swatch: string }> = {
+  white: { name: T("Bijela", "Beyaz", "White"), swatch: "#efede8" },
+  mink: { name: T("Vizon", "Vizon", "Mink"), swatch: "#5b4b3f" },
+  black: { name: T("Crna", "Siyah", "Black"), swatch: "#222121" },
+  gold: { name: T("Zlatna", "Altın", "Gold"), swatch: "#c9a46a" },
+  silver: { name: T("Srebrna", "Gümüş", "Silver"), swatch: "#c9cbcd" },
+  smoke: { name: T("Dimljena", "Füme", "Smoke"), swatch: "#3b3936" },
 };
 
-/* ===== 3D dizilim =====
+/* ===== Karo dizilimi (m² başına adet hesabı) =====
    square: kare ızgara · hex: altıgen (p: köşe yarı genişliği, q: üst kenar yarı uzunluğu, h: yarı yükseklik)
    tri: eşkenar üçgen (s: kenar, h: yükseklik) · weave: dik parçalar, tek sütunlar yarım boy kaymış (sivri uçlar komşunun beline oturur) */
 export type Lattice =
@@ -26,10 +26,8 @@ export type Lattice =
 export type ModModel = {
   id: string; name: string;
   shape: Txt;
-  file: string;                 // public/models/moduler/<file>.bin
-  split?: { n: number; use: number[] }; // dosyada yan yana birden çok karo varsa
   lattice: Lattice;
-  size: string; depth: string;  // karo ölçüsü ve kabartma derinliği (3D dosyasından)
+  size: string; depth: string;  // karo ölçüsü ve kabartma derinliği (üretici 3D dosyalarından ölçüldü)
   cover: string; info: string;
   desc: Txt;
   colors: { id: ColorId; img: string }[];
@@ -44,7 +42,7 @@ const G = (name: string, files: string[]) => files.map((f) => `/${name}-${f}`);
 export const MOD_MODELS: ModModel[] = [
   {
     id: "penta", name: "PENTA", shape: T("Kvadrat · piramida", "Kare · piramit", "Square · pyramid"),
-    file: "penta", split: { n: 2, use: [1] }, lattice: { kind: "square", s: 0.18, rot: "diamond" },
+    lattice: { kind: "square", s: 0.18, rot: "diamond" },
     size: "18 × 18 cm", depth: "7,2 cm", cover: "/KAPAK%20PENTA.jpg", info: "/INFO%20PENTA.jpg",
     desc: {
       tr: "Ürün portföyümüzde yer alan dekoratif duvar panellerimizin göz alıcı modellerinden olan Penta, tasarımı itibariyle akılda kalan ve hayret uyandıran modern çizgisiyle uygulandığı mekanı değiştiriyor, kıymetlendiriyor ve özel kılıyor. Asimetrik keskin hatları, içbükey ve dışbükey formları ile realistik üç boyutlu görünüm oluşturan Penta dekoratif duvar paneli, konut ve ticari iç mekan duvar tasarımlarında tercih edilmektedir.",
@@ -57,7 +55,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "zeta", name: "ZETA", shape: T("Šestougao · fasete", "Altıgen · fasetli", "Hexagon · faceted"),
-    file: "zeta", lattice: { kind: "hex", p: 0.08, q: 0.04, h: 0.0693, rot: 60 },
+    lattice: { kind: "hex", p: 0.08, q: 0.04, h: 0.0693, rot: 60 },
     size: "16 × 13,9 cm", depth: "4,6 cm", cover: "/KAPAK%20ZETA.jpg", info: "/INFO%20ZETA.jpg",
     desc: {
       tr: "Üç boyutlu altıgen karolara sahip olan ZETA, hem parlak hem de mat yüzeylerde, farklı renklerde mevcut olan petek yapısının zarif bir versiyonudur. Açılı yüzleri, ışık oyunlarıyla birlikte bir ton senfonisine dönüşür ve zarif görünümler oluşturacak şekilde düzenlenebilir. Çekici poligonal geometrisi, modern ve simetrik keskin çizgileriyle gerçekçi üç boyutlu görünüm yaratan ZETA ile harikalar yaratabilirsiniz. Sade tonların görselliği ve doğal ışık, altıgen duvar panellerine nazikçe yansıtıldığında görsel bir şölen ortaya çıkar.",
@@ -70,7 +68,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "norm", name: "NORM", shape: T("Šestougao · ravan", "Altıgen · düz", "Hexagon · flat"),
-    file: "norm", lattice: { kind: "hex", p: 0.081, q: 0.041, h: 0.07, rot: 60 },
+    lattice: { kind: "hex", p: 0.081, q: 0.041, h: 0.07, rot: 60 },
     size: "16,2 × 14 cm", depth: "4,5 cm", cover: "/KAPAK%20NORM.jpg", info: "/INFO%20NORM.jpg",
     desc: {
       tr: "Altıgen formların farklı açılar ve renkler ile olan kombinasyonunun oluşturduğu sıradışı bir duvar tasarım ürünü olan NORM; cafe, restoran, otel, plaza ve giriş-karşılama alanları gibi birçok mekânda 3 boyutlu simetrik ve asimetrik gölge oyunları ile görsel zarafet sunmaktadır. Montaj kolaylığı ve kısmen ya da tamamen uygulanabilirliği ile geniş kullanım yelpazesine sahiptir. Tak-çıkar özelliği ile dilediğiniz zaman duvar tasarımınızı farklılaştırabilir ve yeni bir dekor elde edebilirsiniz. Farklı yüksekliklere sahip altıgen geometrik formlardan oluşan NORM, uygulandığı yüzeyde gerçekçi bir üç boyut meydana getirir. 3D duvar kağıtlarının aksine gerçek bir derinlik oluşturarak mekâna canlı bir ruh katar. Pratikliği, hafifliği ve kolay uygulanabilirliği ile hem mukavemet hem de kalite açısından mevcut mekânları farklılaştırmada tercih sebebidir.",
@@ -83,7 +81,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "mabel", name: "MABEL", shape: T("Izduženi šestougao", "Uzun altıgen", "Elongated hexagon"),
-    file: "mabel", lattice: { kind: "hex", p: 0.278, q: 0.102, h: 0.102, rot: 180 },
+    lattice: { kind: "hex", p: 0.278, q: 0.102, h: 0.102, rot: 180 },
     size: "55,6 × 20,4 cm", depth: "8,7 cm", cover: "/KAPAK%20MABEL.jpg", info: "/INFO%20MABEL.jpg",
     desc: {
       tr: "Karşıt ve benzer yönlerde konumlandırılabilen bu küçük çokgen duvar dekoru ürünü, çok çeşitli iç mimari uygulamalar için geniş bir özgürlük sunar. 3 boyutlu simetrik ve asimetrik gölge oyunları, renk ve desen çeşitliliğiyle birleşerek görsel zarafet yaratır. Işığın doğal yansımasıyla renk tonlarının yarattığı yanılsama, derinlik hissi vererek özgün üç boyutlu duvar tasarımları oluşturmanızı sağlar. Farklı kombinasyonlar uygulayarak birbirinden etkileyici duvar dekorları meydana getirebilirsiniz. Montaj kolaylığı, hafifliği ve tasarım özgürlüğüyle geleneksel ya da modern mimari için pratik çözümler sunar. Ürünler birleşim yerleri belli olmadan tek ya da farklı yönlerde döşenerek bütünlüklü bir görsel sağlar. Montaj aparatlarındaki pimler, ürün içindeki yuvalara geçerek son derece pratik bir uygulama imkânı tanır.",
@@ -96,7 +94,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "spline", name: "SPLINE", shape: T("Pleteni talas", "Örgü dalga", "Woven wave"),
-    file: "spline", lattice: { kind: "weave", sx: 0.216, sy: 0.322 },
+    lattice: { kind: "weave", sx: 0.216, sy: 0.322 },
     size: "26 × 32 cm", depth: "6,2 cm", cover: "/KAPAK%20SPLIINE.jpg", info: "/INFO%20SPLINE.jpg",
     desc: {
       tr: "Eğrisel çizgilerin hareketinden ilham alınarak 3 boyutlu örgü görseli kazandırılan SPLINE, zarif, sade ve şık bir duvar kaplama tasarım ürünüdür. Modüler panellerin bir araya gelmesiyle oluşan bu görsel, arkadan uygulanan LED aydınlatmayla duvarlara gerçek bir derinlik duygusu katar. Lobi, resepsiyon ve giriş alanlarında göz alıcı bir karşılama sunan SPLINE ile mekânlarınızda fark yaratın. Farklı renk alternatifleri ve ışık-gölge oyunlarıyla mekânı lüks, asil ve ihtişamlı bir görünüme kavuşturur. Duvar ve tavanda rahatlıkla uygulanabilen bu üründe, arkadan yapılan LED uygulaması ile paneller arasından süzülen ışıklar dekoratif bir aydınlatma etkisi de yaratır.",
@@ -109,7 +107,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "nava", name: "NAVA", shape: T("Trougao · 3 forme", "Üçgen · 3 form", "Triangle · 3 forms"),
-    file: "nava", split: { n: 3, use: [0, 1, 2] }, lattice: { kind: "tri", s: 0.198, h: 0.172 },
+    lattice: { kind: "tri", s: 0.198, h: 0.172 },
     size: "19,8 × 17,2 cm", depth: "3,8 cm", cover: "/KAPAK%20NAVA.jpg", info: "/INFO%20NAVA.jpg",
     desc: {
       tr: "Bu yeni tasarımla 2. neslin ilk modelini ortaya çıkararak birbirinden bağımsız üç farklı çizginin sonsuz kombinasyon seçeneğini sunuyoruz. Düz, Piramit ve Poligon şeklindeki üç farklı karoyu bir arada ya da bağımsız kullanabileceğiniz bu yeni nesil 3 boyutlu duvar kaplamasıyla mekânınız zarafet, asalet ve ihtişam duygusuna bürünür. Kolay montaj sistemi, farklı renk seçenekleri ve paketleme detaylarıyla birinci jenerasyonun modelleriyle uyum gösterir. Modern çizgileri ve simetrik formlarıyla gerçekçi üç boyutlu görünüm sağlayan NAVA, konut ve ticari projelerinizin duvar dekorunda güvenle tercih edebileceğiniz bir modeldir.",
@@ -122,7 +120,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "soho", name: "SOHO", shape: T("Kvadrat · meke linije", "Kare · yumuşak hat", "Square · soft lines"),
-    file: "soho", lattice: { kind: "square", s: 0.18, rot: "diamond" },
+    lattice: { kind: "square", s: 0.18, rot: "diamond" },
     size: "18 × 18 cm", depth: "2,8 cm", cover: "/KAPAK%20SOHO.jpg", info: "/INFO%20SOHO.jpg",
     desc: {
       tr: "Modern tasarımın akışkanlığına ve sadeliğine atfedilerek tasarlanan SOHO, kurgu ve kompozisyonlarındaki çeşitlilik sayesinde birçok mekâna uyum sağlamaktadır. Formundaki kararlı ve yumuşak hatlarıyla bulunduğu mekânda son derece sıcak bir ambiyans oluşturur. Kafe, restoran, otel, eğitim binaları, sağlık yapıları ve plaza giriş alanları gibi pek çok mekânda yapay ve doğal ışığın farklı açılardan yüzeyine yansımasıyla oluşan yumuşak gölgeler görsel zarafet sunar.",
@@ -136,7 +134,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "vava", name: "VAVA", shape: T("Trougao · dijamant", "Üçgen · elmas", "Triangle · diamond"),
-    file: "vava", lattice: { kind: "tri", s: 0.202, h: 0.176 },
+    lattice: { kind: "tri", s: 0.202, h: 0.176 },
     size: "20,2 × 17,6 cm", depth: "1,5 cm", cover: "/KAPAK%20VAVA.jpg", info: "/INFO%20VAVA.jpg",
     desc: {
       tr: "VAVA, geometrik hassasiyet ve çağdaş tasarımın buluşma noktasından doğmuştur. Modern mimarinin incelikli simetrisinden ilham alan VAVA, duvar yüzeylerini dinamik bir görsel ritme dönüştürür. Elmas yapılı deseni, ışığı farklı açılardan yakalayarak her iç mekânı zenginleştiren sofistike bir gölge oyunu yaratır.",
