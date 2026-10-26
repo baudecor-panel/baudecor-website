@@ -5,6 +5,7 @@ export type WpColor = { code: string; name: string | null; img: string; thumb: s
 export type WpSeries = {
   id: string; code: string; title: string; collection: string; room: string | null;
   rooms: string[]; styles: string[]; repeat: string | null; isNew: boolean; colors: WpColor[];
+  name?: { tr: string; me: string; en: string };
 };
 export type WpCollection = { id: string; name: string; series: WpSeries[] };
 export type WpCatalog = { source: string; syncedAt: string; collections: WpCollection[] };
@@ -62,6 +63,3 @@ const LABELS: Record<string, { me: string; en: string }> = {
 };
 export const label = (tr: string, lang: Lang) => (lang === "tr" ? tr : LABELS[tr]?.[lang] ?? tr);
 
-/* Seri başlıklarındaki "Duvar Kağıdı / Design Wallpaper" eklerini kısaltır */
-export const shortTitle = (t: string) =>
-  t.replace(/\s*(desenli\s+)?duvar\s+kağıdı\s*$/i, "").replace(/\s*(design\s+)?wallpaper\s*$/i, "").replace(/\s+ile$/i, "").trim() || t;

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import type { Lang } from "@/lib/i18n";
 import { useLang } from "@/lib/useLang";
-import { FEATURED, shortTitle, type WpCatalog, type WpCollection, type WpSeries } from "@/lib/wallpapers";
+import { FEATURED, type WpCatalog, type WpCollection, type WpSeries } from "@/lib/wallpapers";
+import { seriesName, seriesNum, seriesWord } from "@/lib/wallpaperInfo";
 import s from "./Catalog.module.css";
 
 const LANGS: { code: Lang; label: string }[] = [{ code: "me", label: "ME" }, { code: "en", label: "EN" }, { code: "tr", label: "TR" }];
@@ -56,9 +57,9 @@ export function SeriesCard({ x, lang }: { x: Series; lang: Lang }) {
         {x.isNew && <span className={s.badge}>{lang === "me" ? "Novo" : lang === "tr" ? "Yeni" : "New"}</span>}
       </div>
       <div className={s.cardBody}>
-        <span className={s.cardCol}>{x.collectionName}</span>
-        <h3>{x.code}</h3>
-        <p>{shortTitle(x.title)}</p>
+        <span className={s.cardCol}>{x.collectionName.replace(/\s*\|\s*/, " ")} · {seriesWord(lang)}</span>
+        <h3>{seriesNum(x.code)}</h3>
+        <p>{seriesName(x, lang)}</p>
       </div>
     </Link>
   );

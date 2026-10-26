@@ -112,3 +112,15 @@
   .colCard .cardBody p { letter-spacing: 1px; font-size: 10px; }
   .colCard .cardBody p span { display: none; }
 }
+
+/* ===== Koleksiyon teknik özellikleri ===== */
+.leadSmall { font-size: 14px; margin-top: 14px; }
+.specs { margin: 0 var(--pad); padding: 28px 0 8px; border-top: 1px solid var(--line); }
+.specs h2 { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin: 0 0 18px; }
+.specs dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 18px 28px; margin: 0; }
+.specs dt { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6px; }
+.specs dd { margin: 0; font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; }
+@media (max-width: 900px) {
+  .specs dl { grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+  .specs dd { font-size: 16px; }
+}

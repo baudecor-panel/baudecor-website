@@ -1,0 +1,207 @@
+# Seri adlarının çevirileri: tr|me|en  (=Ad → üç dilde aynı özel ad). Sıra data/wallpapers.json ile aynı.
+# seven
+Soyut doku|Apstraktna tekstura|Abstract texture
+Düz keten tekstil doku|Ravna lanena tekstura|Plain linen texture
+Soyut oksitlenmiş metal|Apstraktni oksidirani metal|Abstract oxidised metal
+3D yuvarlak tuğla duvar|3D zaobljena cigla|3D rounded brick wall
+Doku ve çizikli modern desen|Moderni dezen s teksturom i potezima|Modern texture and scratch pattern
+Stilize tropik yapraklar|Stilizovano tropsko lišće|Stylised tropical leaves
+Basit dalga süsleme|Jednostavni ornament talasa|Simple wave ornament
+Cesur neoklasik damask|Smjeli neoklasični damask|Bold neoclassical damask
+Soyut oksitli doku|Apstraktna oksidirana tekstura|Abstract oxidised texture
+Stilize zincir deseni|Stilizovani lančani dezen|Stylised chain pattern
+Zengin barok damask|Bogati barokni damask|Rich baroque damask
+Kumaştan esinlenen soyut desen|Apstraktni dezen inspirisan tkaninom|Fabric-inspired abstract pattern
+Çiçek detaylı rokoko damask|Rokoko damask s cvjetnim detaljima|Rococo damask with floral details
+Neoklasik süslemeli çizgili|Pruge s diskretnim neoklasičnim ornamentom|Stripes with subtle neoclassical ornament
+Açan güllerle çiçekli damask|Cvjetni damask s ružama|Floral damask with blooming roses
+Mermer desen|Mermerni dezen|Marble pattern
+Kaba keten kumaş dokusu|Gruba lanena tekstura|Coarse linen texture
+Çiçek açan dallar|Rascvjetane grane|Branches in blossom
+# alfa
+Kaba doğal keten kumaş|Gruba prirodna lanena tkanina|Coarse natural linen
+Düz ince tekstil doku|Ravna fina tekstilna tekstura|Plain fine textile texture
+Kaba boya dokulu|Tekstura grubog premaza boje|Rough paint texture
+Kaba keten kumaş dokulu|Gruba lanena tekstura|Coarse linen texture
+Soyut dokulu|Apstraktna tekstura|Abstract texture
+Geometrik desen|Geometrijski dezen|Geometric pattern
+Mika taşından esinlenen sade doku|Diskretna tekstura inspirisana liskunom|Subtle mica-stone texture
+Kaba yün tüvit dokusu|Gruba vunena tvid tekstura|Coarse wool tweed texture
+Kumaş desen|Tekstilni dezen|Fabric pattern
+Soyut düz kumaş doku|Apstraktna ravna tekstilna tekstura|Abstract plain fabric texture
+Mantar dokusundan ilham|Tekstura inspirisana plutom|Cork-inspired texture
+Doğal taştan esinlenen soyut desen|Apstraktni dezen inspirisan prirodnim kamenom|Abstract natural stone pattern
+Doğal kumaş doku|Prirodna tekstilna tekstura|Natural fabric texture
+İnce hassas çizgili|Fine sitne pruge|Fine narrow stripes
+Çizgili|Prugasti dezen|Striped
+Soyut stilize dokuma desen|Moderni apstraktni tkani dezen|Modern abstract woven pattern
+Dokuma tüvit doku|Tkana tvid tekstura|Woven tweed texture
+Keten tekstil ince doku|Fina lanena tekstura|Fine linen texture
+# rococo
+=Grace Harmony
+=Royal Weave
+=Silent Dynasty
+=Imperial Charm
+=Mystic Marble
+=Vintage Throne
+=Pastel Majesty
+=Sultan Mist
+=Timeless Bloom
+=Classic Echo
+=Eternal Glory
+=Heritage Silk
+=Ancient Petal
+=Antique Veil
+=Royal Weave
+=Vintage Sand
+# octagon
+Eskitme|Patinirani efekat|Distressed effect
+Duvar dokulu|Tekstura zida|Wall texture
+Çizgili düz|Ravne pruge|Plain stripes
+Çizgili düz|Ravne pruge|Plain stripes
+Altıgen|Heksagoni|Hexagons
+Düz|Jednobojna|Plain
+Modern|Moderni dezen|Modern
+Çizgili|Prugasti dezen|Striped
+Zigzag dokulu|Cik-cak tekstura|Zigzag texture
+Düz dokulu|Ravna tekstura|Plain texture
+Geometrik|Geometrijski dezen|Geometric
+Geometrik|Geometrijski dezen|Geometric
+Düz dokulu|Ravna tekstura|Plain texture
+Geometrik|Geometrijski dezen|Geometric
+Modern mermer|Moderni mermer|Modern marble
+# roka
+Modern Amsterdam evleri|Moderne amsterdamske kuće|Modern Amsterdam houses
+Modern taş desen|Moderni kamen|Modern stone
+Modern taş desen|Moderni kamen|Modern stone
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Geometrik desen|Geometrijski dezen|Geometric pattern
+Modern çizgisel desen|Moderni linijski dezen|Modern linear pattern
+Geometrik taş desen|Geometrijski kamen|Geometric stone
+Modern tuğla desen|Moderna cigla|Modern brick
+Modern taş desen|Moderni kamen|Modern stone
+Modern taş desen|Moderni kamen|Modern stone
+Modern taş desen|Moderni kamen|Modern stone
+Modern taş desen|Moderni kamen|Modern stone
+# vera
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Renkli düz desen|Jednobojni dezen u boji|Coloured plain pattern
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Modern çizgisel tasarım|Moderni linijski dizajn|Modern linear design
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Yaprak desenli|Dezen lišća|Leaf pattern
+Renkli çizgi tasarımlı|Šarene linije|Colourful lines
+Çiçek tasarımlı|Cvjetni dizajn|Floral design
+Bölünmüş renk desenli|Dezen podijeljenih boja|Split colour pattern
+Altın damar desenli|Dezen zlatnih žila|Gold vein pattern
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+# tropicano
+Çiçek desenli trend|Trendi cvjetni dezen|Trendy floral pattern
+Modern kuş tüyü desenli|Moderni dezen perja|Modern feather pattern
+Klasik|Klasični dezen|Classic
+Trend tasarım|Trendi dizajn|Trend design
+Klasik görünüm|Klasičan izgled|Classic look
+Tropik doku ve renkler|Tropska tekstura i boje|Tropical texture and colours
+Klasik düz|Klasični jednobojni|Classic plain
+Şık ve sade yaprak desenli|Elegantni dezen lišća|Elegant leaf pattern
+Klasik|Klasični dezen|Classic
+Papağan ve tropikal bitkiler|Papagaji i tropske biljke|Parrots and tropical plants
+Çizgili|Prugasti dezen|Striped
+Şal desen|Paisley dezen|Paisley pattern
+Modern renkli|Moderni šareni dezen|Modern colourful
+Renkli damask desen|Šareni damask|Colourful damask
+# icon
+Modern tasarım|Moderni dizajn|Modern design
+=Infinite Shapes
+=Abstract Strokes
+Modern tasarım|Moderni dizajn|Modern design
+Modern|Moderni dezen|Modern
+Modern çizgiler|Moderne linije|Modern lines
+=Forest of Forms
+=Endless Patterns
+=Color Storm
+=Abstract Rhythm
+=Echoed Dimensions
+=Modern Harmony
+=Harmoni
+# beta
+Klasik|Klasični dezen|Classic
+Klasik|Klasični dezen|Classic
+Çok renkli tasarım|Višebojni dizajn|Multicolour design
+Minimalist|Minimalistički dezen|Minimalist
+Mermer desen|Mermerni dezen|Marble pattern
+Dokulu|Teksturirani dezen|Textured
+Geometrik desen|Geometrijski dezen|Geometric pattern
+Doğal tasarım|Prirodni dizajn|Natural design
+Çok renkli|Višebojni dezen|Multicolour
+Modern tasarım|Moderni dizajn|Modern design
+Minimalist|Minimalistički dezen|Minimalist
+Tamamlayıcı desen|Komplementarni dezen|Complementary pattern
+Modern çizgili|Moderne pruge|Modern stripes
+# omega
+Dokulu eskitilmiş desen|Patinirana tekstura|Distressed texture
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Düz şerit desen|Ravne trake|Plain bands
+Dokulu eskitilmiş desen|Patinirana tekstura|Distressed texture
+Geometrik modern desen|Geometrijski moderni dezen|Geometric modern pattern
+Altıgen geometrik desen|Heksagonalni geometrijski dezen|Hexagonal geometric
+Modern mermer desen|Moderni mermer|Modern marble
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Çizgili geometrik desen|Prugasti geometrijski dezen|Striped geometric
+Modern geometrik desen|Moderni geometrijski dezen|Modern geometric pattern
+Geometrik desen|Geometrijski dezen|Geometric pattern
+Geometrik desen|Geometrijski dezen|Geometric pattern
+# ephes
+Düz|Jednobojna|Plain
+Düz desenli|Jednobojni dezen|Plain pattern
+Yaprak desenli|Dezen lišća|Leaf pattern
+Modern düz|Moderni jednobojni|Modern plain
+Klasik damask|Klasični damask|Classic damask
+Açan güller ve çiçekler|Rascvjetane ruže i cvijeće|Blooming roses and flowers
+Düz dokulu|Ravna tekstura|Plain texture
+Minimalist dokulu|Minimalistička tekstura|Minimalist texture
+Zengin damask süsleme|Bogati damask ornament|Rich damask ornament
+Dokulu düz|Teksturirana jednobojna|Textured plain
+Damask desen|Damask dezen|Damask pattern
+Dokulu düz|Teksturirana jednobojna|Textured plain
+# muse
+=Signature Touch
+=Soft Concrete
+=Shadow
+=Minimal Flow
+=Prime Surface
+=Mist Surface
+=Dream Surface
+=Soft Vision
+=Urban Still
+# opus-vol-1
+İnce mineral doku|Fina mineralna tekstura|Fine mineral texture
+Dikey keten dokuma|Vertikalno laneno tkanje|Vertical linen weave
+İpek efektli yatay çizgiler|Horizontalne linije s efektom svile|Silk-effect horizontal lines
+Dikey tekstil çizgi|Vertikalna tekstilna linija|Vertical textile line
+Sık dikey çizgiler|Guste vertikalne linije|Dense vertical lines
+İnce dikey çizgiler|Fine vertikalne linije|Fine vertical lines
+Balıksırtı|Riblja kost|Herringbone
+Eskitilmiş taş|Patinirani kamen|Aged stone
+# hue
+Tropikal yaprak desenli|Tropsko lišće|Tropical leaves
+Tropikal orman desenli|Tropska šuma|Tropical forest
+Modern damask|Moderni damask|Modern damask
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+Modern düz desen|Moderni jednobojni dezen|Modern plain
+# opus-vol-2
+Keten görünümlü doku|Tekstura nalik lanu|Linen-like texture
+Geometrik kare doku|Geometrijska kvadratna tekstura|Geometric square texture
+Kumaş görünümlü doku|Tekstura nalik tkanini|Fabric-like texture
+Dikey dokuma doku|Vertikalna tkana tekstura|Vertical woven texture
+Kenevir görünümlü doku|Tekstura nalik konoplji|Hemp-like texture
+İnce dikey çizgiler|Fine vertikalne linije|Fine vertical lines
+Düzensiz dikey çizgiler|Nepravilne vertikalne linije|Irregular vertical lines

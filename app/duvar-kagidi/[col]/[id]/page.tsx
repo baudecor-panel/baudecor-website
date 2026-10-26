@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import data from "@/data/wallpapers.json";
 import type { WpCatalog } from "@/lib/wallpapers";
+import { seriesName, seriesNum } from "@/lib/wallpaperInfo";
 import SeriesPage from "@/components/wallpaper/SeriesPage";
 
 const catalog = data as WpCatalog;
@@ -16,8 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ col: stri
   const x = all.find((v) => v.id === id);
   if (!x) return {};
   return {
-    title: `${x.collectionName} ${x.code} — Tapete | Baudecor`,
-    description: `${x.title} · ${x.colors.length} boja · AdaWall ${x.collectionName}`,
+    title: `${x.collectionName} ${seriesNum(x.code)} — ${seriesName(x, "me")} | Tapete Baudecor`,
+    description: `AdaWall ${x.collectionName}, serija ${seriesNum(x.code)}: ${seriesName(x, "me")} · ${x.colors.length} boja. Pogledajte u našem salonu u Ulcinju.`,
   };
 }
 
@@ -28,7 +29,7 @@ export default async function Page({ params }: { params: Promise<{ col: string; 
   if (i < 0) notFound();
   const x = list[i];
   const siblings = list.filter((v) => v.id !== x.id).slice(0, 4);
-  const prev = list[i - 1] ? { id: list[i - 1].id, code: list[i - 1].code } : null;
-  const next = list[i + 1] ? { id: list[i + 1].id, code: list[i + 1].code } : null;
+  const prev = list[i - 1] ? { id: list[i - 1].id, code: seriesNum(list[i - 1].code) } : null;
+  const next = list[i + 1] ? { id: list[i + 1].id, code: seriesNum(list[i + 1].code) } : null;
   return <SeriesPage x={x} siblings={siblings} prev={prev} next={next} />;
 }

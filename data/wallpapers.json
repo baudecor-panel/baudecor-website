@@ -91,7 +91,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7817-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soyut doku",
+      "me": "Apstraktna tekstura",
+      "en": "Abstract texture"
+     }
     },
     {
      "id": "seven-7816-serie",
@@ -216,7 +221,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7816-10.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz keten tekstil doku",
+      "me": "Ravna lanena tekstura",
+      "en": "Plain linen texture"
+     }
     },
     {
      "id": "seven-7815-serie",
@@ -293,7 +303,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7815-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soyut oksitlenmiş metal",
+      "me": "Apstraktni oksidirani metal",
+      "en": "Abstract oxidised metal"
+     }
     },
     {
      "id": "seven-7814-serie",
@@ -339,7 +354,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7814-2.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "3D yuvarlak tuğla duvar",
+      "me": "3D zaobljena cigla",
+      "en": "3D rounded brick wall"
+     }
     },
     {
      "id": "seven-7813-serie",
@@ -436,7 +456,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7813-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Doku ve çizikli modern desen",
+      "me": "Moderni dezen s teksturom i potezima",
+      "en": "Modern texture and scratch pattern"
+     }
     },
     {
      "id": "seven-7812-serie",
@@ -515,7 +540,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7812-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Stilize tropik yapraklar",
+      "me": "Stilizovano tropsko lišće",
+      "en": "Stylised tropical leaves"
+     }
     },
     {
      "id": "seven-7811-serie",
@@ -579,7 +609,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7811-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Basit dalga süsleme",
+      "me": "Jednostavni ornament talasa",
+      "en": "Simple wave ornament"
+     }
     },
     {
      "id": "seven-7810-serie",
@@ -644,7 +679,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7810-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Cesur neoklasik damask",
+      "me": "Smjeli neoklasični damask",
+      "en": "Bold neoclassical damask"
+     }
     },
     {
      "id": "seven-7809-serie",
@@ -714,7 +754,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7809-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soyut oksitli doku",
+      "me": "Apstraktna oksidirana tekstura",
+      "en": "Abstract oxidised texture"
+     }
     },
     {
      "id": "seven-7808-serie",
@@ -781,7 +826,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7808-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Stilize zincir deseni",
+      "me": "Stilizovani lančani dezen",
+      "en": "Stylised chain pattern"
+     }
     },
     {
      "id": "seven-7807-serie",
@@ -841,7 +891,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7807-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Zengin barok damask",
+      "me": "Bogati barokni damask",
+      "en": "Rich baroque damask"
+     }
     },
     {
      "id": "seven-7806-serie",
@@ -919,7 +974,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7806-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kumaştan esinlenen soyut desen",
+      "me": "Apstraktni dezen inspirisan tkaninom",
+      "en": "Fabric-inspired abstract pattern"
+     }
     },
     {
      "id": "seven-7805-serie",
@@ -990,7 +1050,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7805-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çiçek detaylı rokoko damask",
+      "me": "Rokoko damask s cvjetnim detaljima",
+      "en": "Rococo damask with floral details"
+     }
     },
     {
      "id": "seven-7804-serie",
@@ -1051,7 +1116,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7804-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Neoklasik süslemeli çizgili",
+      "me": "Pruge s diskretnim neoklasičnim ornamentom",
+      "en": "Stripes with subtle neoclassical ornament"
+     }
     },
     {
      "id": "seven-7803-serie",
@@ -1112,7 +1182,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7803-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Açan güllerle çiçekli damask",
+      "me": "Cvjetni damask s ružama",
+      "en": "Floral damask with blooming roses"
+     }
     },
     {
      "id": "seven-7802-serie",
@@ -1176,7 +1251,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7802-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Mermer desen",
+      "me": "Mermerni dezen",
+      "en": "Marble pattern"
+     }
     },
     {
      "id": "seven-7801-serie",
@@ -1260,7 +1340,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7801-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kaba keten kumaş dokusu",
+      "me": "Gruba lanena tekstura",
+      "en": "Coarse linen texture"
+     }
     },
     {
      "id": "seven-7800",
@@ -1320,7 +1405,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/7800-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çiçek açan dallar",
+      "me": "Rascvjetane grane",
+      "en": "Branches in blossom"
+     }
     }
    ]
   },
@@ -1421,7 +1511,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3719-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kaba doğal keten kumaş",
+      "me": "Gruba prirodna lanena tkanina",
+      "en": "Coarse natural linen"
+     }
     },
     {
      "id": "alfa-3718-serisi",
@@ -1487,7 +1582,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3718-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz ince tekstil doku",
+      "me": "Ravna fina tekstilna tekstura",
+      "en": "Plain fine textile texture"
+     }
     },
     {
      "id": "alfa-3717-serisi",
@@ -1591,7 +1691,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3717-8.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kaba boya dokulu",
+      "me": "Tekstura grubog premaza boje",
+      "en": "Rough paint texture"
+     }
     },
     {
      "id": "alfa-3716-serisi",
@@ -1687,7 +1792,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3716-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kaba keten kumaş dokulu",
+      "me": "Gruba lanena tekstura",
+      "en": "Coarse linen texture"
+     }
     },
     {
      "id": "alfa-3715-serisi",
@@ -1763,7 +1873,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3715-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soyut dokulu",
+      "me": "Apstraktna tekstura",
+      "en": "Abstract texture"
+     }
     },
     {
      "id": "alfa-3714-serisi",
@@ -1829,7 +1944,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3714-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik desen",
+      "me": "Geometrijski dezen",
+      "en": "Geometric pattern"
+     }
     },
     {
      "id": "alfa-3713-serisi",
@@ -1917,7 +2037,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3713-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Mika taşından esinlenen sade doku",
+      "me": "Diskretna tekstura inspirisana liskunom",
+      "en": "Subtle mica-stone texture"
+     }
     },
     {
      "id": "alfa-3712-serie",
@@ -1992,7 +2117,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3712-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kaba yün tüvit dokusu",
+      "me": "Gruba vunena tvid tekstura",
+      "en": "Coarse wool tweed texture"
+     }
     },
     {
      "id": "alfa-3711-serisi",
@@ -2077,7 +2207,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3711-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kumaş desen",
+      "me": "Tekstilni dezen",
+      "en": "Fabric pattern"
+     }
     },
     {
      "id": "alfa-3710-serisi",
@@ -2153,7 +2288,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3710-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soyut düz kumaş doku",
+      "me": "Apstraktna ravna tekstilna tekstura",
+      "en": "Abstract plain fabric texture"
+     }
     },
     {
      "id": "alfa-3709-serisi",
@@ -2218,7 +2358,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3709-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Mantar dokusundan ilham",
+      "me": "Tekstura inspirisana plutom",
+      "en": "Cork-inspired texture"
+     }
     },
     {
      "id": "alfa-3708-serie",
@@ -2284,7 +2429,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3708-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Doğal taştan esinlenen soyut desen",
+      "me": "Apstraktni dezen inspirisan prirodnim kamenom",
+      "en": "Abstract natural stone pattern"
+     }
     },
     {
      "id": "alfa-3707-serisi",
@@ -2376,7 +2526,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3707-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Doğal kumaş doku",
+      "me": "Prirodna tekstilna tekstura",
+      "en": "Natural fabric texture"
+     }
     },
     {
      "id": "alfa-3705-serisi",
@@ -2450,7 +2605,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3705-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "İnce hassas çizgili",
+      "me": "Fine sitne pruge",
+      "en": "Fine narrow stripes"
+     }
     },
     {
      "id": "alfa-3704-serisi",
@@ -2572,7 +2732,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3704-9.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çizgili",
+      "me": "Prugasti dezen",
+      "en": "Striped"
+     }
     },
     {
      "id": "alfa-3703-serisi",
@@ -2640,7 +2805,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3703-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soyut stilize dokuma desen",
+      "me": "Moderni apstraktni tkani dezen",
+      "en": "Modern abstract woven pattern"
+     }
     },
     {
      "id": "alfa-3701-serisi",
@@ -2725,7 +2895,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3701-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dokuma tüvit doku",
+      "me": "Tkana tvid tekstura",
+      "en": "Woven tweed texture"
+     }
     },
     {
      "id": "alfa-3700-serisi",
@@ -2814,7 +2989,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/3700-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Keten tekstil ince doku",
+      "me": "Fina lanena tekstura",
+      "en": "Fine linen texture"
+     }
     }
    ]
   },
@@ -2879,7 +3059,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1411-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Grace Harmony",
+      "me": "Grace Harmony",
+      "en": "Grace Harmony"
+     }
     },
     {
      "id": "rococo-1410-series",
@@ -2936,7 +3121,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1410-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Royal Weave",
+      "me": "Royal Weave",
+      "en": "Royal Weave"
+     }
     },
     {
      "id": "rococo-1408-series",
@@ -2991,7 +3181,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1408-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Silent Dynasty",
+      "me": "Silent Dynasty",
+      "en": "Silent Dynasty"
+     }
     },
     {
      "id": "rococo-1407-series",
@@ -3050,7 +3245,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1407-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Imperial Charm",
+      "me": "Imperial Charm",
+      "en": "Imperial Charm"
+     }
     },
     {
      "id": "rococo-1406-series",
@@ -3118,7 +3318,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1406-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Mystic Marble",
+      "me": "Mystic Marble",
+      "en": "Mystic Marble"
+     }
     },
     {
      "id": "rococo-1405-series",
@@ -3175,7 +3380,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1405-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Vintage Throne",
+      "me": "Vintage Throne",
+      "en": "Vintage Throne"
+     }
     },
     {
      "id": "rococo-1404-series",
@@ -3225,7 +3435,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/1404-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Pastel Majesty",
+      "me": "Pastel Majesty",
+      "en": "Pastel Majesty"
+     }
     },
     {
      "id": "rococo-1402-series",
@@ -3280,7 +3495,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1402-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Sultan Mist",
+      "me": "Sultan Mist",
+      "en": "Sultan Mist"
+     }
     },
     {
      "id": "rococo-1401-series",
@@ -3336,7 +3556,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1401-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Timeless Bloom",
+      "me": "Timeless Bloom",
+      "en": "Timeless Bloom"
+     }
     },
     {
      "id": "rococo-1313-series",
@@ -3402,7 +3627,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1313-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Classic Echo",
+      "me": "Classic Echo",
+      "en": "Classic Echo"
+     }
     },
     {
      "id": "rococo-1312-series",
@@ -3473,7 +3703,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1312-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Eternal Glory",
+      "me": "Eternal Glory",
+      "en": "Eternal Glory"
+     }
     },
     {
      "id": "rococo-1304-series",
@@ -3536,7 +3771,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/1304-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Heritage Silk",
+      "me": "Heritage Silk",
+      "en": "Heritage Silk"
+     }
     },
     {
      "id": "rococo-1303-series",
@@ -3602,7 +3842,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1303-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Ancient Petal",
+      "me": "Ancient Petal",
+      "en": "Ancient Petal"
+     }
     },
     {
      "id": "rococo-1302-series",
@@ -3668,7 +3913,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1302-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Antique Veil",
+      "me": "Antique Veil",
+      "en": "Antique Veil"
+     }
     },
     {
      "id": "rococo-1301-series",
@@ -3725,7 +3975,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1301-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Royal Weave",
+      "me": "Royal Weave",
+      "en": "Royal Weave"
+     }
     },
     {
      "id": "rococo-1212-1-series",
@@ -3777,7 +4032,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1212-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Vintage Sand",
+      "me": "Vintage Sand",
+      "en": "Vintage Sand"
+     }
     }
    ]
   },
@@ -3825,7 +4085,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1215-2.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Eskitme",
+      "me": "Patinirani efekat",
+      "en": "Distressed effect"
+     }
     },
     {
      "id": "octagon-1214-series",
@@ -3879,7 +4144,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1214-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Duvar dokulu",
+      "me": "Tekstura zida",
+      "en": "Wall texture"
+     }
     },
     {
      "id": "octagon-1213-series",
@@ -3941,7 +4211,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1213-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çizgili düz",
+      "me": "Ravne pruge",
+      "en": "Plain stripes"
+     }
     },
     {
      "id": "octagon-1212-series",
@@ -4005,7 +4280,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1212-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çizgili düz",
+      "me": "Ravne pruge",
+      "en": "Plain stripes"
+     }
     },
     {
      "id": "octagon-1211-series",
@@ -4067,7 +4347,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1211-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Altıgen",
+      "me": "Heksagoni",
+      "en": "Hexagons"
+     }
     },
     {
      "id": "octagon-1210-series",
@@ -4136,7 +4421,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1210-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz",
+      "me": "Jednobojna",
+      "en": "Plain"
+     }
     },
     {
      "id": "octagon-1209-series",
@@ -4197,7 +4487,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1209-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern",
+      "me": "Moderni dezen",
+      "en": "Modern"
+     }
     },
     {
      "id": "octagon-1208-series",
@@ -4267,7 +4562,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1208-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çizgili",
+      "me": "Prugasti dezen",
+      "en": "Striped"
+     }
     },
     {
      "id": "octagon-1207-series",
@@ -4338,7 +4638,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1207-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Zigzag dokulu",
+      "me": "Cik-cak tekstura",
+      "en": "Zigzag texture"
+     }
     },
     {
      "id": "octagon-1206-series",
@@ -4402,7 +4707,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1206-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz dokulu",
+      "me": "Ravna tekstura",
+      "en": "Plain texture"
+     }
     },
     {
      "id": "octagon-1205-series",
@@ -4463,7 +4773,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1205-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik",
+      "me": "Geometrijski dezen",
+      "en": "Geometric"
+     }
     },
     {
      "id": "octagon-1204-series",
@@ -4552,7 +4867,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1204-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik",
+      "me": "Geometrijski dezen",
+      "en": "Geometric"
+     }
     },
     {
      "id": "octagon-1203-series",
@@ -4623,7 +4943,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1203-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz dokulu",
+      "me": "Ravna tekstura",
+      "en": "Plain texture"
+     }
     },
     {
      "id": "octagon-1202-series",
@@ -4693,7 +5018,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1202-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik",
+      "me": "Geometrijski dezen",
+      "en": "Geometric"
+     }
     },
     {
      "id": "octagon-1201-series",
@@ -4762,7 +5092,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1201-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern mermer",
+      "me": "Moderni mermer",
+      "en": "Modern marble"
+     }
     }
    ]
   },
@@ -4818,7 +5153,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23115-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern Amsterdam evleri",
+      "me": "Moderne amsterdamske kuće",
+      "en": "Modern Amsterdam houses"
+     }
     },
     {
      "id": "roka-23114-serisi",
@@ -4869,7 +5209,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23114-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern taş desen",
+      "me": "Moderni kamen",
+      "en": "Modern stone"
+     }
     },
     {
      "id": "roka-23113-serisi",
@@ -4918,7 +5263,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23113-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern taş desen",
+      "me": "Moderni kamen",
+      "en": "Modern stone"
+     }
     },
     {
      "id": "roka-23111-serisi",
@@ -4995,7 +5345,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23111-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "roka-23110-serisi",
@@ -5068,7 +5423,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23110-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "roka-23109-serisi",
@@ -5151,7 +5511,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23109-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "roka-23108-serisi",
@@ -5212,7 +5577,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23108-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik desen",
+      "me": "Geometrijski dezen",
+      "en": "Geometric pattern"
+     }
     },
     {
      "id": "roka-23107-serisi",
@@ -5283,7 +5653,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23107-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern çizgisel desen",
+      "me": "Moderni linijski dezen",
+      "en": "Modern linear pattern"
+     }
     },
     {
      "id": "roka-23106-serisi",
@@ -5358,7 +5733,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23106-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik taş desen",
+      "me": "Geometrijski kamen",
+      "en": "Geometric stone"
+     }
     },
     {
      "id": "roka-23105-serisi",
@@ -5419,7 +5799,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23105-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern tuğla desen",
+      "me": "Moderna cigla",
+      "en": "Modern brick"
+     }
     },
     {
      "id": "roka-23104-serisi",
@@ -5479,7 +5864,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23104-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern taş desen",
+      "me": "Moderni kamen",
+      "en": "Modern stone"
+     }
     },
     {
      "id": "roka-23103-serisi",
@@ -5548,7 +5938,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23103-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern taş desen",
+      "me": "Moderni kamen",
+      "en": "Modern stone"
+     }
     },
     {
      "id": "roka-23102-serisi",
@@ -5626,7 +6021,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23102-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern taş desen",
+      "me": "Moderni kamen",
+      "en": "Modern stone"
+     }
     },
     {
      "id": "roka-23101-serisi",
@@ -5704,7 +6104,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23101-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern taş desen",
+      "me": "Moderni kamen",
+      "en": "Modern stone"
+     }
     }
    ]
   },
@@ -5770,7 +6175,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1514-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "vera-1513-serisi",
@@ -5836,7 +6246,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1513-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Renkli düz desen",
+      "me": "Jednobojni dezen u boji",
+      "en": "Coloured plain pattern"
+     }
     },
     {
      "id": "vera-1512-serisi",
@@ -5915,7 +6330,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1512-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "vera-1511-serisi",
@@ -5983,7 +6403,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1511-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "vera-1510-serisi",
@@ -6043,7 +6468,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1510-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern çizgisel tasarım",
+      "me": "Moderni linijski dizajn",
+      "en": "Modern linear design"
+     }
     },
     {
      "id": "vera-1509-serisi",
@@ -6112,7 +6542,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1509-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "vera-1508-serisi",
@@ -6180,7 +6615,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1508-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "vera-1507-serisi",
@@ -6247,7 +6687,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1507-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Yaprak desenli",
+      "me": "Dezen lišća",
+      "en": "Leaf pattern"
+     }
     },
     {
      "id": "vera-1506-serisi",
@@ -6315,7 +6760,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1506-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Renkli çizgi tasarımlı",
+      "me": "Šarene linije",
+      "en": "Colourful lines"
+     }
     },
     {
      "id": "vera-1505-serisi",
@@ -6372,7 +6822,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1505-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çiçek tasarımlı",
+      "me": "Cvjetni dizajn",
+      "en": "Floral design"
+     }
     },
     {
      "id": "vera-1504-series",
@@ -6443,7 +6898,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1504-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Bölünmüş renk desenli",
+      "me": "Dezen podijeljenih boja",
+      "en": "Split colour pattern"
+     }
     },
     {
      "id": "vera-1503-serisi",
@@ -6512,7 +6972,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1503-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Altın damar desenli",
+      "me": "Dezen zlatnih žila",
+      "en": "Gold vein pattern"
+     }
     },
     {
      "id": "vera-1502-serisi",
@@ -6580,7 +7045,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1502-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "vera-1501-serisi",
@@ -6650,7 +7120,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1501-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     }
    ]
   },
@@ -6724,7 +7199,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9914-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çiçek desenli trend",
+      "me": "Trendi cvjetni dezen",
+      "en": "Trendy floral pattern"
+     }
     },
     {
      "id": "tropicano-9913-serisi",
@@ -6810,7 +7290,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9913-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern kuş tüyü desenli",
+      "me": "Moderni dezen perja",
+      "en": "Modern feather pattern"
+     }
     },
     {
      "id": "tropicano-9912-serie",
@@ -6897,7 +7382,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9912-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik",
+      "me": "Klasični dezen",
+      "en": "Classic"
+     }
     },
     {
      "id": "tropicano-9911-serisi",
@@ -6965,7 +7455,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9911-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Trend tasarım",
+      "me": "Trendi dizajn",
+      "en": "Trend design"
+     }
     },
     {
      "id": "tropicano-9910-serisi",
@@ -7036,7 +7531,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9910-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik görünüm",
+      "me": "Klasičan izgled",
+      "en": "Classic look"
+     }
     },
     {
      "id": "tropicano-9909-serisi",
@@ -7121,7 +7621,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9909-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Tropik doku ve renkler",
+      "me": "Tropska tekstura i boje",
+      "en": "Tropical texture and colours"
+     }
     },
     {
      "id": "tropicano-9908-serisi",
@@ -7200,7 +7705,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9908-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik düz",
+      "me": "Klasični jednobojni",
+      "en": "Classic plain"
+     }
     },
     {
      "id": "tropicano-9907-serie",
@@ -7267,7 +7777,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9907-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Şık ve sade yaprak desenli",
+      "me": "Elegantni dezen lišća",
+      "en": "Elegant leaf pattern"
+     }
     },
     {
      "id": "tropicano-9906-serisi",
@@ -7327,7 +7842,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9906-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik",
+      "me": "Klasični dezen",
+      "en": "Classic"
+     }
     },
     {
      "id": "tropicano-9905-serie",
@@ -7405,7 +7925,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9905-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Papağan ve tropikal bitkiler",
+      "me": "Papagaji i tropske biljke",
+      "en": "Parrots and tropical plants"
+     }
     },
     {
      "id": "tropicano-9904-serisi",
@@ -7474,7 +7999,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9904-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çizgili",
+      "me": "Prugasti dezen",
+      "en": "Striped"
+     }
     },
     {
      "id": "tropicano-9903-serisi",
@@ -7551,7 +8081,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9903-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Şal desen",
+      "me": "Paisley dezen",
+      "en": "Paisley pattern"
+     }
     },
     {
      "id": "tropicano-9902-serisi",
@@ -7618,7 +8153,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9902-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern renkli",
+      "me": "Moderni šareni dezen",
+      "en": "Modern colourful"
+     }
     },
     {
      "id": "tropicano-9901-serisi",
@@ -7687,7 +8227,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/9901-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Renkli damask desen",
+      "me": "Šareni damask",
+      "en": "Colourful damask"
+     }
     }
    ]
   },
@@ -7763,7 +8308,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/24114-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern tasarım",
+      "me": "Moderni dizajn",
+      "en": "Modern design"
+     }
     },
     {
      "id": "icon-24113-series",
@@ -7838,7 +8388,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24113-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Infinite Shapes",
+      "me": "Infinite Shapes",
+      "en": "Infinite Shapes"
+     }
     },
     {
      "id": "icon-24112-series",
@@ -7901,7 +8456,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24112-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Abstract Strokes",
+      "me": "Abstract Strokes",
+      "en": "Abstract Strokes"
+     }
     },
     {
      "id": "icon-24111-series",
@@ -7970,7 +8530,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/24111-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern tasarım",
+      "me": "Moderni dizajn",
+      "en": "Modern design"
+     }
     },
     {
      "id": "icon-24110-series",
@@ -8043,7 +8608,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24110-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern",
+      "me": "Moderni dezen",
+      "en": "Modern"
+     }
     },
     {
      "id": "icon-24109-series",
@@ -8118,7 +8688,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24109-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern çizgiler",
+      "me": "Moderne linije",
+      "en": "Modern lines"
+     }
     },
     {
      "id": "icon-24107-series",
@@ -8180,7 +8755,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24107-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Forest of Forms",
+      "me": "Forest of Forms",
+      "en": "Forest of Forms"
+     }
     },
     {
      "id": "icon-24106-series",
@@ -8253,7 +8833,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24106-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Endless Patterns",
+      "me": "Endless Patterns",
+      "en": "Endless Patterns"
+     }
     },
     {
      "id": "icon-24105-series",
@@ -8326,7 +8911,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24105-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Color Storm",
+      "me": "Color Storm",
+      "en": "Color Storm"
+     }
     },
     {
      "id": "icon-24104-series",
@@ -8398,7 +8988,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24104-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Abstract Rhythm",
+      "me": "Abstract Rhythm",
+      "en": "Abstract Rhythm"
+     }
     },
     {
      "id": "icon-24103-series",
@@ -8462,7 +9057,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24103-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Echoed Dimensions",
+      "me": "Echoed Dimensions",
+      "en": "Echoed Dimensions"
+     }
     },
     {
      "id": "icon-24102-series",
@@ -8535,7 +9135,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24102-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern Harmony",
+      "me": "Modern Harmony",
+      "en": "Modern Harmony"
+     }
     },
     {
      "id": "icon-24101-1-series",
@@ -8606,7 +9211,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24101-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Harmoni",
+      "me": "Harmoni",
+      "en": "Harmoni"
+     }
     }
    ]
   },
@@ -8718,7 +9328,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1113-9.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik",
+      "me": "Klasični dezen",
+      "en": "Classic"
+     }
     },
     {
      "id": "beta-1112-serisi",
@@ -8806,7 +9421,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/1112-8.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik",
+      "me": "Klasični dezen",
+      "en": "Classic"
+     }
     },
     {
      "id": "beta-1111-serisi",
@@ -8873,7 +9493,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/1111-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çok renkli tasarım",
+      "me": "Višebojni dizajn",
+      "en": "Multicolour design"
+     }
     },
     {
      "id": "beta-1110-serisi",
@@ -8963,7 +9588,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1110-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Minimalist",
+      "me": "Minimalistički dezen",
+      "en": "Minimalist"
+     }
     },
     {
      "id": "beta-1109-series",
@@ -9025,7 +9655,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1109-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Mermer desen",
+      "me": "Mermerni dezen",
+      "en": "Marble pattern"
+     }
     },
     {
      "id": "beta-1108-serisi",
@@ -9105,7 +9740,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1108-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dokulu",
+      "me": "Teksturirani dezen",
+      "en": "Textured"
+     }
     },
     {
      "id": "beta-1107-serisi",
@@ -9178,7 +9818,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1107-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik desen",
+      "me": "Geometrijski dezen",
+      "en": "Geometric pattern"
+     }
     },
     {
      "id": "beta-1106-serisi",
@@ -9267,7 +9912,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1106-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Doğal tasarım",
+      "me": "Prirodni dizajn",
+      "en": "Natural design"
+     }
     },
     {
      "id": "beta-1105-serisi",
@@ -9343,7 +9993,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1105-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çok renkli",
+      "me": "Višebojni dezen",
+      "en": "Multicolour"
+     }
     },
     {
      "id": "beta-1104-serisi",
@@ -9443,7 +10098,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1104-8.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern tasarım",
+      "me": "Moderni dizajn",
+      "en": "Modern design"
+     }
     },
     {
      "id": "beta-1103-serisi",
@@ -9524,7 +10184,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1103-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Minimalist",
+      "me": "Minimalistički dezen",
+      "en": "Minimalist"
+     }
     },
     {
      "id": "beta-1102-series",
@@ -9602,7 +10267,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1102-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Tamamlayıcı desen",
+      "me": "Komplementarni dezen",
+      "en": "Complementary pattern"
+     }
     },
     {
      "id": "beta-1101-series",
@@ -9691,7 +10361,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1101-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern çizgili",
+      "me": "Moderne pruge",
+      "en": "Modern stripes"
+     }
     }
    ]
   },
@@ -9774,7 +10449,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23213-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dokulu eskitilmiş desen",
+      "me": "Patinirana tekstura",
+      "en": "Distressed texture"
+     }
     },
     {
      "id": "omega-23212-serisi",
@@ -9842,7 +10522,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/23212-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "omega-23211-serisi",
@@ -9902,7 +10587,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23211-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz şerit desen",
+      "me": "Ravne trake",
+      "en": "Plain bands"
+     }
     },
     {
      "id": "omega-23210-serisi",
@@ -9970,7 +10660,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23210-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dokulu eskitilmiş desen",
+      "me": "Patinirana tekstura",
+      "en": "Distressed texture"
+     }
     },
     {
      "id": "omega-23209-serisi",
@@ -10045,7 +10740,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23209-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik modern desen",
+      "me": "Geometrijski moderni dezen",
+      "en": "Geometric modern pattern"
+     }
     },
     {
      "id": "omega-23208-serisi",
@@ -10122,7 +10822,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23208-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Altıgen geometrik desen",
+      "me": "Heksagonalni geometrijski dezen",
+      "en": "Hexagonal geometric"
+     }
     },
     {
      "id": "omega-23207-serisi",
@@ -10179,7 +10884,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23207-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern mermer desen",
+      "me": "Moderni mermer",
+      "en": "Modern marble"
+     }
     },
     {
      "id": "omega-23206-serisi",
@@ -10256,7 +10966,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23206-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "omega-23205-serisi",
@@ -10323,7 +11038,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23205-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Çizgili geometrik desen",
+      "me": "Prugasti geometrijski dezen",
+      "en": "Striped geometric"
+     }
     },
     {
      "id": "omega-23204-serisi",
@@ -10391,7 +11111,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23204-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern geometrik desen",
+      "me": "Moderni geometrijski dezen",
+      "en": "Modern geometric pattern"
+     }
     },
     {
      "id": "omega-23202-serisi",
@@ -10459,7 +11184,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23202-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik desen",
+      "me": "Geometrijski dezen",
+      "en": "Geometric pattern"
+     }
     },
     {
      "id": "omega-23201-serisi",
@@ -10536,7 +11266,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/23201-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik desen",
+      "me": "Geometrijski dezen",
+      "en": "Geometric pattern"
+     }
     }
    ]
   },
@@ -10612,7 +11347,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1014-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz",
+      "me": "Jednobojna",
+      "en": "Plain"
+     }
     },
     {
      "id": "ephes-1013-serie",
@@ -10692,7 +11432,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1013-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz desenli",
+      "me": "Jednobojni dezen",
+      "en": "Plain pattern"
+     }
     },
     {
      "id": "ephes-1012-serie",
@@ -10750,7 +11495,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1012-4.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Yaprak desenli",
+      "me": "Dezen lišća",
+      "en": "Leaf pattern"
+     }
     },
     {
      "id": "ephes-1003-serie",
@@ -10819,7 +11569,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1003-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz",
+      "me": "Moderni jednobojni",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "ephes-1002-serie",
@@ -10874,7 +11629,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/1002-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Klasik damask",
+      "me": "Klasični damask",
+      "en": "Classic damask"
+     }
     },
     {
      "id": "ephes-5806-serie",
@@ -10960,7 +11720,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/5806-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Açan güller ve çiçekler",
+      "me": "Rascvjetane ruže i cvijeće",
+      "en": "Blooming roses and flowers"
+     }
     },
     {
      "id": "ephes-5805-serie",
@@ -11038,7 +11803,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/5805-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düz dokulu",
+      "me": "Ravna tekstura",
+      "en": "Plain texture"
+     }
     },
     {
      "id": "ephes-5801-serie",
@@ -11149,7 +11919,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/5801-9.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Minimalist dokulu",
+      "me": "Minimalistička tekstura",
+      "en": "Minimalist texture"
+     }
     },
     {
      "id": "ephes-6808-serie",
@@ -11215,7 +11990,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/6808-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Zengin damask süsleme",
+      "me": "Bogati damask ornament",
+      "en": "Rich damask ornament"
+     }
     },
     {
      "id": "ephes-6807-serie",
@@ -11284,7 +12064,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/6807-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dokulu düz",
+      "me": "Teksturirana jednobojna",
+      "en": "Textured plain"
+     }
     },
     {
      "id": "ephes-6802-serie",
@@ -11356,7 +12141,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/6802-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Damask desen",
+      "me": "Damask dezen",
+      "en": "Damask pattern"
+     }
     },
     {
      "id": "ephes-6801-serie",
@@ -11467,7 +12257,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/6801-8.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dokulu düz",
+      "me": "Teksturirana jednobojna",
+      "en": "Textured plain"
+     }
     }
    ]
   },
@@ -11566,7 +12361,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25109-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Signature Touch",
+      "me": "Signature Touch",
+      "en": "Signature Touch"
+     }
     },
     {
      "id": "muse-25108-series",
@@ -11664,7 +12464,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25108-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soft Concrete",
+      "me": "Soft Concrete",
+      "en": "Soft Concrete"
+     }
     },
     {
      "id": "muse-25107-series",
@@ -11736,7 +12541,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25107-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Shadow",
+      "me": "Shadow",
+      "en": "Shadow"
+     }
     },
     {
      "id": "muse-25106-series",
@@ -11838,7 +12648,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25106-7.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Minimal Flow",
+      "me": "Minimal Flow",
+      "en": "Minimal Flow"
+     }
     },
     {
      "id": "muse-25105-series",
@@ -11958,7 +12773,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25105-9.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Prime Surface",
+      "me": "Prime Surface",
+      "en": "Prime Surface"
+     }
     },
     {
      "id": "muse-25104-series",
@@ -12076,7 +12896,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25104-10.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Mist Surface",
+      "me": "Mist Surface",
+      "en": "Mist Surface"
+     }
     },
     {
      "id": "muse-25103-series",
@@ -12159,7 +12984,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25103-5.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dream Surface",
+      "me": "Dream Surface",
+      "en": "Dream Surface"
+     }
     },
     {
      "id": "muse-25102-series",
@@ -12245,7 +13075,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25102-6.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Soft Vision",
+      "me": "Soft Vision",
+      "en": "Soft Vision"
+     }
     },
     {
      "id": "muse-25101-series",
@@ -12348,7 +13183,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/25101-8.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Urban Still",
+      "me": "Urban Still",
+      "en": "Urban Still"
+     }
     }
    ]
   },
@@ -12428,7 +13268,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op2306.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "İnce mineral doku",
+      "me": "Fina mineralna tekstura",
+      "en": "Fine mineral texture"
+     }
     },
     {
      "id": "opus-vol-1-lino-series",
@@ -12502,7 +13347,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op2206.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dikey keten dokuma",
+      "me": "Vertikalno laneno tkanje",
+      "en": "Vertical linen weave"
+     }
     },
     {
      "id": "opus-vol-1-seta-series",
@@ -12557,7 +13407,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op1606.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "İpek efektli yatay çizgiler",
+      "me": "Horizontalne linije s efektom svile",
+      "en": "Silk-effect horizontal lines"
+     }
     },
     {
      "id": "opus-vol-1-thread-series",
@@ -12623,7 +13478,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op1406.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dikey tekstil çizgi",
+      "me": "Vertikalna tekstilna linija",
+      "en": "Vertical textile line"
+     }
     },
     {
      "id": "opus-vol-1-stria-series",
@@ -12698,7 +13558,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/op46796.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Sık dikey çizgiler",
+      "me": "Guste vertikalne linije",
+      "en": "Dense vertical lines"
+     }
     },
     {
      "id": "opus-vol-1-velum-series",
@@ -12756,7 +13621,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op32451.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "İnce dikey çizgiler",
+      "me": "Fine vertikalne linije",
+      "en": "Fine vertical lines"
+     }
     },
     {
      "id": "opus-vol-1-tweed-herringbone",
@@ -12825,7 +13695,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op32373.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Balıksırtı",
+      "me": "Riblja kost",
+      "en": "Herringbone"
+     }
     },
     {
      "id": "opus-vol-1-ardesia-series",
@@ -12900,7 +13775,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/op32345.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Eskitilmiş taş",
+      "me": "Patinirani kamen",
+      "en": "Aged stone"
+     }
     }
    ]
   },
@@ -12959,7 +13839,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24208-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Tropikal yaprak desenli",
+      "me": "Tropsko lišće",
+      "en": "Tropical leaves"
+     }
     },
     {
      "id": "hue-24207-serisi",
@@ -13009,7 +13894,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24207-3.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Tropikal orman desenli",
+      "me": "Tropska šuma",
+      "en": "Tropical forest"
+     }
     },
     {
      "id": "hue-24206-serisi",
@@ -13051,7 +13941,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24206-2.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern damask",
+      "me": "Moderni damask",
+      "en": "Modern damask"
+     }
     },
     {
      "id": "hue-24205-serisi",
@@ -13188,7 +14083,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24205-12.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "hue-24204-serisi",
@@ -13308,7 +14208,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24204-10.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "hue-24203-serisi",
@@ -13427,7 +14332,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24203-10.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "hue-24202-serisi",
@@ -13542,7 +14452,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24202-10.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     },
     {
      "id": "hue-24201-serisi",
@@ -13753,7 +14668,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/24201-20.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Modern düz desen",
+      "me": "Moderni jednobojni dezen",
+      "en": "Modern plain"
+     }
     }
    ]
   },
@@ -13837,7 +14757,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op6707.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Keten görünümlü doku",
+      "me": "Tekstura nalik lanu",
+      "en": "Linen-like texture"
+     }
     },
     {
      "id": "opus-vol-2-cubera-series",
@@ -13905,7 +14830,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/op5805.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Geometrik kare doku",
+      "me": "Geometrijska kvadratna tekstura",
+      "en": "Geometric square texture"
+     }
     },
     {
      "id": "opus-vol-2-terrain-series",
@@ -13970,7 +14900,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op4305.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kumaş görünümlü doku",
+      "me": "Tekstura nalik tkanini",
+      "en": "Fabric-like texture"
+     }
     },
     {
      "id": "opus-vol-2-reed-series",
@@ -14054,7 +14989,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/op32351.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Dikey dokuma doku",
+      "me": "Vertikalna tkana tekstura",
+      "en": "Vertical woven texture"
+     }
     },
     {
      "id": "opus-vol-2-hemp-series",
@@ -14127,7 +15067,12 @@
        ],
        "thumb": "/duvar-kagidi/kucuk/op2806.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Kenevir görünümlü doku",
+      "me": "Tekstura nalik konoplji",
+      "en": "Hemp-like texture"
+     }
     },
     {
      "id": "opus-vol-2-pinstripe-series",
@@ -14191,7 +15136,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op2706.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "İnce dikey çizgiler",
+      "me": "Fine vertikalne linije",
+      "en": "Fine vertical lines"
+     }
     },
     {
      "id": "opus-vol-2-rhythm-series",
@@ -14271,7 +15221,12 @@
        "colors": [],
        "thumb": "/duvar-kagidi/kucuk/op2105.webp"
       }
-     ]
+     ],
+     "name": {
+      "tr": "Düzensiz dikey çizgiler",
+      "me": "Nepravilne vertikalne linije",
+      "en": "Irregular vertical lines"
+     }
     }
    ]
   }
