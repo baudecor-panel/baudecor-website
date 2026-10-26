@@ -163,28 +163,28 @@ export default function MdfPage() {
 
       {/* ===== AKSESUAR VE ÖZEL RENK ===== */}
       <section className={h.section}>
-        <div className={m.feature} data-reveal>
-          <div className={`${m.featureImg} ${m.dark}`}>
+        <div className={s.feature} data-reveal>
+          <div className={`${s.featureImg} ${s.dark}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/Bitis%20profilleri.jpg" alt={L("Početni i završni profili", "Başlangıç ve bitiş profilleri", "Start and end profiles")} loading="lazy" />
           </div>
-          <div className={m.featureText}>
+          <div className={s.featureText}>
             <p className={h.kicker}>{L("Dodaci", "Aksesuarlar", "Accessories")}</p>
             <h2 className={h.h2}>{L("Početni i", "Başlangıç ve", "Start and")} <em>{L("završni profili", "bitiş profilleri", "end profiles")}</em></h2>
             <p>{L("Za svaki model dostupni su odgovarajući početni i završni profili u istoj boji — za čiste ivice i profesionalan završetak.", "Her model için aynı renkte, uyumlu başlangıç ve bitiş profilleri mevcuttur — temiz kenarlar ve profesyonel bir bitiş için.", "Matching start and end profiles in the same colour are available for every model — for clean edges and a professional finish.")}</p>
           </div>
         </div>
 
-        <div className={`${m.feature} ${m.flip}`} data-reveal>
-          <div className={`${m.featureImg} ${m.dark}`}>
+        <div className={`${s.feature} ${s.flip}`} data-reveal>
+          <div className={`${s.featureImg} ${s.dark}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/renk%20kartelas%C4%B1.jpg" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
           </div>
-          <div className={m.featureText}>
+          <div className={s.featureText}>
             <p className={h.kicker}>{L("Posebna izrada", "Özel üretim", "Made to order")}</p>
             <h2 className={h.h2}>{L("Stotine dezena,", "Yüzlerce desen,", "Hundreds of designs,")} <em>{L("vaš izbor", "sizin seçiminiz", "your choice")}</em></h2>
             <p>{L("Iz kataloga boja u našem salonu bilo koji dekor možemo primijeniti na sve modele MDF panela.", "Showroom'umuzdaki renk kartelasından dilediğiniz deseni tüm MDF panel modellerine uygulayabiliyoruz.", "Any design from the colour catalogue in our showroom can be applied to every MDF panel model.")}</p>
-            <dl className={m.terms}>
+            <dl className={s.terms}>
               <div><dt>{L("Rok isporuke", "Teslim süresi", "Lead time")}</dt><dd>{L("3–4 sedmice", "3–4 hafta", "3–4 weeks")}</dd></div>
               <div><dt>{L("Narudžba", "Sipariş", "Order")}</dt><dd>{L("Uz minimalnu količinu", "Minimum adetle", "Minimum quantity applies")}</dd></div>
             </dl>
