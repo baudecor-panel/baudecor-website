@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLang } from "@/lib/useLang";
+import { useFlipIn } from "@/lib/useFlipIn";
 import type { WpSeries } from "@/lib/wallpapers";
 import { COLLECTION_INFO, specRows } from "@/lib/wallpaperInfo";
 import { SeriesCard, WpHeader, WpFooter } from "./Catalog";
@@ -15,6 +16,7 @@ export default function CollectionPage({ col }: { col: Col }) {
   const name = col.name.replace(/\s*\|\s*/, " ");
   const colors = col.series.reduce((a, x) => a + x.colors.length, 0);
   const info = COLLECTION_INFO[col.id];
+  useFlipIn([col.id]);
 
   return (
     <div className={s.page}>

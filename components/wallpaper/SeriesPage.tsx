@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLang } from "@/lib/useLang";
+import { useFlipIn } from "@/lib/useFlipIn";
 import { label, type WpSeries } from "@/lib/wallpapers";
 import { COLLECTION_INFO, colorName, seriesName, seriesNum, seriesWord, specRows } from "@/lib/wallpaperInfo";
 import { SeriesCard, WpHeader, WpFooter } from "./Catalog";
@@ -20,6 +21,7 @@ export default function SeriesPage({ x, siblings, prev, next }: { x: Series; sib
   const no = seriesNum(x.code);
   const cName = colorName(c.name, lang);
   const info = COLLECTION_INFO[x.collection];
+  useFlipIn([x.id]);
 
   return (
     <div className={s.page}>

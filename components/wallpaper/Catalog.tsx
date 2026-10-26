@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { Lang } from "@/lib/i18n";
 import { useLang } from "@/lib/useLang";
+import { useFlipIn } from "@/lib/useFlipIn";
 import PageHeader from "@/components/site/PageHeader";
 import { FEATURED, type WpCatalog, type WpCollection, type WpSeries } from "@/lib/wallpapers";
 import { seriesName, seriesNum, seriesWord } from "@/lib/wallpaperInfo";
@@ -26,7 +27,7 @@ type Series = WpSeries & { collectionName: string };
 /* Seri kartı — koleksiyon sayfası ve "diğer seriler" bölümü */
 export function SeriesCard({ x, lang }: { x: Series; lang: Lang }) {
   return (
-    <Link href={`/duvar-kagidi/${x.collection}/${x.id}`} className={s.card}>
+    <Link href={`/duvar-kagidi/${x.collection}/${x.id}`} className={s.card} data-flip>
       <div className={s.cardImg}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={x.room ?? x.colors[0].img} alt={`${x.collectionName} ${x.code}`} loading="lazy" />
@@ -48,6 +49,7 @@ const cover = (c: WpCollection) =>
 export default function Catalog({ data }: { data: WpCatalog }) {
   const [lang, setLang] = useLang();
   const L = (me: string, tr: string, en: string) => (lang === "me" ? me : lang === "tr" ? tr : en);
+  useFlipIn();
   const seriesCount = data.collections.reduce((a, c) => a + c.series.length, 0);
   const totalColors = data.collections.reduce((a, c) => a + c.series.reduce((b, x) => b + x.colors.length, 0), 0);
 
@@ -67,7 +69,7 @@ export default function Catalog({ data }: { data: WpCatalog }) {
 
       <section className={`${s.grid} ${s.colGrid}`}>
         {data.collections.map((c) => (
-          <Link key={c.id} href={`/duvar-kagidi/${c.id}`} className={`${s.card} ${s.colCard}`}>
+          <Link key={c.id} href={`/duvar-kagidi/${c.id}`} className={`${s.card} ${s.colCard}`} data-flip>
             <div className={s.cardImg}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={cover(c)} alt={`AdaWall ${c.name}`} loading="lazy" />
