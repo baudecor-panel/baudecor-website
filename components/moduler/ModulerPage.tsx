@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { useLang } from "@/lib/useLang";
 import { PHONE, pick, type Txt } from "@/lib/site";
-import { MOD_COLORS, MOD_MATERIAL, MOD_MODELS, tilesPerM2 } from "@/lib/moduler";
+import { MOD_COLORS, MOD_MATERIAL, MOD_MODELS, pcsPerM2, type ModModel } from "@/lib/moduler";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
 import h from "../home/Home.module.css";
@@ -23,7 +23,7 @@ const ADVANTAGES: { icon: ReactNode; title: Txt; text: Txt }[] = [
     text: { me: "Okrećite i kombinujte komade — svaki zid dobija svoj raspored.", tr: "Parçaları döndürün ve birleştirin — her duvar kendi dizilimini alır.", en: "Rotate and combine pieces — every wall gets its own layout." } },
   { icon: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" strokeLinecap="round" strokeLinejoin="round" />,
     title: { me: "Pravi 3D reljef", tr: "Gerçek 3D rölyef", en: "Real 3D relief" },
-    text: { me: "Reljef dubine 1,5–8,7 cm daje zidu pravu dubinu, za razliku od 3D tapeta.", tr: "1,5–8,7 cm derinlikteki rölyef, 3D duvar kağıdının aksine gerçek derinlik verir.", en: "Relief 1.5–8.7 cm deep gives true depth, unlike 3D wallpaper." } },
+    text: { me: "Reljef do 7,25 cm daje zidu pravu dubinu, za razliku od 3D tapeta.", tr: "7,25 cm'ye varan rölyef, 3D duvar kağıdının aksine gerçek derinlik verir.", en: "Relief up to 7.25 cm gives true depth, unlike 3D wallpaper." } },
   { icon: <><circle cx="12" cy="12" r="9.5" /><path d="M8.5 12l2.5 2.5 4.5-5" strokeLinecap="round" strokeLinejoin="round" /></>,
     title: { me: "RAL boje", tr: "RAL renkleri", en: "RAL colours" },
     text: { me: "Pored standardnih boja, po narudžbi u svim RAL bojama.", tr: "Standart renklerin yanında sipariş üzerine tüm RAL renklerinde.", en: "Beyond the standard colours, any RAL colour to order." } },
@@ -41,6 +41,7 @@ const ADVANTAGES: { icon: ReactNode; title: Txt; text: Txt }[] = [
 export default function ModulerPage() {
   const [lang, setLang] = useLang();
   const L = pick(lang);
+  const sizeText = (md: ModModel) => (typeof md.size === "string" ? md.size : md.size?.[lang]);
   const [open, setOpen] = useState<number | null>(null);
   const [img, setImg] = useState<string | null>(null);
 
@@ -98,7 +99,7 @@ export default function ModulerPage() {
               <span className={m.cardBody}>
                 <small>{md.shape[lang]}</small>
                 <b>{md.name}</b>
-                {(md.size || md.depth) && <i>{[md.size, md.depth && `${L("dubina", "derinlik", "depth")} ${md.depth}`].filter(Boolean).join(" · ")}</i>}
+                {(md.size || md.depth) && <i>{[sizeText(md), md.depth && `${L("reljef", "rölyef", "relief")} ${md.depth}`].filter(Boolean).join(" · ")}</i>}
               </span>
             </button>
           ))}
@@ -167,9 +168,11 @@ export default function ModulerPage() {
               <p className={h.kicker}>{cur.shape[lang]}</p>
               <h2>{cur.name}</h2>
               <dl>
-                {cur.size && <div><dt>{L("Komad", "Karo", "Tile")}</dt><dd>{cur.size}</dd></div>}
-                {cur.depth && <div><dt>{L("Dubina", "Derinlik", "Depth")}</dt><dd>{cur.depth}</dd></div>}
-                {cur.lattice && <div><dt>{L("Po m²", "m² başına", "Per m²")}</dt><dd>≈ {Math.round(tilesPerM2(cur.lattice))} {L("kom", "adet", "pcs")}</dd></div>}
+                {cur.size && <div><dt>{L("Komad", "Karo", "Tile")}</dt><dd>{sizeText(cur)}</dd></div>}
+                {cur.depth && <div><dt>{L("Najviša tačka", "En yüksek nokta", "Highest point")}</dt><dd>{cur.depth}</dd></div>}
+                {cur.thickness && <div><dt>{L("Debljina materijala", "Malzeme kalınlığı", "Material thickness")}</dt><dd>{cur.thickness}</dd></div>}
+                {cur.weight && <div><dt>{L("Težina", "Ağırlık", "Weight")}</dt><dd>{cur.weight} g / {L("kom", "adet", "pc")} · {cur.kgM2} kg/m²</dd></div>}
+                {pcsPerM2(cur) && <div><dt>{L("Po m²", "m² başına", "Per m²")}</dt><dd>≈ {pcsPerM2(cur)} {L("kom", "adet", "pcs")}</dd></div>}
                 <div><dt>{L("Materijal", "Malzeme", "Material")}</dt><dd>{MOD_MATERIAL[lang]}</dd></div>
               </dl>
 

@@ -14,20 +14,11 @@ export const MOD_COLORS: Record<ColorId, { name: Txt; swatch: string }> = {
   smoke: { name: T("Dimljena", "Füme", "Smoke"), swatch: "#3b3936" },
 };
 
-/* ===== Karo dizilimi (m² başına adet hesabı) =====
-   square: kare ızgara · hex: altıgen (p: köşe yarı genişliği, q: üst kenar yarı uzunluğu, h: yarı yükseklik)
-   tri: eşkenar üçgen (s: kenar, h: yükseklik) · weave: dik parçalar, tek sütunlar yarım boy kaymış (sivri uçlar komşunun beline oturur) */
-export type Lattice =
-  | { kind: "square"; s: number; rot: "diamond" | "random" }
-  | { kind: "hex"; p: number; q: number; h: number; rot: 60 | 180 }
-  | { kind: "tri"; s: number; h: number }
-  | { kind: "weave"; sx: number; sy: number };
-
 export type ModModel = {
   id: string; name: string;
   shape: Txt;
-  lattice?: Lattice;            // bilinmiyorsa m² hesabı gösterilmez
-  size?: string; depth?: string;  // karo ölçüsü ve kabartma derinliği (üretici 3D dosyalarından ölçüldü)
+  // teknik föyden: ölçü, en yüksek nokta (rölyef), malzeme kalınlığı, karo ağırlığı (g), kg/m²
+  size?: string | Txt; depth?: string; thickness?: string; weight?: number; kgM2?: string;
   cover: string; info: string;
   desc: Txt;
   colors: { id: ColorId; img: string }[];
@@ -43,8 +34,8 @@ const G = (name: string, files: string[]) => files.map((f) => `/${name}-${f}`);
 export const MOD_MODELS: ModModel[] = [
   {
     id: "penta", name: "PENTA", shape: T("Kvadrat · piramida", "Kare · piramit", "Square · pyramid"),
-    lattice: { kind: "square", s: 0.18, rot: "diamond" },
-    size: "18 × 18 cm", depth: "7,2 cm", cover: "/KAPAK%20PENTA.jpg", info: "/INFO%20PENTA.jpg",
+    size: "18 × 18 cm", depth: "7,25 cm", thickness: "2 mm", weight: 170, kgM2: "5,1",
+    cover: "/KAPAK%20PENTA.jpg", info: "/INFO%20PENTA.jpg",
     desc: {
       tr: "Ürün portföyümüzde yer alan dekoratif duvar panellerimizin göz alıcı modellerinden olan Penta, tasarımı itibariyle akılda kalan ve hayret uyandıran modern çizgisiyle uygulandığı mekanı değiştiriyor, kıymetlendiriyor ve özel kılıyor. Asimetrik keskin hatları, içbükey ve dışbükey formları ile realistik üç boyutlu görünüm oluşturan Penta dekoratif duvar paneli, konut ve ticari iç mekan duvar tasarımlarında tercih edilmektedir.",
       me: "Penta, jedan od najupečatljivijih modela u našem portfoliju dekorativnih zidnih panela. Modernim dizajnom koji se pamti i oduševljava, transformiše svaki prostor, daje mu vrijednost i posebnost. Asimetrične oštre linije i konkavno-konveksni oblici stvaraju realistični trodimenzionalni izgled — idealan za stambene i komercijalne projekte.",
@@ -56,8 +47,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "zeta", name: "ZETA", shape: T("Šestougao · fasete", "Altıgen · fasetli", "Hexagon · faceted"),
-    lattice: { kind: "hex", p: 0.08, q: 0.04, h: 0.0693, rot: 60 },
-    size: "16 × 13,9 cm", depth: "4,6 cm", cover: "/KAPAK%20ZETA.jpg", info: "/INFO%20ZETA.jpg",
+    size: "16 × 14 cm", depth: "3,8 cm", thickness: "1,5 mm", weight: 45, kgM2: "2,45",
+    cover: "/KAPAK%20ZETA.jpg", info: "/INFO%20ZETA.jpg",
     desc: {
       tr: "Üç boyutlu altıgen karolara sahip olan ZETA, hem parlak hem de mat yüzeylerde, farklı renklerde mevcut olan petek yapısının zarif bir versiyonudur. Açılı yüzleri, ışık oyunlarıyla birlikte bir ton senfonisine dönüşür ve zarif görünümler oluşturacak şekilde düzenlenebilir. Çekici poligonal geometrisi, modern ve simetrik keskin çizgileriyle gerçekçi üç boyutlu görünüm yaratan ZETA ile harikalar yaratabilirsiniz. Sade tonların görselliği ve doğal ışık, altıgen duvar panellerine nazikçe yansıtıldığında görsel bir şölen ortaya çıkar.",
       me: "ZETA posjeduje trodimenzionalne šesterokutne pločice i elegantna je verzija saćaste strukture, dostupna na sjajnim i mat površinama u različitim bojama. Uglaste površine u kombinaciji s igrom svjetlosti pretvaraju se u simfoniju tonova i mogu se rasporediti kako bi stvorile elegantne vizuale. Sa privlačnom poligonalnom geometrijom i modernim simetričnim linijama, ZETA stvara realističan trodimenzionalni izgled. Kada se nježni tonovi i prirodno svjetlo reflektuju na šesterokutne panele, nastaje pravi vizualni spektakl.",
@@ -69,8 +60,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "norm", name: "NORM", shape: T("Šestougao · ravan", "Altıgen · düz", "Hexagon · flat"),
-    lattice: { kind: "hex", p: 0.081, q: 0.041, h: 0.07, rot: 60 },
-    size: "16,2 × 14 cm", depth: "4,5 cm", cover: "/KAPAK%20NORM.jpg", info: "/INFO%20NORM.jpg",
+    size: "16 × 14 cm", depth: "4,5 cm", thickness: "2 mm", weight: 90, kgM2: "4,86",
+    cover: "/KAPAK%20NORM.jpg", info: "/INFO%20NORM.jpg",
     desc: {
       tr: "Altıgen formların farklı açılar ve renkler ile olan kombinasyonunun oluşturduğu sıradışı bir duvar tasarım ürünü olan NORM; cafe, restoran, otel, plaza ve giriş-karşılama alanları gibi birçok mekânda 3 boyutlu simetrik ve asimetrik gölge oyunları ile görsel zarafet sunmaktadır. Montaj kolaylığı ve kısmen ya da tamamen uygulanabilirliği ile geniş kullanım yelpazesine sahiptir. Tak-çıkar özelliği ile dilediğiniz zaman duvar tasarımınızı farklılaştırabilir ve yeni bir dekor elde edebilirsiniz. Farklı yüksekliklere sahip altıgen geometrik formlardan oluşan NORM, uygulandığı yüzeyde gerçekçi bir üç boyut meydana getirir. 3D duvar kağıtlarının aksine gerçek bir derinlik oluşturarak mekâna canlı bir ruh katar. Pratikliği, hafifliği ve kolay uygulanabilirliği ile hem mukavemet hem de kalite açısından mevcut mekânları farklılaştırmada tercih sebebidir.",
       me: "NORM je izvanredan dekorativni zidni proizvod nastao kombinacijom šesterokutnih oblika pod različitim uglovima i bojama. U kafićima, restoranima, hotelima, poslovnim zgradama i recepcijskim prostorima pruža vizualnu eleganciju kroz trodimenzionalne simetrične i asimetrične igre sjena. Zahvaljujući lakoći montaže i mogućnosti djelimične ili potpune primjene, posjeduje široku primjenu. Funkcija 'prikvači-skini' omogućava promjenu dekora u svakom trenutku. NORM se sastoji od heksagonalnih geometrijskih formi različitih visina, što na površini stvara realističnu trodimenzionalnost. Za razliku od 3D tapeta, prava dubina daje prostoru poseban duh i energiju. Praktičan, lagan i jednostavan za ugradnju — prvi izbor za transformaciju enterijera.",
@@ -82,8 +73,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "mabel", name: "MABEL", shape: T("Izduženi šestougao", "Uzun altıgen", "Elongated hexagon"),
-    lattice: { kind: "hex", p: 0.278, q: 0.102, h: 0.102, rot: 180 },
-    size: "55,6 × 20,4 cm", depth: "8,7 cm", cover: "/KAPAK%20MABEL.jpg", info: "/INFO%20MABEL.jpg",
+    size: T("Dužina 23,2 cm · ivica 8,5 cm", "Uzunluk 23,2 cm · kenar 8,5 cm", "Length 23.2 cm · edge 8.5 cm"), depth: "3,5 cm", thickness: "2 mm", weight: 88, kgM2: "6,16",
+    cover: "/KAPAK%20MABEL.jpg", info: "/INFO%20MABEL.jpg",
     desc: {
       tr: "Karşıt ve benzer yönlerde konumlandırılabilen bu küçük çokgen duvar dekoru ürünü, çok çeşitli iç mimari uygulamalar için geniş bir özgürlük sunar. 3 boyutlu simetrik ve asimetrik gölge oyunları, renk ve desen çeşitliliğiyle birleşerek görsel zarafet yaratır. Işığın doğal yansımasıyla renk tonlarının yarattığı yanılsama, derinlik hissi vererek özgün üç boyutlu duvar tasarımları oluşturmanızı sağlar. Farklı kombinasyonlar uygulayarak birbirinden etkileyici duvar dekorları meydana getirebilirsiniz. Montaj kolaylığı, hafifliği ve tasarım özgürlüğüyle geleneksel ya da modern mimari için pratik çözümler sunar. Ürünler birleşim yerleri belli olmadan tek ya da farklı yönlerde döşenerek bütünlüklü bir görsel sağlar. Montaj aparatlarındaki pimler, ürün içindeki yuvalara geçerek son derece pratik bir uygulama imkânı tanır.",
       me: "Ovaj mali poligonalni zidni dekor koji se može postaviti u suprotnim ili sličnim smjerovima pruža veliku slobodu za razne primjene u enterijeru. Trodimenzionalne simetrične i asimetrične igre sjena, u kombinaciji s raznolikošću boja i uzoraka, stvaraju vizualnu eleganciju. Prirodno odbijanje svjetlosti i iluzija tonova daju osjećaj dubine i omogućavaju kreiranje originalnih 3D zidnih dizajna. Primjenom različitih kombinacija možete kreirati raznovrsne zidne dekoracije. Jednostavna montaža, lakoća i sloboda dizajna nude praktična rješenja za tradicionalnu ili modernu arhitekturu. Paneli se postavljaju bez vidljivih spojeva u jednom ili više smjerova za ujednačen vizualni dojam. Montažni zatici jednostavno se ubacuju u utore na pločici, što čini ugradnju izuzetno praktičnom.",
@@ -95,8 +86,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "spline", name: "SPLINE", shape: T("Pleteni talas", "Örgü dalga", "Woven wave"),
-    lattice: { kind: "weave", sx: 0.216, sy: 0.322 },
-    size: "26 × 32 cm", depth: "6,2 cm", cover: "/KAPAK%20SPLIINE.jpg", info: "/INFO%20SPLINE.jpg",
+    size: "26 × 32,1 cm", depth: "6,25 cm", thickness: "2,5 mm", weight: 200, kgM2: "4,8",
+    cover: "/KAPAK%20SPLIINE.jpg", info: "/INFO%20SPLINE.jpg",
     desc: {
       tr: "Eğrisel çizgilerin hareketinden ilham alınarak 3 boyutlu örgü görseli kazandırılan SPLINE, zarif, sade ve şık bir duvar kaplama tasarım ürünüdür. Modüler panellerin bir araya gelmesiyle oluşan bu görsel, arkadan uygulanan LED aydınlatmayla duvarlara gerçek bir derinlik duygusu katar. Lobi, resepsiyon ve giriş alanlarında göz alıcı bir karşılama sunan SPLINE ile mekânlarınızda fark yaratın. Farklı renk alternatifleri ve ışık-gölge oyunlarıyla mekânı lüks, asil ve ihtişamlı bir görünüme kavuşturur. Duvar ve tavanda rahatlıkla uygulanabilen bu üründe, arkadan yapılan LED uygulaması ile paneller arasından süzülen ışıklar dekoratif bir aydınlatma etkisi de yaratır.",
       me: "SPLINE je elegantan, jednostavan i šik zidni dekorativni proizvod inspirisan kretanjem zakrivljenih linija, koji dobija trodimenzionalni pleteni vizualni efekt. Ovaj vizual koji nastaje spajanjem modularnih panela, uz LED osvjetljenje primijenjeno sa zadnje strane, daje zidovima pravi osjećaj dubine. Istaknite se uz SPLINE zidne obloge koje pružaju upečatljiv doček u lobijima, recepcijama i ulaznim prostorima. Različite boje i igre svjetla i sjene daju prostoru luksuzan, plemenit i veličanstven izgled. LED osvjetljenje postavljeno iza panela propušta svjetlost između ploča, stvarajući istovremeno dekorativni efekt osvjetljenja.",
@@ -108,8 +99,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "nava", name: "NAVA", shape: T("Trougao · 3 forme", "Üçgen · 3 form", "Triangle · 3 forms"),
-    lattice: { kind: "tri", s: 0.198, h: 0.172 },
-    size: "19,8 × 17,2 cm", depth: "3,8 cm", cover: "/KAPAK%20NAVA.jpg", info: "/INFO%20NAVA.jpg",
+    size: "19,8 × 17,2 cm", depth: "3,8 cm", thickness: "1,5 mm", weight: 65, kgM2: "3,9",
+    cover: "/KAPAK%20NAVA.jpg", info: "/INFO%20NAVA.jpg",
     desc: {
       tr: "Bu yeni tasarımla 2. neslin ilk modelini ortaya çıkararak birbirinden bağımsız üç farklı çizginin sonsuz kombinasyon seçeneğini sunuyoruz. Düz, Piramit ve Poligon şeklindeki üç farklı karoyu bir arada ya da bağımsız kullanabileceğiniz bu yeni nesil 3 boyutlu duvar kaplamasıyla mekânınız zarafet, asalet ve ihtişam duygusuna bürünür. Kolay montaj sistemi, farklı renk seçenekleri ve paketleme detaylarıyla birinci jenerasyonun modelleriyle uyum gösterir. Modern çizgileri ve simetrik formlarıyla gerçekçi üç boyutlu görünüm sağlayan NAVA, konut ve ticari projelerinizin duvar dekorunda güvenle tercih edebileceğiniz bir modeldir.",
       me: "Ovim novim dizajnom predstavljamo prvi model druge generacije, nudeći beskrajne kombinacije tri međusobno nezavisne linije. Uz ovu novu generaciju 3D zidnih obloga — s tri različite pločice u obliku ravne, piramidalne i poligonalne forme koje se mogu koristiti zajedno ili samostalno — vaš prostor dobija osjećaj elegancije, plemenitosti i veličanstvenosti. Sistem lake montaže, različite opcije boja i detalji pakiranja usklađeni su s modelima prve generacije. NAVA model, sa svojim modernim linijama i simetričnim formama, pruža realističan trodimenzionalni izgled i idealan je izbor za zidnu dekoraciju stambenih i komercijalnih projekata.",
@@ -121,8 +112,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "soho", name: "SOHO", shape: T("Kvadrat · meke linije", "Kare · yumuşak hat", "Square · soft lines"),
-    lattice: { kind: "square", s: 0.18, rot: "diamond" },
-    size: "18 × 18 cm", depth: "2,8 cm", cover: "/KAPAK%20SOHO.jpg", info: "/INFO%20SOHO.jpg",
+    size: "18 × 18 cm", depth: "2,8 cm", thickness: "1,5 mm", weight: 75, kgM2: "2,5",
+    cover: "/KAPAK%20SOHO.jpg", info: "/INFO%20SOHO.jpg",
     desc: {
       tr: "Modern tasarımın akışkanlığına ve sadeliğine atfedilerek tasarlanan SOHO, kurgu ve kompozisyonlarındaki çeşitlilik sayesinde birçok mekâna uyum sağlamaktadır. Formundaki kararlı ve yumuşak hatlarıyla bulunduğu mekânda son derece sıcak bir ambiyans oluşturur. Kafe, restoran, otel, eğitim binaları, sağlık yapıları ve plaza giriş alanları gibi pek çok mekânda yapay ve doğal ışığın farklı açılardan yüzeyine yansımasıyla oluşan yumuşak gölgeler görsel zarafet sunar.",
       me: "SOHO je dizajniran u duhu fluidnosti i jednostavnosti modernog dizajna, te se zahvaljujući raznolikosti svojih formi i kompozicija prilagođava velikom broju prostora. Odlučnim i mekim linijama svoje forme stvara izuzetno toplu atmosferu u prostoru. U kafićima, restoranima, hotelima, obrazovnim i zdravstvenim objektima te ulaznim prostorima poslovnih zgrada, meke sjene nastale odrazom umjetnog i prirodnog svjetlosti pod različitim uglovima pružaju vizualnu eleganciju.",
@@ -135,8 +126,8 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "vava", name: "VAVA", shape: T("Trougao · dijamant", "Üçgen · elmas", "Triangle · diamond"),
-    lattice: { kind: "tri", s: 0.202, h: 0.176 },
-    size: "20,2 × 17,6 cm", depth: "1,5 cm", cover: "/KAPAK%20VAVA.jpg", info: "/INFO%20VAVA.jpg",
+    size: "19,8 × 17,2 cm", depth: "1,4 cm", thickness: "1,5 mm", weight: 46, kgM2: "2,8",
+    cover: "/KAPAK%20VAVA.jpg", info: "/INFO%20VAVA.jpg",
     desc: {
       tr: "VAVA, geometrik hassasiyet ve çağdaş tasarımın buluşma noktasından doğmuştur. Modern mimarinin incelikli simetrisinden ilham alan VAVA, duvar yüzeylerini dinamik bir görsel ritme dönüştürür. Elmas yapılı deseni, ışığı farklı açılardan yakalayarak her iç mekânı zenginleştiren sofistike bir gölge oyunu yaratır.",
       me: "VAVA nastaje na sjecištu geometrijske preciznosti i savremenog dizajna. Inspirisana suptilnom simetrijom moderne arhitekture, VAVA transformiše zidne površine u dinamičan vizualni ritam. Dijamantski uzorak hvata svjetlost iz različitih uglova, stvarajući sofisticirane igre sjenki koje obogaćuju svaki enterijer.",
@@ -149,7 +140,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "space", name: "SPACE", isNew: true, shape: T("Kvadrat · zaobljeni reljef", "Kare · yuvarlak rölyef", "Square · rounded relief"),
-    lattice: { kind: "square", s: 0.18, rot: "diamond" },
     size: "18 × 18 cm", cover: "/SPACE-cover.webp", info: "/SPACE-cover.webp",
     desc: {
       tr: "SPACE, geometrinin daha akışkan, yumuşak ve süreklilik gösteren karakterinden yola çıkarak tasarlanmış üç boyutlu bir yüzey modülüdür. Işık-gölge ilişkisi SPACE'e statik bir dekoratif desen yerine, gün boyunca algısı değişebilen üç boyutlu bir mimari karakter kazandırır. İç içe ilerleyen kademeli geometrisi ve yumuşatılmış köşe geçişleri, klasik ortogonal yüzey algısını kırarak daha akıcı ve dinamik bir yüzey oluşturur. 4 farklı kotta devam eden yüzey katmanları ışığı farklı açılarda yönlendirir; gün ışığı veya yapay aydınlatmanın geliş açısına bağlı olarak yüzeyde değişken parlak ve gölgeli alanlar oluşur. 18 × 18 cm'lik modüllerin ritmik tekrarıyla geniş yüzeyde bütüncül bir desen ve rölyef etkisi ortaya çıkar.",
@@ -174,12 +164,10 @@ export const MOD_MODELS: ModModel[] = [
   },
 ];
 
-/* m² başına karo sayısı (dizilim ızgarasından) */
-export function tilesPerM2(l: Lattice) {
-  if (l.kind === "square") return 1 / (l.s * l.s);
-  if (l.kind === "weave") return 1 / (l.sx * l.sy);
-  if (l.kind === "hex") return 1 / ((l.p + l.q) * 2 * l.h);
-  return 2 / (l.s * l.h);
+/* m² başına karo sayısı — teknik föydeki kg/m² ÷ karo ağırlığı */
+export function pcsPerM2(m: ModModel) {
+  if (!m.weight || !m.kgM2) return null;
+  return Math.round((parseFloat(m.kgM2.replace(",", ".")) * 1000) / m.weight);
 }
 
 export const MOD_MATERIAL = T("ABS polimer, akrilna boja", "ABS polimer, akrilik boya", "ABS polymer, acrylic paint");
