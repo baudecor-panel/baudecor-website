@@ -11,15 +11,6 @@ import h from "../home/Home.module.css";
 import s from "@/components/site/Product.module.css";
 import m from "./Moduler.module.css";
 
-const USAGE: Txt[] = [
-  { me: "Hotelski lobi", tr: "Otel lobisi", en: "Hotel lobby" },
-  { me: "Restoran", tr: "Restoran", en: "Restaurant" },
-  { me: "Kancelarija", tr: "Ofis", en: "Office" },
-  { me: "Showroom", tr: "Showroom", en: "Showroom" },
-  { me: "Tržni centar", tr: "AVM", en: "Shopping mall" },
-  { me: "Dnevna soba", tr: "Oturma odası", en: "Living room" },
-];
-
 const ADVANTAGES: { icon: ReactNode; title: Txt; text: Txt }[] = [
   { icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" />,
     title: { me: "Lagani ABS polimer", tr: "Hafif ABS polimer", en: "Lightweight ABS polymer" },
@@ -110,50 +101,6 @@ export default function ModulerPage() {
               </span>
             </button>
           ))}
-        </div>
-      </section>
-
-      {/* ===== TEKNİK KARŞILAŞTIRMA ===== */}
-      <section className={s.specBand}>
-        <div data-reveal>
-          <p className={h.kicker}>{L("Tehnički podaci", "Teknik bilgiler", "Specifications")}</p>
-          <h2 className={h.h2}>{L("Svi modeli", "Tüm modeller", "All models")} <em>{L("na jednom mjestu", "tek bakışta", "at a glance")}</em></h2>
-          <div className={m.tableWrap}>
-            <table className={m.table}>
-              <thead>
-                <tr>
-                  <th>{L("Model", "Model", "Model")}</th>
-                  <th>{L("Oblik", "Form", "Shape")}</th>
-                  <th>{L("Komad", "Karo ölçüsü", "Tile size")}</th>
-                  <th>{L("Dubina", "Derinlik", "Depth")}</th>
-                  <th>{L("≈ kom/m²", "≈ adet/m²", "≈ pcs/m²")}</th>
-                  <th>{L("Boje", "Renkler", "Colours")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MOD_MODELS.map((md, i) => (
-                  <tr key={md.id} onClick={() => openModel(i)}>
-                    <td><b>{md.name}</b></td>
-                    <td>{md.shape[lang]}</td>
-                    <td>{md.size}</td>
-                    <td>{md.depth}</td>
-                    <td>{Math.round(tilesPerM2(md.lattice))}</td>
-                    <td><span className={m.dots}>{md.colors.map((c) => <i key={c.id} style={{ background: MOD_COLORS[c.id].swatch }} title={MOD_COLORS[c.id].name[lang]} />)}</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className={s.chips} style={{ marginTop: 34 }}>
-            <div>
-              <span>{L("Materijal", "Malzeme", "Material")}</span>
-              <p><i>{MOD_MATERIAL[lang]}</i><i>{L("Mat i sjajne površine", "Mat ve parlak yüzey", "Matt and gloss finishes")}</i></p>
-            </div>
-            <div>
-              <span>{L("Primjena", "Kullanım alanları", "Where to use")}</span>
-              <p>{USAGE.map((u) => <i key={u.en}>{u[lang]}</i>)}</p>
-            </div>
-          </div>
         </div>
       </section>
 
