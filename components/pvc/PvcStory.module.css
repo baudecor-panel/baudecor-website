@@ -33,3 +33,7 @@
   .pattern { width: 32px; height: 32px; }
   .metals { justify-content: center; }
 }
+
+/* Yan menü yalnızca 3D bölümünün içinde görünür */
+.sideNav { position: absolute; z-index: 5; }
+.ctaBtn { cursor: pointer; font-family: inherit; background: none; }

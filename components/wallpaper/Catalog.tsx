@@ -3,37 +3,13 @@
 import Link from "next/link";
 import type { Lang } from "@/lib/i18n";
 import { useLang } from "@/lib/useLang";
+import PageHeader from "@/components/site/PageHeader";
 import { FEATURED, type WpCatalog, type WpCollection, type WpSeries } from "@/lib/wallpapers";
 import { seriesName, seriesNum, seriesWord } from "@/lib/wallpaperInfo";
 import s from "./Catalog.module.css";
 
-const LANGS: { code: Lang; label: string }[] = [{ code: "me", label: "ME" }, { code: "en", label: "EN" }, { code: "tr", label: "TR" }];
-
-/* Katalog ve seri sayfalarının ortak üst çubuğu */
-export function WpHeader({ lang, setLang, crumbs }: { lang: Lang; setLang: (l: Lang) => void; crumbs: { href?: string; label: string }[] }) {
-  return (
-    <header className={s.top}>
-      <Link href="/" aria-label="Baudecor">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.svg" alt="Baudecor" className={s.logo} />
-      </Link>
-      <nav className={s.crumbs}>
-        {crumbs.map((c, i) => (
-          <span key={i} className={s.crumb}>
-            {i > 0 && <span>/</span>}
-            {c.href ? <Link href={c.href}>{c.label}</Link> : <b>{c.label}</b>}
-          </span>
-        ))}
-      </nav>
-      <div className={s.topRight}>
-        <div className={s.langs}>
-          {LANGS.map((l) => <button key={l.code} className={lang === l.code ? s.on : ""} onClick={() => setLang(l.code)}>{l.label}</button>)}
-        </div>
-        <a href="tel:+38268361700" className={s.tel}>+382 68 361 700</a>
-      </div>
-    </header>
-  );
-}
+/* Katalog ve seri sayfalarının üst çubuğu — ortak site başlığı */
+export const WpHeader = PageHeader;
 
 export function WpFooter({ lang }: { lang: Lang }) {
   const L = (me: string, tr: string, en: string) => (lang === "me" ? me : lang === "tr" ? tr : en);

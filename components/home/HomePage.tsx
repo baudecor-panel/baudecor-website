@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { type Lang, tx } from "@/lib/i18n";
+import { tx } from "@/lib/i18n";
 import HeroWall from "./HeroWall";
 import { useLang } from "@/lib/useLang";
+import { LANGS } from "@/lib/site";
+import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
 import s from "./Home.module.css";
 
 type Txt = { tr: string; me: string; en: string };
@@ -100,24 +102,8 @@ const NAV_ITEMS: { id: string; label: Txt }[] = [
   { id: "contact", label: { tr: "İletişim", me: "Kontakt", en: "Contact" } },
 ];
 
-const LANGS: { code: Lang; label: string }[] = [
-  { code: "me", label: "ME" },
-  { code: "en", label: "EN" },
-  { code: "tr", label: "TR" },
-];
 
-const SOCIAL = [
-  { label: "Instagram", href: "https://www.instagram.com/baudecor.me/" },
-  { label: "Facebook", href: "https://www.facebook.com/baudecor.me/" },
-  { label: "YouTube", href: "https://www.youtube.com/@baudecormontenegro" },
-];
 
-const CONTACTS = [
-  { l: { tr: "Telefon", me: "Telefon", en: "Phone" }, v: "+382 68 361 700", href: "tel:+38268361700" },
-  { l: { tr: "E-posta", me: "Email", en: "Email" }, v: "info@baudecor.me", href: "mailto:info@baudecor.me" },
-  { l: { tr: "Adres", me: "Adresa", en: "Address" }, v: "Bratica bb, Ulcinj", href: undefined },
-  { l: { tr: "Çalışma Saatleri", me: "Radno Vrijeme", en: "Working Hours" }, v: "08:30 — 17:30", href: undefined },
-];
 
 export default function HomePage() {
   const [lang, setLang] = useLang();
@@ -370,55 +356,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== İLETİŞİM ===== */}
-      <section id="contact" className={s.contact}>
-        <div className={s.contactInner} data-reveal>
-          <p className={s.kicker}>{L("Kontaktirajte Nas", "İletişime Geçin", "Contact Us")}</p>
-          <h2 className={s.contactTitle}>
-            {lang === "me" ? <>Spremni Za Novu <em>Transformaciju</em>?</>
-              : lang === "tr" ? <>Yeni Bir <em>Dönüşüme</em> Hazır mısınız?</>
-              : <>Ready for a New <em>Transformation</em>?</>}
-          </h2>
-          <p className={s.contactText}>{L("Posjetite naš izložbeni salon u Ulcinju ili nas kontaktirajte. Naš tim je spreman da vam pomogne realizovati vaše ideje.", "Ulcinj'deki showroom'umuzu ziyaret edin veya bizimle iletişime geçin. Ekibimiz size yardımcı olmaya hazır.", "Visit our showroom in Ulcinj or contact us. Our team is ready to help you realize your ideas.")}</p>
-          <a href="tel:+38268361700" className={s.btnPrimary}>{L("Pozovite Nas Odmah", "Hemen Arayın", "Call Us Now")} <span>→</span></a>
-          <div className={s.contactGrid}>
-            {CONTACTS.map((c) => (
-              <div key={c.v}>
-                <span>{tx(c.l, lang)}</span>
-                {c.href ? <a href={c.href}>{c.v}</a> : <strong>{c.v}</strong>}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className={s.footer}>
-        <div className={s.footerTop}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Baudecor" className={s.footerLogo} />
-          <div className={s.footerCols}>
-            <div>
-              <span>{L("Proizvodi", "Ürünler", "Products")}</span>
-              {PRODUCTS.map((p) => <Link key={p.href} href={p.href}>{tx(p.name, lang)}</Link>)}
-            </div>
-            <div>
-              <span>{L("Kontakt", "İletişim", "Contact")}</span>
-              <a href="tel:+38268361700">+382 68 361 700</a>
-              <a href="mailto:info@baudecor.me">info@baudecor.me</a>
-              <p>Bratica bb, Ulcinj</p>
-            </div>
-            <div>
-              <span>{L("Pratite nas", "Bizi takip edin", "Follow us")}</span>
-              {SOCIAL.map((x) => <a key={x.label} href={x.href} target="_blank" rel="noopener noreferrer">{x.label}</a>)}
-            </div>
-          </div>
-        </div>
-        <div className={s.footerBottom}>
-          <p>© 2026 Baudecor · Crna Gora · {L("Sva prava zadržana", "Tüm hakları saklıdır", "All rights reserved")}</p>
-          <p>{L("Premium zidni paneli", "Premium duvar panelleri", "Premium wall panels")}</p>
-        </div>
-      </footer>
+      <ContactSection lang={lang} />
+      <SiteFooter lang={lang} />
 
       <button className={`${s.backTop} ${backTop ? s.backTopOn : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">↑</button>
     </div>

@@ -1,0 +1,112 @@
+/* PVC panel sayfası — genel tema ve ortak bölümler Home.module.css'ten gelir */
+.page button { font-family: inherit; cursor: pointer; }
+
+/* ===== Desen ızgarası: levha oranında kartlar ===== */
+.grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+.card {
+  display: flex; flex-direction: column; text-align: left; padding: 0; border: 0; background: none; color: inherit;
+}
+.cardImg {
+  position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--bg-2);
+  box-shadow: 0 1px 0 var(--line); transition: box-shadow 0.5s var(--ease), transform 0.5s var(--ease);
+}
+/* fotoğrafın altındaki desen adı etiketi kırpılır, üst kısım görünür */
+.cardImg img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 1.2s var(--ease); }
+.cardImg::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.35) 50%, transparent 65%);
+  transform: translateX(-100%); transition: transform 1s var(--ease);
+}
+.card:hover .cardImg { transform: translateY(-6px); box-shadow: 0 26px 50px rgba(60, 40, 20, 0.16); }
+.card:hover .cardImg img { transform: scale(1.05); }
+.card:hover .cardImg::after { transform: translateX(100%); }
+.cardBody { display: flex; flex-direction: column; gap: 4px; padding: 14px 2px 0; }
+.cardBody small { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); font-weight: 600; }
+.cardBody b { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; }
+
+/* ===== Teknik özellik bandı ===== */
+.specBand { background: var(--bg-2); padding: clamp(80px, 10vw, 130px) var(--pad); }
+.specInner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px clamp(40px, 6vw, 100px); }
+.specIntro p:last-child { font-size: 16px; line-height: 1.8; font-weight: 300; color: var(--ink-2); margin: 24px 0 0; max-width: 480px; }
+.specNums { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); align-self: start; }
+.specNums div { padding: 26px 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.specNums dt { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 12px; }
+.specNums dd { margin: 0; font-family: 'Playfair Display', serif; font-size: clamp(38px, 4vw, 56px); line-height: 1; }
+.specNums small { font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--amber); margin-left: 6px; }
+.chips { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 12px; }
+.chips span { display: block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 14px; }
+.chips p, .sheetChips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.chips i, .sheetChips i {
+  font-style: normal; font-size: 13px; padding: 8px 14px; border: 1px solid var(--line); background: var(--card);
+}
+
+/* ===== Profiller ===== */
+.profiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
+.profile { display: flex; flex-direction: column; }
+.profileImg { position: relative; aspect-ratio: 5 / 3; background: #c9c9c9; border: 1px solid var(--line); overflow: hidden; margin-bottom: 18px; }
+.profileImg img { width: 100%; height: 100%; object-fit: cover; animation: fade 0.4s ease; }
+.profileImg span { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; background: var(--bg); padding: 5px 9px; }
+.profile h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin: 0 0 6px; }
+.profile p { font-size: 13px; line-height: 1.6; color: var(--ink-2); margin: 0 0 14px; flex: 1; }
+.metals { display: flex; gap: 6px; flex-wrap: wrap; }
+.metals button {
+  display: inline-flex; align-items: center; gap: 7px; background: transparent; border: 1px solid var(--line);
+  padding: 7px 10px; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-2);
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+.metals button span { width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.3); }
+.metals button:hover { color: var(--ink); }
+.metals .metalOn { border-color: var(--teal); color: var(--ink); background: var(--card); }
+
+.advSection { padding-top: 0; }
+
+/* ===== Desen penceresi ===== */
+.sheet {
+  position: fixed; inset: 0; z-index: 200; background: rgba(31, 26, 21, 0.55); backdrop-filter: blur(6px);
+  display: grid; place-items: center; padding: 24px; animation: fade 0.3s ease;
+}
+.sheetBox {
+  position: relative; width: min(1080px, 100%); height: min(760px, calc(100vh - 48px)); background: var(--bg);
+  display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); grid-template-rows: 100%;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35); animation: rise 0.45s var(--ease);
+}
+.sheetImg { background: var(--bg-2); display: grid; place-items: center; padding: 28px; overflow: hidden; }
+.sheetImg img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 24px 50px rgba(60, 40, 20, 0.2); animation: fade 0.4s ease; }
+.sheetInfo { position: relative; padding: 48px 44px 32px; display: flex; flex-direction: column; overflow-y: auto; }
+.sheetInfo h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.4vw, 48px); font-weight: 700; margin: 0 0 26px; line-height: 1.05; }
+.sheetInfo dl { margin: 0 0 22px; border-top: 1px solid var(--line); }
+.sheetInfo dl div { display: grid; grid-template-columns: 130px 1fr; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.sheetInfo dt { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-2); padding-top: 3px; }
+.sheetInfo dd { margin: 0; }
+.sheetBtns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.sheetNav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 28px; font-size: 11px; letter-spacing: 1.5px; color: var(--ink-2); }
+.sheetNav button { background: none; border: 0; padding: 0; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-2); }
+.sheetNav button:hover { color: var(--teal); }
+.close {
+  position: absolute; top: 18px; right: 18px; z-index: 2; width: 40px; height: 40px; border: 1px solid var(--line);
+  background: var(--card); font-size: 14px; color: var(--ink); transition: background 0.3s, color 0.3s;
+}
+.close:hover { background: var(--ink); color: #f6f1ea; }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+  .profiles { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .cardBody b { font-size: 16px; }
+  .specInner { grid-template-columns: 1fr; }
+  .chips { grid-template-columns: 1fr; }
+  .specNums div { padding: 20px 18px; }
+  .profiles { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .profile h3 { font-size: 17px; }
+  .sheet { padding: 0; place-items: stretch; }
+  .sheetBox { height: 100%; width: 100%; grid-template-columns: 1fr; grid-template-rows: 42vh minmax(0, 1fr); }
+  .sheetImg { padding: 16px; }
+  .sheetInfo { padding: 28px 20px 24px; }
+  .sheetInfo dl div { grid-template-columns: 110px 1fr; }
+  .close { top: 12px; right: 12px; z-index: 2; }
+}

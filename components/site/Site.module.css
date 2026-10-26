@@ -1,0 +1,24 @@
+/* Alt sayfaların ortak üst çubuğu (katalog, ürün sayfaları) */
+.top {
+  --ink: #1f1a15; --ink-2: #6b6256; --teal: #087f7d; --line: rgba(31, 26, 21, 0.12); --pad: clamp(20px, 5vw, 72px);
+  position: relative; z-index: 20; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px;
+  padding: 20px var(--pad); border-bottom: 1px solid var(--line); background: #f4efe8; font-family: 'Outfit', sans-serif;
+}
+.logo { height: 42px; width: auto; display: block; }
+.crumbs { display: flex; gap: 10px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-2); }
+.crumb { display: inline-flex; gap: 10px; }
+.crumbs a { color: var(--ink-2); }
+.crumbs a:hover { color: var(--teal); }
+.crumbs b { color: var(--ink); font-weight: 600; }
+.topRight { display: flex; gap: 16px; align-items: center; }
+.langs { display: flex; border: 1px solid var(--line); }
+.langs button { background: none; border: 0; padding: 7px 11px; font-family: inherit; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: var(--ink-2); cursor: pointer; }
+.langs button.on { background: var(--ink); color: #f6f1ea; }
+.tel { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--ink); padding: 10px 16px; border: 1px solid rgba(31, 26, 21, 0.25); transition: background 0.3s, color 0.3s; }
+.tel:hover { background: var(--ink); color: #f6f1ea; }
+
+@media (max-width: 900px) {
+  .top { grid-template-columns: auto 1fr; }
+  .crumbs, .tel { display: none; }
+  .topRight { justify-self: end; }
+}

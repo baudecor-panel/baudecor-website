@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import * as THREE from "three";
+import type { Lang } from "@/lib/i18n";
+import { pick } from "@/lib/site";
+import { METAL_NAMES, METAL_SWATCH, PVC_PATTERNS as PATTERNS, type MetalId, type PvcPattern as Pattern } from "@/lib/pvc";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import styles from "./PanelShowcase.module.css";
-import pvc from "./PvcShowcase.module.css";
+import styles from "../PanelShowcase.module.css";
+import pvc from "./PvcStory.module.css";
 
 /* ===== Levha ölçüleri (m) — 122 × 280 cm, 2,8 mm ===== */
 const SW = 1.22;
@@ -16,35 +18,12 @@ const GHOST_T = 0.02;   // karşılaştırma: doğal mermer plaka
 const GHOST_Z = -0.16;  // levhanın arkasındaki konumu
 const HERO_HOME = new THREE.Vector3(0, SH / 2, ST / 2 + 0.0002);
 
-/* ===== Desenler — sitedeki gerçek ürün fotoğrafları ===== */
-type Pattern = { name: string; code: string; img: string };
-const PATTERNS: Pattern[] = [
-  { name: "Carrara Gold", code: "PVC-03", img: "/pvc-Carrara-Gold.jpeg" },
-  { name: "Bianco Carrara", code: "PVC-01", img: "/pvc-bianco-carrara.jpg" },
-  { name: "Arabescato Brown", code: "PVC-02", img: "/pvc-Arebescato-Brown.jpg" },
-  { name: "Marmori Grey", code: "PVC-04", img: "/pvc-Marmori-Grey.jpg" },
-  { name: "Nero Black", code: "PVC-05", img: "/pvc-Nero-Black.jpg" },
-  { name: "Onyx Green", code: "PVC-06", img: "/pvc-Onyx-Green.jpg" },
-  { name: "Picasso", code: "PVC-07", img: "/pvc-Picasso.jpg" },
-  { name: "Sahara Black", code: "PVC-08", img: "/pvc-Sahara-Black.jpg" },
-  { name: "Sahara White", code: "PVC-09", img: "/pvc-Sahara-White.jpg" },
-  { name: "Vanilla", code: "PVC-10", img: "/pvc-Vanilla.jpg" },
-  { name: "Viola", code: "PVC-11", img: "/pvc-Viola.jpg" },
-  { name: "Anthracite Gray", code: "PVC-12", img: "/pvc-ANTHRACITHE-GRAY.jpg" },
-  { name: "Alu Gray", code: "PVC-13", img: "/pvc-Alu-Gray.jpg" },
-  { name: "Bolzano Bej", code: "PVC-14", img: "/pvc-BOLZANO-BEJ.jpg" },
-  { name: "Blue Nile", code: "PVC-15", img: "/pvc-Blue-Nile.jpg" },
-  { name: "Calacatta Gold", code: "PVC-16", img: "/pvc-CALACATTA-GOLD.jpg" },
-  { name: "New Carrara Gold", code: "PVC-17", img: "/pvc-NEW-CARRARA-GOLD.jpg" },
-  { name: "Solid White", code: "PVC-18", img: "/pvc-Solid-White.jpg" },
-];
-
 /* ===== Alüminyum profil renkleri ===== */
-type Metal = { id: string; name: string; color: string; roughness: number; metalness: number };
+type Metal = { id: MetalId; color: string; roughness: number; metalness: number };
 const METALS: Metal[] = [
-  { id: "krom", name: "Krom", color: "#dcdfe2", roughness: 0.18, metalness: 1 },
-  { id: "altin", name: "Altın", color: "#d2a54e", roughness: 0.22, metalness: 1 },
-  { id: "siyah", name: "Siyah", color: "#1d1d1f", roughness: 0.45, metalness: 0.6 },
+  { id: "krom", color: METAL_SWATCH.krom, roughness: 0.18, metalness: 1 },
+  { id: "altin", color: METAL_SWATCH.altin, roughness: 0.22, metalness: 1 },
+  { id: "siyah", color: METAL_SWATCH.siyah, roughness: 0.45, metalness: 0.6 },
 ];
 
 /* ===== Kaydırma senaryosu: kamera, levha ve sahne öğeleri ===== */
@@ -64,7 +43,6 @@ const POSES: Pose[] = [
   P({ cx: 0.05, cy: 2.4, cz: 1.35, tx: 0.61, ty: 2.35, tz: 0, fx: 0.61, hx: HERO_HOME.x, hy: HERO_HOME.y, hz: HERO_HOME.z, hry: 0, room: 1, ghost: 0, water: 0 }), // profiller
   P({ cx: 2.5, cy: 1.8, cz: 9.4, tx: -1.65, ty: 1.3, tz: 0.8, fx: 0, hx: HERO_HOME.x, hy: HERO_HOME.y, hz: HERO_HOME.z, hry: 0, room: 1, ghost: 0, water: 0 }),    // sanal banyo
 ];
-const NAV = ["Giriş", "Doku", "İncelik", "Su", "Profil", "Banyo"];
 
 /* ===== Yardımcılar ===== */
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -167,7 +145,11 @@ function solidCanvas(color: string) {
   return c;
 }
 
-export default function PvcShowcase() {
+/* Kaydırmayla ilerleyen 3D PVC levha hikâyesi. Desen seçimi sayfayla paylaşılır. */
+export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
+  lang: Lang; pattern: Pattern; onPattern: (p: Pattern) => void; onSeeAll: () => void;
+}) {
+  const L = pick(lang);
   const scrollRef = useRef<HTMLDivElement>(null);
   const canvasHostRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -178,7 +160,6 @@ export default function PvcShowcase() {
   const labelJointRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<(p: Pattern) => void>(() => {});
   const metalRef = useRef<(m: Metal) => void>(() => {});
-  const [pattern, setPattern] = useState<Pattern>(PATTERNS[0]);
   const [metal, setMetal] = useState<Metal>(METALS[0]);
 
   useEffect(() => {
@@ -366,7 +347,10 @@ export default function PvcShowcase() {
       allSheets.forEach((s) => { s.front.map = t; s.front.needsUpdate = true; });
       applyGhost(t);
     });
+    let shown = PATTERNS[0].code;
     patternRef.current = (p) => {
+      if (p.code === shown) return;
+      shown = p.code;
       textureFor(p).then((t) => {
         if (disposed) return;
         swap = { tex: t, start: performance.now(), done: allSheets.map(() => false) };
@@ -563,15 +547,13 @@ export default function PvcShowcase() {
     };
   }, []);
 
-  const choosePattern = (p: Pattern) => {
-    if (p.code === pattern.code) return;
-    setPattern(p);
-    patternRef.current(p);
-  };
+  // sayfadaki desen değişince sahne de değişir (galeriden "3D'de dene" dahil)
+  useEffect(() => { patternRef.current(pattern); }, [pattern]);
   const chooseMetal = (m: Metal) => {
     setMetal(m);
     metalRef.current(m);
   };
+  const nav = [L("Uvod", "Giriş", "Intro"), L("Tekstura", "Doku", "Texture"), L("Debljina", "İncelik", "Slim"), L("Voda", "Su", "Water"), L("Profili", "Profil", "Profiles"), L("Kupatilo", "Banyo", "Bathroom")];
   const goTo = (i: number) => {
     const top = scrollRef.current!.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: top + i * window.innerHeight, behavior: "smooth" });
@@ -581,7 +563,7 @@ export default function PvcShowcase() {
     <div className={pvc.metals}>
       {METALS.map((m) => (
         <button key={m.id} className={`${pvc.metalBtn} ${m.id === metal.id ? pvc.metalActive : ""}`} onClick={() => chooseMetal(m)}>
-          <span style={{ background: m.color }} />{m.name}
+          <span style={{ background: m.color }} />{METAL_NAMES[m.id][lang]}
         </button>
       ))}
     </div>
@@ -589,39 +571,20 @@ export default function PvcShowcase() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.grain} aria-hidden />
-      <div className={styles.vignette} aria-hidden />
-      <div className={styles.gridLines} aria-hidden><span /><span /><span /></div>
-
-      <header className={styles.topbar}>
-        <Link href="/" aria-label="Baudecor - Ana Sayfa">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Baudecor" className={styles.logo} />
-        </Link>
-        <p className={styles.topMeta}>PVC · Mermer Koleksiyon</p>
-        <Link href="/" className={styles.back}>← Ana sayfa</Link>
-      </header>
-
-      <nav ref={navRef} className={styles.sideNav} aria-label="Bölümler">
-        <div className={styles.progressTrack}><div ref={progressRef} className={styles.progressBar} /></div>
-        {NAV.map((n, i) => (
-          <button key={n} onClick={() => goTo(i)}>
-            <span className={styles.navLabel}>{n}</span>
-            <span className={styles.navNum}>0{i + 1}</span>
-          </button>
-        ))}
-      </nav>
-
-      <footer className={styles.bottomBar}>
-        <span>Showroom · Ulcinj, Crna Gora</span>
-        <a href="tel:+38268361700">+382 68 361 700</a>
-      </footer>
-
       <div ref={scrollRef} className={styles.scroll} style={{ height: `${POSES.length * 100}vh` }}>
         <div className={styles.sticky}>
           <div className={styles.glow} />
+          <nav ref={navRef} className={`${styles.sideNav} ${pvc.sideNav}`} aria-label={L("Poglavlja", "Bölümler", "Chapters")}>
+            <div className={styles.progressTrack}><div ref={progressRef} className={styles.progressBar} /></div>
+            {nav.map((n, i) => (
+              <button key={i} onClick={() => goTo(i)}>
+                <span className={styles.navLabel}>{n}</span>
+                <span className={styles.navNum}>0{i + 1}</span>
+              </button>
+            ))}
+          </nav>
           <div ref={bgWordsRef} className={styles.bgWords} aria-hidden>
-            <span>PVC</span><span>Doku</span><span>2,8</span><span>Su</span><span>Profil</span><span>{pattern.code}</span>
+            <span>PVC</span><span>{L("Tekstura", "Doku", "Texture")}</span><span>2,8</span><span>{L("Voda", "Su", "Water")}</span><span>{L("Profil", "Profil", "Profile")}</span><span>{pattern.code}</span>
           </div>
           <div ref={canvasHostRef} className={styles.canvas} />
           <div ref={labelPvcRef} className={styles.label}>
@@ -630,78 +593,78 @@ export default function PvcShowcase() {
           </div>
           <div ref={labelStoneRef} className={styles.label}>
             <span className={styles.labelDot} />
-            <span><b>Doğal mermer</b> · ~20 mm</span>
+            <span><b>{L("Prirodni mermer", "Doğal mermer", "Natural marble")}</b> · ~20 mm</span>
           </div>
           <div ref={labelJointRef} className={styles.label}>
             <span className={styles.labelDot} />
-            <span><b>T geçiş profili</b> · {metal.name.toLowerCase()}</span>
+            <span><b>{L("T prelazni profil", "T geçiş profili", "T transition profile")}</b> · {METAL_NAMES[metal.id][lang].toLowerCase()}</span>
           </div>
         </div>
 
         <div className={styles.sections}>
           <section className={`${styles.section} ${styles.left}`}>
-            <p className={`${styles.kicker} ${styles.introFade}`}>Baudecor · PVC Mermer Panel</p>
+            <p className={`${styles.kicker} ${styles.introFade}`}>{L("PVC mermer paneli", "PVC mermer panel", "PVC marble panels")}</p>
             <h1 className={`${styles.title} ${styles.introTitle}`}>
-              <span><span>Mermerin</span></span>
-              <span><span><em>ışıltısı</em></span></span>
+              <span><span>{L("Sjaj", "Mermerin", "The gleam")}</span></span>
+              <span><span><em>{L("mermera", "ışıltısı", "of marble")}</em></span></span>
             </h1>
-            <p className={`${styles.text} ${styles.introFade}`}>Gerçek mermer görünümlü PVC duvar panelleri. Aşağı kaydırın, yakından tanıyın.</p>
-            <div className={`${styles.scrollHint} ${styles.introFade}`}><span />Kaydırın</div>
+            <p className={`${styles.text} ${styles.introFade}`}>{L("PVC zidni paneli sa izgledom pravog mermera. Skrolujte i upoznajte ih izbliza.", "Gerçek mermer görünümlü PVC duvar panelleri. Aşağı kaydırın, yakından tanıyın.", "PVC wall panels with the look of real marble. Scroll down to see them up close.")}</p>
+            <div className={`${styles.scrollHint} ${styles.introFade}`}><span />{L("Skrolujte", "Kaydırın", "Scroll")}</div>
           </section>
 
           <section className={`${styles.section} ${styles.right}`}>
-            <p className={styles.kicker}>01 — Doku</p>
-            <h2 className={styles.title}>Gerçek mermer <em>dokusu</em></h2>
-            <p className={styles.text}>Her desen doğal taşın damarlarını aslına uygun yansıtır. Parlak yüzey ışığı tıpkı cilalı mermer gibi yakalar.</p>
-            <p className={styles.hint}><span className={styles.hintIcon} />İmleci hareket ettirin — ışık sizi takip eder</p>
+            <p className={styles.kicker}>01 — {L("Tekstura", "Doku", "Texture")}</p>
+            <h2 className={styles.title}>{L("Prava tekstura", "Gerçek mermer", "True marble")} <em>{L("mermera", "dokusu", "texture")}</em></h2>
+            <p className={styles.text}>{L("Svaki dezen vjerno prenosi žile prirodnog kamena. Sjajna površina hvata svjetlost baš kao polirani mermer.", "Her desen doğal taşın damarlarını aslına uygun yansıtır. Parlak yüzey ışığı tıpkı cilalı mermer gibi yakalar.", "Every design faithfully reproduces the veins of natural stone. The gloss surface catches light just like polished marble.")}</p>
+            <p className={styles.hint}><span className={styles.hintIcon} />{L("Pomjerite kursor — svjetlo vas prati", "İmleci hareket ettirin — ışık sizi takip eder", "Move your cursor — the light follows you")}</p>
           </section>
 
           <section className={`${styles.section} ${styles.left}`}>
-            <p className={styles.kicker}>02 — İncelik</p>
-            <h2 className={styles.title}>Sadece <em>2,8 mm</em></h2>
+            <p className={styles.kicker}>02 — {L("Tanko", "İncelik", "Slim")}</p>
+            <h2 className={styles.title}>{L("Samo", "Sadece", "Only")} <em>2,8 mm</em></h2>
             <dl className={styles.specs}>
-              <div><dt>Kalınlık</dt><dd>2,8<small>mm</small></dd></div>
-              <div><dt>Genişlik</dt><dd>122<small>cm</small></dd></div>
-              <div><dt>Uzunluk</dt><dd>280<small>cm</small></dd></div>
+              <div><dt>{L("Debljina", "Kalınlık", "Thickness")}</dt><dd>2,8<small>mm</small></dd></div>
+              <div><dt>{L("Širina", "Genişlik", "Width")}</dt><dd>122<small>cm</small></dd></div>
+              <div><dt>{L("Dužina", "Uzunluk", "Length")}</dt><dd>280<small>cm</small></dd></div>
             </dl>
-            <p className={styles.pack}>Doğal mermerden kat kat ince ve hafif</p>
+            <p className={styles.pack}>{L("Višestruko tanji i lakši od prirodnog mermera", "Doğal mermerden kat kat ince ve hafif", "Many times thinner and lighter than natural marble")}</p>
           </section>
 
           <section className={`${styles.section} ${styles.right}`}>
-            <p className={styles.kicker}>03 — Suya dayanıklı</p>
-            <h2 className={styles.title}>Banyoda <em>bile</em> kusursuz</h2>
-            <p className={styles.text}>Neme ve suya dayanıklı yüzey; banyo, mutfak ve ıslak hacimler için ideal. Silinmesi kolay, derz ve fuga yok.</p>
+            <p className={styles.kicker}>03 — {L("Vodootporno", "Suya dayanıklı", "Waterproof")}</p>
+            <h2 className={styles.title}>{lang === "me" ? <>Savršen <em>i u kupatilu</em></> : lang === "tr" ? <>Banyoda <em>bile</em> kusursuz</> : <>Flawless <em>even in the bathroom</em></>}</h2>
+            <p className={styles.text}>{L("Površina otporna na vlagu i vodu — idealna za kupatila, kuhinje i vlažne prostorije. Lako se briše, bez fugni.", "Neme ve suya dayanıklı yüzey; banyo, mutfak ve ıslak hacimler için ideal. Silinmesi kolay, derz ve fuga yok.", "A moisture- and water-resistant surface — ideal for bathrooms, kitchens and wet rooms. Wipes clean, no grout lines.")}</p>
           </section>
 
           <section className={`${styles.section} ${styles.left}`}>
-            <p className={styles.kicker}>04 — Alüminyum profiller</p>
-            <h2 className={styles.title}>Kusursuz <em>birleşim</em></h2>
-            <p className={styles.text}>Alüminyum profiller levhaları birleştirir; köşeleri ve kenarları temiz bir çizgiyle tamamlar.</p>
+            <p className={styles.kicker}>04 — {L("Aluminijumski profili", "Alüminyum profiller", "Aluminium profiles")}</p>
+            <h2 className={styles.title}>{L("Savršen", "Kusursuz", "A perfect")} <em>{L("spoj", "birleşim", "joint")}</em></h2>
+            <p className={styles.text}>{L("Aluminijumski profili spajaju panele i završavaju uglove i ivice čistom linijom.", "Alüminyum profiller levhaları birleştirir; köşeleri ve kenarları temiz bir çizgiyle tamamlar.", "Aluminium profiles join the panels and finish corners and edges with a clean line.")}</p>
             <div className={pvc.metalsWrap}>{metalButtons}</div>
           </section>
 
           <section className={`${styles.section} ${styles.left}`}>
-            <p className={styles.kicker}>05 — Sanal banyo</p>
+            <p className={styles.kicker}>05 — {L("Virtuelno kupatilo", "Sanal banyo", "Virtual bathroom")}</p>
             <h2 className={styles.title}><em>{pattern.name}</em></h2>
             <div className={styles.card}>
-              <p className={styles.cardLabel}>Desen · {PATTERNS.length} seçenek</p>
+              <p className={styles.cardLabel}>{L("Dezen", "Desen", "Design")} · {PATTERNS.length} {L("opcija", "seçenek", "options")}</p>
               <div className={pvc.patterns}>
                 {PATTERNS.map((p) => (
                   <button
                     key={p.code}
                     className={`${pvc.pattern} ${p.code === pattern.code ? pvc.patternActive : ""}`}
                     style={{ backgroundImage: `url("${p.img}")` }}
-                    onClick={() => choosePattern(p)}
+                    onClick={() => onPattern(p)}
                     aria-label={p.name}
                     title={p.name}
                   />
                 ))}
               </div>
-              <p className={styles.cardLabel}>Profil rengi</p>
+              <p className={styles.cardLabel}>{L("Boja profila", "Profil rengi", "Profile colour")}</p>
               {metalButtons}
               <div className={styles.ctas}>
-                <a href="tel:+38268361700" className={styles.cta}>Bizi arayın</a>
-                <Link href="/urunler/pvc-paneli" className={styles.ctaOutline}>Tüm PVC desenler</Link>
+                <a href="tel:+38268361700" className={styles.cta}>{L("Pozovite nas", "Bizi arayın", "Call us")}</a>
+                <button onClick={onSeeAll} className={`${styles.ctaOutline} ${pvc.ctaBtn}`}>{L("Svi dezeni", "Tüm desenler", "All designs")} ↓</button>
               </div>
             </div>
           </section>
