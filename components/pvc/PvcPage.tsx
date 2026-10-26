@@ -141,7 +141,7 @@ export default function PvcPage() {
         <div className={s.specInner} data-reveal>
           <div className={s.specIntro}>
             <p className={h.kicker}>{L("Tehničke karakteristike", "Teknik özellikler", "Specifications")}</p>
-            <h2 className={h.h2}>{L("Jedna ploča,", "Tek levha,", "One sheet,")} <em>{L("cijeli zid", "koca duvar", "a whole wall")}</em></h2>
+            <h2 className={h.h2}>{L("Tanka ploča,", "İnce levha,", "A slim sheet,")} <em>{L("snažna površina", "güçlü yüzey", "a strong surface")}</em></h2>
             <p>{L("PVC (polivinilhlorid) paneli su lagana, vodootporna obloga za zidove i plafone. Zahvaljujući štampi visoke rezolucije vjerno imitiraju prirodni mermer, a postavljaju se direktno na postojeću površinu.", "PVC (polivinil klorür) paneller duvar ve tavan için hafif, su geçirmez bir kaplamadır. Yüksek çözünürlüklü baskı sayesinde doğal mermeri aslına uygun taklit eder ve doğrudan mevcut yüzeye uygulanır.", "PVC (polyvinyl chloride) panels are a light, waterproof covering for walls and ceilings. High-resolution printing gives them a faithful natural-marble look, and they go straight onto the existing surface.")}</p>
           </div>
           <dl className={s.specNums}>
