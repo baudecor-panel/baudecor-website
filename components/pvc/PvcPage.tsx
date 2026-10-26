@@ -9,7 +9,7 @@ import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
 import PvcStory from "./PvcStory";
 import h from "../home/Home.module.css";
-import s from "./Pvc.module.css";
+import s from "@/components/site/Product.module.css";
 
 const FEATURES: Txt[] = [
   { me: "Vodootporan", tr: "Su geçirmez", en: "Waterproof" },

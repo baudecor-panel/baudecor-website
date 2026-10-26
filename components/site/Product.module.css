@@ -1,4 +1,4 @@
-/* PVC panel sayfası — genel tema ve ortak bölümler Home.module.css'ten gelir */
+/* Ürün sayfalarının ortak parçaları (PVC, MDF …) — genel tema ve bölümler Home.module.css'ten gelir */
 .page button { font-family: inherit; cursor: pointer; }
 
 /* ===== Desen ızgarası: levha oranında kartlar ===== */

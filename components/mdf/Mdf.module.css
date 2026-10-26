@@ -1,0 +1,56 @@
+/* MDF sayfasına özel parçalar — ortak ürün parçaları site/Product.module.css'te */
+
+/* ===== Model blokları: solda bilgi, sağda renkler ===== */
+.model {
+  display: grid; grid-template-columns: minmax(240px, 0.75fr) 2fr; gap: clamp(28px, 4vw, 64px);
+  padding: 44px 0; border-top: 1px solid var(--line);
+}
+.model:last-child { border-bottom: 1px solid var(--line); }
+.modelInfo { align-self: start; position: sticky; top: 24px; }
+.modelCode { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--teal); }
+.modelInfo h3 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 3vw, 42px); font-weight: 700; margin: 8px 0 12px; }
+.modelInfo p { font-size: 15px; line-height: 1.7; font-weight: 300; color: var(--ink-2); margin: 0 0 22px; }
+.modelInfo dl { margin: 0; border-top: 1px solid var(--line); }
+.modelInfo dl div { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.modelInfo dt { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-2); padding-top: 2px; }
+.modelInfo dd { margin: 0; }
+
+.finishGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 20px; }
+.finish { display: flex; flex-direction: column; gap: 10px; padding: 0; border: 0; background: none; text-align: left; color: inherit; }
+.finishImg {
+  display: block; width: 100%; aspect-ratio: 2 / 3; background-repeat: no-repeat; background-color: var(--bg-2);
+  box-shadow: 0 1px 0 var(--line); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.finish:hover .finishImg { transform: translateY(-6px); box-shadow: 0 24px 44px rgba(60, 40, 20, 0.16); }
+.finish b { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.25; }
+
+/* ===== Görselli anlatım blokları ===== */
+.feature { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+.feature + .feature { margin-top: clamp(60px, 8vw, 110px); }
+.flip { grid-template-columns: 1fr 1.2fr; }
+.flip .featureImg { order: 2; }
+.featureImg { overflow: hidden; }
+.featureImg img { width: 100%; height: auto; display: block; }
+.dark { background: #120d0b; }
+.featureText p:not(:first-child) { font-size: 16px; line-height: 1.8; font-weight: 300; color: var(--ink-2); margin: 22px 0 0; max-width: 480px; }
+.terms { display: flex; gap: 0; margin: 28px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.terms div { padding: 16px 28px 16px 0; }
+.terms div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+.terms dt { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6px; }
+.terms dd { margin: 0; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+
+/* ürün kartı beyaz zeminli; pencerede tam görünür */
+.sheetCard { background: #fff; }
+.sheetCard img { box-shadow: none; }
+
+@media (max-width: 900px) {
+  .model { grid-template-columns: 1fr; gap: 22px; padding: 32px 0; }
+  .modelInfo { position: static; }
+  .finishGrid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .finish b { font-size: 13px; }
+  .feature, .flip { grid-template-columns: 1fr; }
+  .flip .featureImg { order: 0; }
+  .flip .featureImg img { max-width: 420px; margin: 0 auto; }
+  .terms div { padding-right: 16px; }
+  .terms div + div { padding-left: 16px; }
+}

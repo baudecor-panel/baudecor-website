@@ -1,27 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import styles from "./PanelShowcase.module.css";
+import type { Lang } from "@/lib/i18n";
+import { pick } from "@/lib/site";
+import { CARD, MDF_MODELS, MDF_SIZE, faceStyle, type MdfFinish, type MdfModel } from "@/lib/mdf";
+import styles from "../PanelShowcase.module.css";
+import mdf from "./MdfStory.module.css";
 
 /* ===== Profil ölçüleri (mm) — ürün teknik çizimlerinden ===== */
-const T = 18;        // kalınlık
+const T = MDF_SIZE.thickness; // kalınlık
 const LIP = 6;       // bindirme kenarı genişliği
 const LIP_H = 6;     // bindirme kenarı yüksekliği
 const SHOW_L = 1.2;  // sahnede gösterilen boy (m) — gerçek boy 2800 mm
 const BOARDS = 7;    // yan yana panel sayısı
-
-/* ===== Renkler ===== */
-type FinishType = "wood" | "solid" | "patina";
-type Finish = { id: string; name: string; type: FinishType; base: string; dark: string; light: string };
-const wood = (id: string, name: string, base: string, dark: string, light: string): Finish => ({ id, name, type: "wood", base, dark, light });
-const solid = (id: string, name: string, base: string): Finish => ({ id, name, type: "solid", base, dark: base, light: base });
-const patina = (id: string, name: string, base: string, dark: string): Finish => ({ id, name, type: "patina", base, dark, light: base });
-
-/* ===== Modeller ===== */
-type Model = { id: string; code: string; label: string; width: number; packKg: string; face: [number, number][]; finishes: Finish[] };
 
 /* Yüzey profili: soldan sağa, 0..P aralığında (P = genişlik − bindirme) */
 function grooveFace(P: number): [number, number][] {
@@ -56,48 +49,20 @@ function arcFace(P: number, n: number, sag: number, convex: boolean): [number, n
   return pts;
 }
 
-const MODELS: Model[] = [
-  {
-    id: "18121", code: "18121", label: "Kanallı", width: 121, packKg: "20,77", face: grooveFace(121 - LIP),
-    finishes: [
-      wood("teak", "Teak", "#9a6a40", "#6b4423", "#b8875a"),
-      wood("walnut", "Antik Walnut", "#6e4b32", "#47301e", "#8c6546"),
-      wood("asos", "Asos", "#c8a77d", "#a2804f", "#dfc39b"),
-      solid("st-white", "Soft Touch White", "#e6e4df"),
-      solid("st-black", "Soft Touch Siyah", "#1f1f20"),
-      solid("st-anth", "Soft Touch Antrasit", "#3b3d40"),
-    ],
-  },
-  {
-    id: "18118Y", code: "18118Y", label: "Dalgalı", width: 118, packKg: "19,77", face: arcFace(118 - LIP, 3, 7, false),
-    finishes: [
-      solid("water-green", "Water Green", "#8ea597"),
-      solid("iceland-blue", "İzlanda Blue", "#2d405a"),
-      solid("y-anth", "Soft Touch Antrasit", "#3b3d40"),
-      solid("kiremit", "Kiremit", "#b0533b"),
-    ],
-  },
-  {
-    id: "18118B", code: "18118B", label: "Yarım yuvarlak", width: 118, packKg: "18,77", face: arcFace(118 - LIP, 5, 9, true),
-    finishes: [
-      patina("patine-krem", "Patine Krem", "#ece6da", "#c4b9a6"),
-      patina("patine-pink", "Patine Pink", "#e2b2aa", "#bf8b82"),
-      patina("b-iceland", "İzlanda Blue", "#33475f", "#22324a"),
-    ],
-  },
-];
+const FACES: Record<MdfModel["id"], (P: number) => [number, number][]> = {
+  "18121": grooveFace,
+  "18118Y": (P) => arcFace(P, 3, 7, false),
+  "18118B": (P) => arcFace(P, 5, 9, true),
+};
 
 /* ===== Kaydırma senaryosu ===== */
 type Pose = { ry: number; rx: number; x: number; y: number; ex: number; z: number };
 const POSES: Pose[] = [
-  { ry: -0.55, rx: 0.12, x: 0.5, y: 0, ex: 0, z: 2.75 },     // giriş
-  { ry: 0.55, rx: 0.06, x: -0.5, y: 0, ex: 0, z: 2.45 },     // doku
-  { ry: 0.3, rx: 0.8, x: 0.16, y: -0.34, ex: 0, z: 1.8 },   // profil — üst kesit
-  { ry: 0.45, rx: 0.1, x: -0.45, y: 0, ex: 1, z: 2.9 },      // montaj
-  { ry: -0.4, rx: 0.06, x: 0.45, y: 0, ex: 0, z: 2.7 },      // model & renk
+  { ry: -0.55, rx: 0.12, x: 0.5, y: 0, ex: 0, z: 2.75 },   // giriş
+  { ry: 0.3, rx: 0.8, x: 0.3, y: -0.34, ex: 0, z: 1.8 },   // model — üst kesit
+  { ry: 0.55, rx: 0.06, x: -0.5, y: 0, ex: 0, z: 2.45 },   // renk ve doku
+  { ry: 0.45, rx: 0.1, x: -0.45, y: 0, ex: 1, z: 2.9 },    // montaj
 ];
-
-const NAV = ["Giriş", "Doku", "Profil", "Montaj", "Model"];
 
 /* ===== Yardımcılar ===== */
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -115,17 +80,16 @@ function seeded(seed: number) {
   };
 }
 
-/* Kodla üretilen yüzey dokusu — damarlar boy yönünde */
-function makeFinishCanvas(f: Finish) {
+/* Düz ve patine yüzeyler için kodla üretilen doku */
+function makeFinishCanvas(f: MdfFinish) {
   const W = 256, H = 2048;
   const c = document.createElement("canvas");
   c.width = W; c.height = H;
   const ctx = c.getContext("2d")!;
   const rnd = seeded(1234);
-  ctx.fillStyle = f.base;
+  ctx.fillStyle = f.color;
   ctx.fillRect(0, 0, W, H);
-
-  if (f.type === "solid") {
+  if (f.kind === "solid") {
     // mat yüzey — çok hafif kumlama
     for (let i = 0; i < 6000; i++) {
       ctx.globalAlpha = 0.04;
@@ -135,42 +99,39 @@ function makeFinishCanvas(f: Finish) {
     ctx.globalAlpha = 1;
     return c;
   }
-
-  const strong = f.type === "wood";
-  if (strong) {
-    for (let i = 0; i < 6; i++) {
-      const g = ctx.createLinearGradient(rnd() * W, 0, rnd() * W, H);
-      g.addColorStop(0, "transparent");
-      g.addColorStop(0.5, rnd() > 0.5 ? f.light : f.dark);
-      g.addColorStop(1, "transparent");
-      ctx.globalAlpha = 0.18;
-      ctx.fillStyle = g;
-      ctx.fillRect(rnd() * W - 60, 0, 60 + rnd() * 120, H);
-    }
-  }
+  // patine: boy yönünde ince, soluk damarlar
+  const dark = f.dark ?? f.color;
   for (let i = 0; i < 140; i++) {
-    const x0 = rnd() * W;
-    const amp = 2 + rnd() * 10;
-    const freq = 0.002 + rnd() * 0.004;
-    const phase = rnd() * Math.PI * 2;
-    ctx.globalAlpha = strong ? 0.08 + rnd() * 0.25 : 0.05 + rnd() * 0.18;
-    ctx.strokeStyle = rnd() > 0.35 ? f.dark : f.light;
+    const x0 = rnd() * W, amp = 2 + rnd() * 10, freq = 0.002 + rnd() * 0.004, phase = rnd() * Math.PI * 2;
+    ctx.globalAlpha = 0.05 + rnd() * 0.18;
+    ctx.strokeStyle = rnd() > 0.35 ? dark : "#ffffff";
     ctx.lineWidth = 0.5 + rnd() * 1.8;
     ctx.beginPath();
     for (let y = 0; y <= H; y += 16) {
       const x = x0 + Math.sin(y * freq + phase) * amp + Math.sin(y * freq * 3.1) * amp * 0.25;
-      if (y === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (y === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
     ctx.stroke();
   }
-  ctx.globalAlpha = strong ? 0.12 : 0.08;
-  for (let i = 0; i < 2500; i++) {
-    ctx.fillStyle = rnd() > 0.5 ? f.dark : f.light;
-    ctx.fillRect(rnd() * W, rnd() * H, 1, 2 + rnd() * 5);
-  }
   ctx.globalAlpha = 1;
   return c;
+}
+
+/* Ahşap: ürün kartındaki gerçek panel fotoğrafından boy yönünde bir şerit */
+function loadGrainCanvas(f: MdfFinish) {
+  return new Promise<HTMLCanvasElement>((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const { x, y, w, h } = CARD.strip;
+      const sx = img.naturalWidth / CARD.w, sy = img.naturalHeight / CARD.h;
+      const c = document.createElement("canvas");
+      c.width = 64; c.height = 1024;
+      c.getContext("2d")!.drawImage(img, x * sx, y * sy, w * sx, h * sy, 0, 0, c.width, c.height);
+      resolve(c);
+    };
+    img.onerror = reject;
+    img.src = f.card;
+  });
 }
 
 /* Ham MDF kesit dokusu */
@@ -193,26 +154,58 @@ function makeMdfTexture() {
   return t;
 }
 
-/* Profil şeklinden panel geometrisi — boy yönü dikey, yüz kameraya bakar */
-function makeBoardGeometry(m: Model) {
+/* Profil şeklinden panel geometrisi — boy yönü dikey, yüz kameraya bakar.
+   Malzeme grupları: 0 kesit (MDF), 1 ön yüz, 2 kanal içi (bazı renklerde siyah) */
+function makeBoardGeometry(m: MdfModel) {
   const W = m.width, P = W - LIP;
+  const face = FACES[m.id](P);
   const pts: [number, number][] = [[0, 0], [P, 0], [P, LIP_H], [W, LIP_H]];
-  for (let i = m.face.length - 1; i >= 0; i--) pts.push([m.face[i][0] + LIP, m.face[i][1]]);
+  for (let i = face.length - 1; i >= 0; i--) pts.push([face[i][0] + LIP, face[i][1]]);
   pts.push([LIP, LIP_H], [0, LIP_H]);
   const shape = new THREE.Shape(pts.map(([x, y]) => new THREE.Vector2((x - W / 2) / 1000, (y - T / 2) / 1000)));
-  const geo = new THREE.ExtrudeGeometry(shape, { depth: SHOW_L, bevelEnabled: false, steps: 1 });
+  const src = new THREE.ExtrudeGeometry(shape, { depth: SHOW_L, bevelEnabled: false, steps: 1 });
+
+  // yan yüz üçgenlerini ayır: yüz seviyesindekiler "ön yüz", altındakiler "kanal"
+  const pos = src.attributes.position, nor = src.attributes.normal, uv = src.attributes.uv;
+  const top = (T / 2) / 1000, lip = (LIP_H - T / 2) / 1000;
+  const buckets: number[][] = [[], [], []];
+  const sideStart = src.groups[1].start, sideEnd = sideStart + src.groups[1].count;
+  for (let v = 0; v < pos.count; v += 3) {
+    let b = 0;
+    if (v >= sideStart && v < sideEnd) {
+      const cy = (pos.getY(v) + pos.getY(v + 1) + pos.getY(v + 2)) / 3;
+      b = cy > top - 0.0005 ? 1 : cy > lip + 0.0005 ? 2 : 1;
+    }
+    buckets[b].push(v, v + 1, v + 2);
+  }
+  const geo = new THREE.BufferGeometry();
+  const order = buckets.flat();
+  const copy = (a: THREE.BufferAttribute | THREE.InterleavedBufferAttribute, n: number) => {
+    const out = new Float32Array(order.length * n);
+    order.forEach((v, i) => { for (let k = 0; k < n; k++) out[i * n + k] = a.array[v * n + k]; });
+    return new THREE.BufferAttribute(out, n);
+  };
+  geo.setAttribute("position", copy(pos, 3));
+  geo.setAttribute("normal", copy(nor, 3));
+  geo.setAttribute("uv", copy(uv, 2));
+  let start = 0;
+  buckets.forEach((b, i) => { geo.addGroup(start, b.length, i); start += b.length; });
+  src.dispose();
   geo.translate(0, 0, -SHOW_L / 2);
   geo.rotateX(Math.PI / 2);
   return geo;
 }
 
 /* Paneller birbirine bindiği için adım = genişlik − bindirme */
-const boardX = (m: Model, i: number) => {
+const boardX = (m: MdfModel, i: number) => {
   const P = (m.width - LIP) / 1000, total = BOARDS * P + LIP / 1000;
   return -total / 2 + i * P + m.width / 2000;
 };
 
-export default function PanelShowcase() {
+export default function MdfStory({ lang, model, finish, onChoose }: {
+  lang: Lang; model: MdfModel; finish: MdfFinish; onChoose: (m: MdfModel, f: MdfFinish) => void;
+}) {
+  const L = pick(lang);
   const scrollRef = useRef<HTMLDivElement>(null);
   const canvasHostRef = useRef<HTMLDivElement>(null);
   const labelJointRef = useRef<HTMLDivElement>(null);
@@ -220,9 +213,7 @@ export default function PanelShowcase() {
   const progressRef = useRef<HTMLDivElement>(null);
   const bgWordsRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
-  const applyRef = useRef<(m: Model, f: Finish) => void>(() => {});
-  const [model, setModel] = useState<Model>(MODELS[0]);
-  const [finish, setFinish] = useState<Finish>(MODELS[0].finishes[0]);
+  const applyRef = useRef<(m: MdfModel, f: MdfFinish) => void>(() => {});
 
   useEffect(() => {
     const host = canvasHostRef.current!;
@@ -230,7 +221,8 @@ export default function PanelShowcase() {
     const sections = Array.from(scrollEl.querySelectorAll<HTMLElement>("section"));
     const bgWords = Array.from(bgWordsRef.current!.children) as HTMLElement[];
     const navItems = Array.from(navRef.current!.querySelectorAll<HTMLElement>("button"));
-    const introStart = performance.now();
+    let introStart = Infinity; // paneller dokusu yüklenince yükselir
+    let disposed = false;
     const isMobile = () => window.innerWidth < 768;
 
     /* --- Renderer & sahne --- */
@@ -238,8 +230,8 @@ export default function PanelShowcase() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile() ? 1.5 : 2));
     renderer.setSize(host.clientWidth, host.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMapping = THREE.NeutralToneMapping; // renkleri ürün fotoğrafına yakın tutar
+    renderer.toneMappingExposure = 1.05;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     host.appendChild(renderer.domElement);
@@ -254,7 +246,7 @@ export default function PanelShowcase() {
     camera.position.set(0, 0, POSES[0].z);
 
     /* --- Işıklar: soldan üstten vuran ana ışık kanallarda gölge oluşturur --- */
-    const key = new THREE.DirectionalLight(0xfff1e0, 3.4);
+    const key = new THREE.DirectionalLight(0xfff1e0, 3.0);
     key.position.set(-2.6, 1.1, 1.0);
     key.castShadow = true;
     key.shadow.mapSize.set(isMobile() ? 1024 : 2048, isMobile() ? 1024 : 2048);
@@ -264,50 +256,88 @@ export default function PanelShowcase() {
     key.shadow.bias = -0.0003;
     key.shadow.normalBias = 0.004;
     scene.add(key);
-
     const rim = new THREE.DirectionalLight(0xfff6ec, 1.0); // arka kenar ışığı
     rim.position.set(2, 0.6, -1.5);
     scene.add(rim);
-
-    const warm = new THREE.PointLight(0xc8864a, 3, 4, 2); // bakır dolgu ışığı
+    const warm = new THREE.PointLight(0xc8864a, 2.2, 4, 2); // bakır dolgu ışığı
     warm.position.set(1.2, -0.8, 1.2);
     scene.add(warm);
-
-    scene.add(new THREE.HemisphereLight(0xfff6ec, 0x8a7a68, 0.45));
+    scene.add(new THREE.HemisphereLight(0xfff6ec, 0x8a7a68, 0.5));
 
     /* --- Paneller --- */
-    const geos = new Map(MODELS.map((m) => [m.id, makeBoardGeometry(m)]));
+    const geos = new Map(MDF_MODELS.map((m) => [m.id, makeBoardGeometry(m)]));
     const mdfTex = makeMdfTexture();
     const capMat = new THREE.MeshStandardMaterial({ map: mdfTex, roughness: 0.95 });
 
-    const canvasCache = new Map<string, HTMLCanvasElement>();
-    const textureFor = (f: Finish, i: number) => {
-      let c = canvasCache.get(f.id);
-      if (!c) { c = makeFinishCanvas(f); canvasCache.set(f.id, c); }
+    // her renk için temel doku bir kez hazırlanır; her panel kendi kaydırmasıyla kopyasını kullanır
+    const baseCache = new Map<string, Promise<HTMLCanvasElement>>();
+    const baseFor = (f: MdfFinish) => {
+      let p = baseCache.get(f.id);
+      if (!p) {
+        p = f.kind === "grain" ? loadGrainCanvas(f).catch(() => makeFinishCanvas({ ...f, kind: "solid" })) : Promise.resolve(makeFinishCanvas(f));
+        baseCache.set(f.id, p);
+      }
+      return p;
+    };
+    const textureFor = (c: HTMLCanvasElement, f: MdfFinish, i: number) => {
       const t = new THREE.CanvasTexture(c);
       t.colorSpace = THREE.SRGBColorSpace;
-      t.wrapS = t.wrapT = THREE.RepeatWrapping;
       t.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      t.repeat.set(1 / 0.2, 1 / 1.4); // doku 20 cm × 140 cm alanı kaplar
+      if (f.kind === "grain") {
+        // şerit ≈ 19 mm × 210 mm gerçek yüzey; aynalayarak döşenir
+        t.wrapS = t.wrapT = THREE.MirroredRepeatWrapping;
+        t.repeat.set(1 / 0.019, 1 / 0.21);
+      } else {
+        t.wrapS = t.wrapT = THREE.RepeatWrapping;
+        t.repeat.set(1 / 0.2, 1 / 1.4);
+      }
       t.offset.set((i * 0.37) % 1, (i * 0.53) % 1);
       return t;
     };
-    const roughnessFor = (f: Finish) => (f.type === "solid" ? 0.88 : f.type === "patina" ? 0.75 : 0.6);
+    const roughnessFor = (f: MdfFinish) => (f.kind === "solid" ? 0.85 : f.kind === "patina" ? 0.75 : 0.62);
 
     const panel = new THREE.Group();
     const tilt = new THREE.Group();
     tilt.add(panel);
     scene.add(tilt);
 
-    let curModel = MODELS[0];
+    let curModel = MDF_MODELS[0];
     const boards = Array.from({ length: BOARDS }, (_, i) => {
-      const f = curModel.finishes[0];
-      const mat = new THREE.MeshStandardMaterial({ map: textureFor(f, i), roughness: roughnessFor(f) });
-      const mesh = new THREE.Mesh(geos.get(curModel.id)!, [capMat, mat]);
+      const face = new THREE.MeshStandardMaterial({ color: "#d8cdbd", roughness: 0.7 });
+      const groove = new THREE.MeshStandardMaterial({ color: "#d8cdbd", roughness: 0.7 });
+      const mesh = new THREE.Mesh(geos.get(curModel.id)!, [capMat, face, groove]);
       mesh.castShadow = true;
       mesh.receiveShadow = true;
+      mesh.position.y = -1.6;
       panel.add(mesh);
-      return { mesh, mat, baseX: boardX(curModel, i) };
+      return { mesh, face, groove, baseX: boardX(curModel, i) };
+    });
+
+    // bir panele renk uygula: yüz dokusu + kanal (ayrı renkse düz, değilse aynı doku)
+    const paint = (b: (typeof boards)[number], f: MdfFinish, c: HTMLCanvasElement, i: number) => {
+      b.face.map?.dispose();
+      b.face.map = textureFor(c, f, i);
+      b.face.color.set("#ffffff");
+      b.face.roughness = roughnessFor(f);
+      b.face.needsUpdate = true;
+      b.groove.map?.dispose();
+      if (f.groove) {
+        b.groove.map = null;
+        b.groove.color.set(f.groove);
+        b.groove.roughness = 0.9;
+      } else {
+        b.groove.map = textureFor(c, f, i + 3);
+        b.groove.color.set("#ffffff");
+        b.groove.roughness = roughnessFor(f);
+      }
+      b.groove.needsUpdate = true;
+    };
+
+    const first = MDF_MODELS[0].finishes[0];
+    baseFor(first).then((c) => {
+      if (disposed) return;
+      boards.forEach((b, i) => paint(b, first, c, i));
+      introStart = performance.now();
     });
 
     /* --- Zemin gölgesi: panelin altında yumuşak temas gölgesi --- */
@@ -327,10 +357,15 @@ export default function PanelShowcase() {
     const contact = new THREE.Mesh(shadowGeo, shadowMat);
     scene.add(contact);
 
-    /* --- Model / renk değişimi: paneller dalga halinde döner --- */
-    let swap: { model: Model; finish: Finish; start: number; done: boolean[] } | null = null;
+    /* --- Model / renk değişimi: doku hazır olunca paneller dalga halinde döner --- */
+    let swap: { model: MdfModel; finish: MdfFinish; canvas: HTMLCanvasElement; start: number; done: boolean[] } | null = null;
+    let wanted = "";
     applyRef.current = (m, f) => {
-      swap = { model: m, finish: f, start: performance.now(), done: boards.map(() => false) };
+      wanted = m.id + f.id;
+      baseFor(f).then((c) => {
+        if (disposed || wanted !== m.id + f.id) return;
+        swap = { model: m, finish: f, canvas: c, start: performance.now(), done: boards.map(() => false) };
+      });
     };
 
     /* --- Girdi --- */
@@ -422,10 +457,7 @@ export default function PanelShowcase() {
           if (t >= 0.5 && !swap.done[i]) {
             b.mesh.geometry = geos.get(swap.model.id)!;
             b.baseX = boardX(swap.model, i);
-            b.mat.map?.dispose();
-            b.mat.map = textureFor(swap.finish, i);
-            b.mat.roughness = roughnessFor(swap.finish);
-            b.mat.needsUpdate = true;
+            paint(b, swap.finish, swap.canvas, i);
             swap.done[i] = true;
           }
           if (t >= 1 && i === BOARDS - 1) {
@@ -439,7 +471,7 @@ export default function PanelShowcase() {
       // 3D noktalara bağlı etiketler
       const seg = progress * (POSES.length - 1);
       const W = curModel.width / 1000;
-      place(labelCoreRef.current, boards[2].mesh, new THREE.Vector3(0, SHOW_L / 2, 0), 1 - smooth(0.12, 0.4, Math.abs(seg - 2)));
+      place(labelCoreRef.current, boards[2].mesh, new THREE.Vector3(0, SHOW_L / 2, 0), 1 - smooth(0.12, 0.4, Math.abs(seg - 1)));
       place(labelJointRef.current, boards[1].mesh, new THREE.Vector3(W / 2, 0.22, 0), smooth(0.55, 0.95, cur.ex));
 
       // bölüm metinleri
@@ -464,11 +496,12 @@ export default function PanelShowcase() {
     tick();
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("resize", onResize);
-      boards.forEach((b) => { b.mat.map?.dispose(); b.mat.dispose(); });
+      boards.forEach((b) => { b.face.map?.dispose(); b.face.dispose(); b.groove.map?.dispose(); b.groove.dispose(); });
       geos.forEach((g) => g.dispose());
       mdfTex.dispose();
       shadowTex.dispose();
@@ -482,13 +515,16 @@ export default function PanelShowcase() {
     };
   }, []);
 
-  const choose = (m: Model, f: Finish) => {
-    if (m.id === model.id && f.id === finish.id) return;
-    setModel(m);
-    setFinish(f);
-    applyRef.current(m, f);
-  };
+  // sayfadaki seçim değişince sahne de değişir (galeriden "3D'de dene" dahil)
+  const shown = useRef(`${MDF_MODELS[0].id}/${MDF_MODELS[0].finishes[0].id}`);
+  useEffect(() => {
+    const key = `${model.id}/${finish.id}`;
+    if (key === shown.current) return;
+    shown.current = key;
+    applyRef.current(model, finish);
+  }, [model, finish]);
 
+  const nav = [L("Uvod", "Giriş", "Intro"), L("Model", "Model", "Model"), L("Boja", "Renk", "Colour"), L("Montaža", "Montaj", "Fitting")];
   const goTo = (i: number) => {
     const top = scrollRef.current!.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: top + i * window.innerHeight, behavior: "smooth" });
@@ -496,120 +532,81 @@ export default function PanelShowcase() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.grain} aria-hidden />
-      <div className={styles.vignette} aria-hidden />
-      <div className={styles.gridLines} aria-hidden><span /><span /><span /></div>
-
-      <header className={styles.topbar}>
-        <Link href="/" aria-label="Baudecor - Ana Sayfa">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Baudecor" className={styles.logo} />
-        </Link>
-        <p className={styles.topMeta}>Medijapan · MDF Koleksiyon</p>
-        <Link href="/" className={styles.back}>← Ana sayfa</Link>
-      </header>
-
-      <nav ref={navRef} className={styles.sideNav} aria-label="Bölümler">
-        <div className={styles.progressTrack}><div ref={progressRef} className={styles.progressBar} /></div>
-        {NAV.map((n, i) => (
-          <button key={n} onClick={() => goTo(i)}>
-            <span className={styles.navLabel}>{n}</span>
-            <span className={styles.navNum}>0{i + 1}</span>
-          </button>
-        ))}
-      </nav>
-
-      <footer className={styles.bottomBar}>
-        <span>Showroom · Ulcinj, Crna Gora</span>
-        <a href="tel:+38268361700">+382 68 361 700</a>
-      </footer>
-
-      <div ref={scrollRef} className={styles.scroll}>
+      <div ref={scrollRef} className={styles.scroll} style={{ height: `${POSES.length * 100}vh` }}>
         <div className={styles.sticky}>
           <div className={styles.glow} />
+          <nav ref={navRef} className={`${styles.sideNav} ${mdf.sideNav}`} aria-label={L("Poglavlja", "Bölümler", "Chapters")}>
+            <div className={styles.progressTrack}><div ref={progressRef} className={styles.progressBar} /></div>
+            {nav.map((n, i) => (
+              <button key={i} onClick={() => goTo(i)}>
+                <span className={styles.navLabel}>{n}</span>
+                <span className={styles.navNum}>0{i + 1}</span>
+              </button>
+            ))}
+          </nav>
           <div ref={bgWordsRef} className={styles.bgWords} aria-hidden>
-            <span>MDF</span><span>Doku</span><span>Profil</span><span>Montaj</span><span>{model.code}</span>
+            <span>MDF</span><span>{model.id}</span><span>{L("Boja", "Renk", "Colour")}</span><span>{L("Montaža", "Montaj", "Fitting")}</span>
           </div>
           <div ref={canvasHostRef} className={styles.canvas} />
           <div ref={labelCoreRef} className={styles.label}>
             <span className={styles.labelDot} />
-            <span><b>MDF gövde</b> · {T} mm</span>
+            <span><b>{L("MDF jezgro", "MDF gövde", "MDF core")}</b> · {T} mm</span>
           </div>
           <div ref={labelJointRef} className={styles.label}>
             <span className={styles.labelDot} />
-            <span><b>Bindirmeli kenar</b> · görünmez birleşim</span>
+            <span><b>{L("Preklopna ivica", "Bindirmeli kenar", "Overlapping edge")}</b> · {L("nevidljiv spoj", "görünmez birleşim", "invisible joint")}</span>
           </div>
         </div>
 
         <div className={styles.sections}>
           <section className={`${styles.section} ${styles.left}`}>
-            <p className={`${styles.kicker} ${styles.introFade}`}>Baudecor · MDF Duvar Paneli</p>
+            <p className={`${styles.kicker} ${styles.introFade}`}>{L("MDF zidni paneli", "MDF duvar panelleri", "MDF wall panels")}</p>
             <h1 className={`${styles.title} ${styles.introTitle}`}>
-              <span><span>Duvarlara</span></span>
-              <span><span><em>derinlik</em> katın</span></span>
+              {lang === "me" ? <><span><span>Dodajte zidu</span></span><span><span><em>dubinu</em></span></span></>
+                : lang === "tr" ? <><span><span>Duvarlara</span></span><span><span><em>derinlik</em> katın</span></span></>
+                : <><span><span>Give your walls</span></span><span><span><em>depth</em></span></span></>}
             </h1>
-            <p className={`${styles.text} ${styles.introFade}`}>Medijapan MDF duvar paneli. Aşağı kaydırın, yakından tanıyın.</p>
-            <div className={`${styles.scrollHint} ${styles.introFade}`}><span />Kaydırın</div>
-          </section>
-
-          <section className={`${styles.section} ${styles.right}`}>
-            <p className={styles.kicker}>01 — Doku</p>
-            <h2 className={styles.title}>Işıkla <em>canlanan</em> yüzey</h2>
-            <p className={styles.text}>Profilli yüzey ışığı yakalar; gün boyunca duvarınızda değişen bir gölge oyunu oluşur.</p>
-            <p className={styles.hint}><span className={styles.hintIcon} />İmleci hareket ettirin — ışık sizi takip eder</p>
+            <p className={`${styles.text} ${styles.introFade}`}>{L("Medijapan zidni paneli sa toplinom drveta. Skrolujte i upoznajte ih izbliza.", "Ahşabın sıcaklığını taşıyan medijapan duvar panelleri. Aşağı kaydırın, yakından tanıyın.", "MDF wall panels with the warmth of wood. Scroll down to see them up close.")}</p>
+            <div className={`${styles.scrollHint} ${styles.introFade}`}><span />{L("Skrolujte", "Kaydırın", "Scroll")}</div>
           </section>
 
           <section className={`${styles.section} ${styles.left}`}>
-            <p className={styles.kicker}>02 — Profil · Model {model.code}</p>
-            <h2 className={styles.title}>Sağlam <em>MDF</em> gövde</h2>
-            <dl className={styles.specs}>
-              <div><dt>Kalınlık</dt><dd>{T}<small>mm</small></dd></div>
-              <div><dt>Genişlik</dt><dd>{model.width}<small>mm</small></dd></div>
-              <div><dt>Uzunluk</dt><dd>2800<small>mm</small></dd></div>
-            </dl>
-            <p className={styles.pack}>Paket: 6 adet · {model.packKg} kg</p>
-          </section>
-
-          <section className={`${styles.section} ${styles.right}`}>
-            <p className={styles.kicker}>03 — Montaj</p>
-            <h2 className={styles.title}>Kolay <em>montaj</em></h2>
-            <p className={styles.text}>Paneller kenarlarından birbirine bindirilerek geçer. Birleşim yerleri görünmez, montaj hızlı ve temiz olur.</p>
-          </section>
-
-          <section className={`${styles.section} ${styles.left}`}>
-            <p className={styles.kicker}>04 — Model ve renk</p>
-            <h2 className={styles.title}><em>{finish.name}</em></h2>
-            <div className={styles.card}>
-              <p className={styles.cardLabel}>Model</p>
-              <div className={styles.models}>
-                {MODELS.map((m) => (
-                  <button
-                    key={m.id}
-                    className={`${styles.modelBtn} ${m.id === model.id ? styles.modelActive : ""}`}
-                    onClick={() => choose(m, m.finishes[0])}
-                  >
-                    {m.code}<small>{m.label}</small>
-                  </button>
-                ))}
-              </div>
-              <p className={styles.cardLabel}>Renk · {model.finishes.length} seçenek</p>
-              <div className={styles.swatches}>
-                {model.finishes.map((f) => (
-                  <button
-                    key={f.id}
-                    className={`${styles.swatch} ${f.id === finish.id ? styles.swatchActive : ""}`}
-                    style={{ background: f.base }}
-                    onClick={() => choose(model, f)}
-                    aria-label={f.name}
-                    title={f.name}
-                  />
-                ))}
-              </div>
-              <div className={styles.ctas}>
-                <a href="tel:+38268361700" className={styles.cta}>Bizi arayın</a>
-                <Link href="/urunler/mdf-paneli" className={styles.ctaOutline}>Tüm MDF modeller</Link>
-              </div>
+            <p className={styles.kicker}>01 — {L("Model i profil", "Model ve profil", "Model and profile")}</p>
+            <h2 className={styles.title}>{L("Čvrsto", "Sağlam", "A solid")} <em>MDF</em> {L("jezgro", "gövde", "core")}</h2>
+            <div className={mdf.models}>
+              {MDF_MODELS.map((m) => (
+                <button key={m.id} className={`${mdf.modelBtn} ${m.id === model.id ? mdf.modelActive : ""}`} onClick={() => onChoose(m, m.finishes[0])}>
+                  <b>{m.id}</b><small>{m.name[lang]} · {m.width} mm</small>
+                </button>
+              ))}
             </div>
+            <dl className={styles.specs}>
+              <div><dt>{L("Debljina", "Kalınlık", "Thickness")}</dt><dd>{T}<small>mm</small></dd></div>
+              <div><dt>{L("Širina", "Genişlik", "Width")}</dt><dd>{model.width}<small>mm</small></dd></div>
+              <div><dt>{L("Dužina", "Uzunluk", "Length")}</dt><dd>{MDF_SIZE.length}<small>mm</small></dd></div>
+            </dl>
+            <p className={styles.pack}>{L("Paket", "Paket", "Pack")}: {MDF_SIZE.perPack} {L("kom", "adet", "pcs")} · {model.packKg} kg</p>
+          </section>
+
+          <section className={`${styles.section} ${styles.right} ${mdf.roomy}`}>
+            <p className={styles.kicker}>02 — {L("Boja i tekstura", "Renk ve doku", "Colour and texture")}</p>
+            <h2 className={styles.title}>{L("Svjetlo", "Işıkla", "A surface")} <em>{L("oživljava", "canlanan", "alive")}</em> {L("površinu", "yüzey", "with light")}</h2>
+            <p className={styles.text}>{L("Profilisana površina hvata svjetlo — tokom dana na zidu nastaje igra sjenki.", "Profilli yüzey ışığı yakalar; gün boyunca duvarınızda değişen bir gölge oyunu oluşur.", "The profiled surface catches the light, creating a play of shadows across the day.")}</p>
+            <div className={mdf.finishPick}>
+              <div className={mdf.finishes}>
+                {model.finishes.map((f) => (
+                  <button key={f.id} className={`${mdf.finishBtn} ${f.id === finish.id ? mdf.finishActive : ""}`}
+                    style={faceStyle(f, 1.5)} onClick={() => onChoose(model, f)} aria-label={f.name} title={f.name} />
+                ))}
+              </div>
+              <p className={mdf.finishName}>{model.id} · {model.name[lang]}<b>{finish.name}</b></p>
+            </div>
+          </section>
+
+          <section className={`${styles.section} ${styles.right} ${mdf.roomy}`}>
+            <p className={styles.kicker}>03 — {L("Montaža", "Montaj", "Fitting")}</p>
+            <h2 className={styles.title}>{L("Laka", "Kolay", "Easy")} <em>{L("montaža", "montaj", "fitting")}</em></h2>
+            <p className={styles.text}>{L("Paneli se spajaju preklapanjem ivica. Spojevi se ne vide, a montaža je brza i čista.", "Paneller kenarlarından birbirine bindirilerek geçer. Birleşim yerleri görünmez, montaj hızlı ve temiz olur.", "Panels slot together along overlapping edges. The joints disappear and fitting is quick and clean.")}</p>
           </section>
         </div>
       </div>
