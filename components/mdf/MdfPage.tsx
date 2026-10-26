@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { useLang } from "@/lib/useLang";
 import { PHONE, pick, type Txt } from "@/lib/site";
-import { MDF_MODELS, MDF_SIZE, faceStyle, mdfDefault, type MdfFinish, type MdfModel } from "@/lib/mdf";
+import { MDF_MODELS, MDF_SIZE, faceStyle, mdfDefault, type MdfModel } from "@/lib/mdf";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
 import MdfStory from "./MdfStory";
@@ -62,9 +62,9 @@ const COUNT = MDF_MODELS.reduce((a, x) => a + x.finishes.length, 0);
 export default function MdfPage() {
   const [lang, setLang] = useLang();
   const L = pick(lang);
-  const [sel, setSel] = useState<{ model: MdfModel; finish: MdfFinish }>(mdfDefault);
+  // 3D bölümde renk sabit (Water Green); yalnızca model değişir
+  const [model3d, setModel3d] = useState<MdfModel>(() => mdfDefault().model);
   const [open, setOpen] = useState<{ mi: number; fi: number } | null>(null);
-  const storyRef = useRef<HTMLDivElement>(null);
 
   // kaydırınca beliren bölümler
   useEffect(() => {
@@ -90,17 +90,6 @@ export default function MdfPage() {
     return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [open]);
 
-  const choose = (model: MdfModel, finish: MdfFinish) => setSel({ model, finish });
-
-  // galeriden seçilen rengi 3D panellerde göster (giriş sahnesi)
-  const tryIn3d = (model: MdfModel, finish: MdfFinish) => {
-    choose(model, finish);
-    setOpen(null);
-    const el = storyRef.current;
-    if (!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
-  };
-
   const om = open ? MDF_MODELS[open.mi] : null;
   const of = om && open ? om.finishes[open.fi] : null;
   const step = (d: number) => setOpen((o) => o && { ...o, fi: (o.fi + d + MDF_MODELS[o.mi].finishes.length) % MDF_MODELS[o.mi].finishes.length });
@@ -109,9 +98,7 @@ export default function MdfPage() {
     <div className={`${h.page} ${s.page}`}>
       <PageHeader lang={lang} setLang={setLang} crumbs={[{ href: "/", label: L("Početna", "Ana sayfa", "Home") }, { label: L("MDF paneli", "MDF paneller", "MDF panels") }]} />
 
-      <div ref={storyRef}>
-        <MdfStory lang={lang} model={sel.model} finish={sel.finish} onChoose={choose} />
-      </div>
+      <MdfStory lang={lang} model={model3d} onModel={setModel3d} />
 
       {/* ===== MODELLER VE RENKLER ===== */}
       <section id="modeli" className={h.section}>
@@ -120,7 +107,7 @@ export default function MdfPage() {
             <p className={h.kicker}>{L("Kolekcija", "Koleksiyon", "Collection")}</p>
             <h2 className={h.h2}>{MDF_MODELS.length} {L("modela,", "model,", "models,")} <em>{COUNT} {L("boja", "renk", "colours")}</em></h2>
           </div>
-          <p className={h.headDesc}>{L("Kliknite na boju da vidite karticu proizvoda ili je isprobajte na 3D panelima.", "Ürün kartını görmek için renge tıklayın ya da 3D panellerde deneyin.", "Click a colour to see its product card, or try it on the 3D panels.")}</p>
+          <p className={h.headDesc}>{L("Kliknite na boju da vidite karticu proizvoda sa dimenzijama i profilom.", "Ölçüleri ve profiliyle ürün kartını görmek için renge tıklayın.", "Click a colour to see its product card with dimensions and profile.")}</p>
         </header>
 
         {MDF_MODELS.map((md, mi) => (
@@ -252,8 +239,7 @@ export default function MdfPage() {
               </dl>
               <p className={s.sheetChips}>{FEATURES.map((f) => <i key={f.en}>{f[lang]}</i>)}</p>
               <div className={s.sheetBtns}>
-                <button className={h.btnPrimary} onClick={() => tryIn3d(om, of)}>{L("Isprobaj u 3D", "3D'de dene", "Try in 3D")} <span>→</span></button>
-                <a className={h.btnGhost} href={`${PHONE.wa}?text=${encodeURIComponent(`MDF ${om.id} ${of.name}`)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a className={h.btnPrimary} href={`${PHONE.wa}?text=${encodeURIComponent(`MDF ${om.id} ${of.name}`)}`} target="_blank" rel="noopener noreferrer">{L("Pitajte na WhatsApp-u", "WhatsApp'tan sorun", "Ask on WhatsApp")} <span>→</span></a>
               </div>
               <div className={s.sheetNav}>
                 <button onClick={() => step(-1)}>← {om.finishes[(open.fi - 1 + om.finishes.length) % om.finishes.length].name}</button>

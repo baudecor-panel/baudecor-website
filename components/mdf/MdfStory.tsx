@@ -202,9 +202,8 @@ const boardX = (m: MdfModel, i: number) => {
   return -total / 2 + i * P + m.width / 2000;
 };
 
-export default function MdfStory({ lang, model, finish, onChoose }: {
-  lang: Lang; model: MdfModel; finish: MdfFinish; onChoose: (m: MdfModel, f: MdfFinish) => void;
-}) {
+/* Renk her modelde sabit: mdfDefault().finish (Water Green); yalnızca profil değişir */
+export default function MdfStory({ lang, model, onModel }: { lang: Lang; model: MdfModel; onModel: (m: MdfModel) => void }) {
   const L = pick(lang);
   const scrollRef = useRef<HTMLDivElement>(null);
   const canvasHostRef = useRef<HTMLDivElement>(null);
@@ -519,14 +518,13 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     };
   }, []);
 
-  // sayfadaki seçim değişince sahne de değişir (galeriden "3D'de dene" dahil)
-  const shown = useRef(`${mdfDefault().model.id}/${mdfDefault().finish.id}`);
+  // model değişince paneller yeni profile döner; renk aynı kalır
+  const shown = useRef(mdfDefault().model.id);
   useEffect(() => {
-    const key = `${model.id}/${finish.id}`;
-    if (key === shown.current) return;
-    shown.current = key;
-    applyRef.current(model, finish);
-  }, [model, finish]);
+    if (model.id === shown.current) return;
+    shown.current = model.id;
+    applyRef.current(model, mdfDefault().finish);
+  }, [model]);
 
   const nav = [L("Uvod", "Giriş", "Intro"), L("Model", "Model", "Model"), L("Montaža", "Montaj", "Fitting")];
   const goTo = (i: number) => {
@@ -579,7 +577,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
             <h2 className={styles.title}>{L("Čvrsto", "Sağlam", "A solid")} <em>MDF</em> {L("jezgro", "gövde", "core")}</h2>
             <div className={mdf.models}>
               {MDF_MODELS.map((m) => (
-                <button key={m.id} className={`${mdf.modelBtn} ${m.id === model.id ? mdf.modelActive : ""}`} onClick={() => onChoose(m, m.finishes[0])}>
+                <button key={m.id} className={`${mdf.modelBtn} ${m.id === model.id ? mdf.modelActive : ""}`} onClick={() => onModel(m)}>
                   <b>{m.id}</b><small>{m.name[lang]} · {m.width} mm</small>
                 </button>
               ))}
