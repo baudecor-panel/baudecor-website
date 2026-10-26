@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import type { Lang } from "@/lib/i18n";
 import { pick } from "@/lib/site";
-import { CARD, MDF_MODELS, MDF_SIZE, faceStyle, type MdfFinish, type MdfModel } from "@/lib/mdf";
+import { CARD, MDF_MODELS, MDF_SIZE, type MdfFinish, type MdfModel } from "@/lib/mdf";
 import styles from "../PanelShowcase.module.css";
 import mdf from "./MdfStory.module.css";
 
@@ -15,18 +15,19 @@ const LIP = 6;       // bindirme kenarı genişliği
 const LIP_H = 6;     // bindirme kenarı yüksekliği
 const SHOW_L = 1.2;  // sahnede gösterilen boy (m) — gerçek boy 2800 mm
 const BOARDS = 7;    // yan yana panel sayısı
+const INSTALL_N = 3;        // montajda sırayla yerine oturan panel sayısı
+const INSTALL_CYCLE = 6.2;  // montaj döngüsü (sn)
 
 /* Yüzey profili: soldan sağa, 0..P aralığında (P = genişlik − bindirme) */
 function grooveFace(P: number): [number, number][] {
-  const g = 10, depth = 9, rib = (P - 3 * g) / 3;
-  const pts: [number, number][] = [[0, T]];
+  const g = 10, depth = 9, rib = (P - 3 * g) / 3, c = 0.8; // c: kenar pahı
+  const pts: [number, number][] = [];
   let x = 0;
   for (let i = 0; i < 3; i++) {
-    x += rib;
-    pts.push([x, T], [x, T - depth]);
-    x += g;
+    const a = x, b = x + rib;
+    pts.push([a, T - c], [a + c, T], [b - c, T], [b, T - c], [b, T - depth]);
+    x = b + g;
     pts.push([x, T - depth]);
-    if (i < 2) pts.push([x, T]);
   }
   return pts;
 }
@@ -60,8 +61,7 @@ type Pose = { ry: number; rx: number; x: number; y: number; ex: number; z: numbe
 const POSES: Pose[] = [
   { ry: -0.55, rx: 0.12, x: 0.5, y: 0, ex: 0, z: 2.75 },   // giriş
   { ry: 0.3, rx: 0.8, x: 0.3, y: -0.34, ex: 0, z: 1.8 },   // model — üst kesit
-  { ry: 0.55, rx: 0.06, x: -0.5, y: 0, ex: 0, z: 2.45 },   // renk ve doku
-  { ry: 0.45, rx: 0.1, x: -0.45, y: 0, ex: 1, z: 2.9 },    // montaj
+  { ry: 0.62, rx: 0.08, x: -0.42, y: 0, ex: 1, z: 2.6 },   // montaj — duvara yerleşen paneller
 ];
 
 /* ===== Yardımcılar ===== */
@@ -125,7 +125,7 @@ function loadGrainCanvas(f: MdfFinish) {
       const { x, y, w, h } = CARD.strip;
       const sx = img.naturalWidth / CARD.w, sy = img.naturalHeight / CARD.h;
       const c = document.createElement("canvas");
-      c.width = 64; c.height = 1024;
+      c.width = w * 2; c.height = h * 2;
       c.getContext("2d")!.drawImage(img, x * sx, y * sy, w * sx, h * sy, 0, 0, c.width, c.height);
       resolve(c);
     };
@@ -136,21 +136,23 @@ function loadGrainCanvas(f: MdfFinish) {
 
 /* Ham MDF kesit dokusu */
 function makeMdfTexture() {
-  const S = 128;
+  // ürün fotoğraflarındaki kesit: açık kahve, çok ince ve yoğun lif
+  const S = 256;
   const c = document.createElement("canvas");
   c.width = S; c.height = S;
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = "#a47b52";
+  ctx.fillStyle = "#c49a6c";
   ctx.fillRect(0, 0, S, S);
   const rnd = seeded(11);
-  for (let i = 0; i < 2500; i++) {
-    ctx.fillStyle = rnd() > 0.5 ? "rgba(70,45,20,0.35)" : "rgba(210,170,120,0.3)";
-    ctx.fillRect(rnd() * S, rnd() * S, 1, 1);
+  for (let i = 0; i < 9000; i++) {
+    const d = rnd();
+    ctx.fillStyle = d > 0.55 ? "rgba(120,80,45,0.22)" : d > 0.2 ? "rgba(225,190,145,0.22)" : "rgba(90,60,30,0.3)";
+    ctx.fillRect(rnd() * S, rnd() * S, 1 + rnd() * 1.5, 1);
   }
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.repeat.set(25, 25);
+  t.repeat.set(14, 14);
   return t;
 }
 
@@ -174,7 +176,7 @@ function makeBoardGeometry(m: MdfModel) {
     let b = 0;
     if (v >= sideStart && v < sideEnd) {
       const cy = (pos.getY(v) + pos.getY(v + 1) + pos.getY(v + 2)) / 3;
-      b = cy > top - 0.0005 ? 1 : cy > lip + 0.0005 ? 2 : 1;
+      b = cy > top - 0.0005 ? 1 : cy > lip + 0.0005 ? 2 : cy < -top + 0.0005 ? 0 : 1;
     }
     buckets[b].push(v, v + 1, v + 2);
   }
@@ -231,7 +233,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     renderer.setSize(host.clientWidth, host.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NeutralToneMapping; // renkleri ürün fotoğrafına yakın tutar
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 0.92;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     host.appendChild(renderer.domElement);
@@ -240,18 +242,18 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     const pmrem = new THREE.PMREMGenerator(renderer);
     const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environment = envTex;
-    scene.environmentIntensity = 0.4;
+    scene.environmentIntensity = 0.55;
 
     const camera = new THREE.PerspectiveCamera(35, host.clientWidth / host.clientHeight, 0.05, 50);
     camera.position.set(0, 0, POSES[0].z);
 
     /* --- Işıklar: soldan üstten vuran ana ışık kanallarda gölge oluşturur --- */
-    const key = new THREE.DirectionalLight(0xfff1e0, 3.0);
+    const key = new THREE.DirectionalLight(0xfffaf4, 2.1);
     key.position.set(-2.6, 1.1, 1.0);
     key.castShadow = true;
     key.shadow.mapSize.set(isMobile() ? 1024 : 2048, isMobile() ? 1024 : 2048);
-    key.shadow.camera.left = -0.9; key.shadow.camera.right = 0.9;
-    key.shadow.camera.top = 0.9; key.shadow.camera.bottom = -0.9;
+    key.shadow.camera.left = -1.2; key.shadow.camera.right = 1.2;
+    key.shadow.camera.top = 1.2; key.shadow.camera.bottom = -1.2;
     key.shadow.camera.near = 0.5; key.shadow.camera.far = 6;
     key.shadow.bias = -0.0003;
     key.shadow.normalBias = 0.004;
@@ -259,10 +261,10 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     const rim = new THREE.DirectionalLight(0xfff6ec, 1.0); // arka kenar ışığı
     rim.position.set(2, 0.6, -1.5);
     scene.add(rim);
-    const warm = new THREE.PointLight(0xc8864a, 2.2, 4, 2); // bakır dolgu ışığı
+    const warm = new THREE.PointLight(0xf3d9bd, 0.6, 4, 2); // hafif sıcak dolgu
     warm.position.set(1.2, -0.8, 1.2);
     scene.add(warm);
-    scene.add(new THREE.HemisphereLight(0xfff6ec, 0x8a7a68, 0.5));
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xb8ad9f, 0.55));
 
     /* --- Paneller --- */
     const geos = new Map(MDF_MODELS.map((m) => [m.id, makeBoardGeometry(m)]));
@@ -284,9 +286,9 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
       t.colorSpace = THREE.SRGBColorSpace;
       t.anisotropy = renderer.capabilities.getMaxAnisotropy();
       if (f.kind === "grain") {
-        // şerit ≈ 19 mm × 210 mm gerçek yüzey; aynalayarak döşenir
+        // şerit ≈ 25 mm × 210 mm gerçek yüzey (kart: ~2,1 px/mm); aynalayarak döşenir
         t.wrapS = t.wrapT = THREE.MirroredRepeatWrapping;
-        t.repeat.set(1 / 0.019, 1 / 0.21);
+        t.repeat.set(1 / 0.025, 1 / 0.21);
       } else {
         t.wrapS = t.wrapT = THREE.RepeatWrapping;
         t.repeat.set(1 / 0.2, 1 / 1.4);
@@ -300,6 +302,14 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     const tilt = new THREE.Group();
     tilt.add(panel);
     scene.add(tilt);
+
+    // montaj sahnesinde arkada sıva duvar
+    const wallMat = new THREE.MeshStandardMaterial({ color: "#fffaf3", roughness: 1, transparent: true, opacity: 0 });
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), wallMat);
+    wall.position.set(0, 0, -T / 2000 - 0.0008);
+    wall.receiveShadow = true;
+    wall.visible = false;
+    panel.add(wall);
 
     let curModel = MDF_MODELS[0];
     const boards = Array.from({ length: BOARDS }, (_, i) => {
@@ -317,6 +327,8 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     const paint = (b: (typeof boards)[number], f: MdfFinish, c: HTMLCanvasElement, i: number) => {
       b.face.map?.dispose();
       b.face.map = textureFor(c, f, i);
+      b.face.bumpMap = f.kind === "grain" ? b.face.map : null;
+      b.face.bumpScale = 1.4;
       b.face.color.set("#ffffff");
       b.face.roughness = roughnessFor(f);
       b.face.needsUpdate = true;
@@ -393,6 +405,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     /* --- Animasyon döngüsü --- */
     const cur: Pose = { ...POSES[0] };
     let tmx = 0, tmy = 0;
+    let installStart: number | null = null;
     const clock = new THREE.Clock();
     const v = new THREE.Vector3();
     let raf = 0;
@@ -441,15 +454,33 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
 
       contact.position.set(cur.x, cur.y - SHOW_L / 2 - 0.02, 0.02);
       contact.rotation.y = tilt.rotation.y;
-      shadowMat.opacity = (1 - smooth(0.15, 0.45, Math.abs(cur.rx))) * (1 - cur.ex * 0.6) * rise(BOARDS - 1);
+      shadowMat.opacity = (1 - smooth(0.15, 0.45, Math.abs(cur.rx))) * (1 - cur.ex) * rise(BOARDS - 1);
 
-      // montaj: paneller kenarlarından ayrılır, sırayla öne çıkar
+      // montaj: son üç panel sırayla önce duvara yaklaşır, sonra yandan kayıp bindirmeyle yerine oturur
       const now = performance.now();
+      if (cur.ex > 0.6 && installStart === null) installStart = now;
+      if (cur.ex < 0.3) installStart = null;
+      const cyc = installStart === null ? -1 : ((now - installStart) / 1000) % INSTALL_CYCLE;
+      const away = smooth(0.1, 0.6, cur.ex); // sahneye girerken paneller dışarı çıkar
       boards.forEach((b, i) => {
-        const st = easeInOut(clamp(cur.ex * 1.5 - (i / BOARDS) * 0.5));
-        b.mesh.position.x = b.baseX + (i - (BOARDS - 1) / 2) * st * 0.06;
+        const j = i - (BOARDS - INSTALL_N);
+        let ox = 0, oz = 0;
+        if (j >= 0) {
+          // 0: duvardan uzakta, 1: yerinde
+          let t = 0;
+          if (cyc >= 0) {
+            const tIn = clamp((cyc - j * 0.85) / 1.1);
+            const tOut = clamp((cyc - (INSTALL_CYCLE - 0.9)) / 0.7);
+            t = tIn * (1 - tOut);
+          }
+          const zIn = easeInOut(clamp(t / 0.55));
+          const xIn = easeInOut(clamp((t - 0.35) / 0.65));
+          ox = (1 - xIn) * 0.16 * away;
+          oz = (1 - zIn) * 0.07 * away;
+        }
+        b.mesh.position.x = b.baseX + ox;
         b.mesh.position.y = (1 - rise(i)) * -1.6;
-        b.mesh.position.z = st * (i % 2 ? 0.07 : 0.025);
+        b.mesh.position.z = oz;
 
         if (swap) {
           const t = clamp((now - swap.start - i * 70) / 650);
@@ -467,12 +498,15 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
           }
         }
       });
+      wall.visible = cur.ex > 0.01;
+      wallMat.opacity = smooth(0.2, 0.9, cur.ex);
+      wallMat.transparent = wallMat.opacity < 0.99; // tam görünürken gölgeleri net alır
 
       // 3D noktalara bağlı etiketler
       const seg = progress * (POSES.length - 1);
       const W = curModel.width / 1000;
       place(labelCoreRef.current, boards[2].mesh, new THREE.Vector3(0, SHOW_L / 2, 0), 1 - smooth(0.12, 0.4, Math.abs(seg - 1)));
-      place(labelJointRef.current, boards[1].mesh, new THREE.Vector3(W / 2, 0.22, 0), smooth(0.55, 0.95, cur.ex));
+      place(labelJointRef.current, boards[BOARDS - INSTALL_N].mesh, new THREE.Vector3(-W / 2 + 0.004, 0.25, 0), smooth(0.55, 0.95, cur.ex));
 
       // bölüm metinleri
       sections.forEach((el, i) => {
@@ -524,7 +558,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     applyRef.current(model, finish);
   }, [model, finish]);
 
-  const nav = [L("Uvod", "Giriş", "Intro"), L("Model", "Model", "Model"), L("Boja", "Renk", "Colour"), L("Montaža", "Montaj", "Fitting")];
+  const nav = [L("Uvod", "Giriş", "Intro"), L("Model", "Model", "Model"), L("Montaža", "Montaj", "Fitting")];
   const goTo = (i: number) => {
     const top = scrollRef.current!.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: top + i * window.innerHeight, behavior: "smooth" });
@@ -545,7 +579,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
             ))}
           </nav>
           <div ref={bgWordsRef} className={styles.bgWords} aria-hidden>
-            <span>MDF</span><span>{model.id}</span><span>{L("Boja", "Renk", "Colour")}</span><span>{L("Montaža", "Montaj", "Fitting")}</span>
+            <span>MDF</span><span>{model.id}</span><span>{L("Montaža", "Montaj", "Fitting")}</span>
           </div>
           <div ref={canvasHostRef} className={styles.canvas} />
           <div ref={labelCoreRef} className={styles.label}>
@@ -589,24 +623,9 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
           </section>
 
           <section className={`${styles.section} ${styles.right} ${mdf.roomy}`}>
-            <p className={styles.kicker}>02 — {L("Boja i tekstura", "Renk ve doku", "Colour and texture")}</p>
-            <h2 className={styles.title}>{L("Svjetlo", "Işıkla", "A surface")} <em>{L("oživljava", "canlanan", "alive")}</em> {L("površinu", "yüzey", "with light")}</h2>
-            <p className={styles.text}>{L("Profilisana površina hvata svjetlo — tokom dana na zidu nastaje igra sjenki.", "Profilli yüzey ışığı yakalar; gün boyunca duvarınızda değişen bir gölge oyunu oluşur.", "The profiled surface catches the light, creating a play of shadows across the day.")}</p>
-            <div className={mdf.finishPick}>
-              <div className={mdf.finishes}>
-                {model.finishes.map((f) => (
-                  <button key={f.id} className={`${mdf.finishBtn} ${f.id === finish.id ? mdf.finishActive : ""}`}
-                    style={faceStyle(f, 1.5)} onClick={() => onChoose(model, f)} aria-label={f.name} title={f.name} />
-                ))}
-              </div>
-              <p className={mdf.finishName}>{model.id} · {model.name[lang]}<b>{finish.name}</b></p>
-            </div>
-          </section>
-
-          <section className={`${styles.section} ${styles.right} ${mdf.roomy}`}>
-            <p className={styles.kicker}>03 — {L("Montaža", "Montaj", "Fitting")}</p>
+            <p className={styles.kicker}>02 — {L("Montaža", "Montaj", "Fitting")}</p>
             <h2 className={styles.title}>{L("Laka", "Kolay", "Easy")} <em>{L("montaža", "montaj", "fitting")}</em></h2>
-            <p className={styles.text}>{L("Paneli se spajaju preklapanjem ivica. Spojevi se ne vide, a montaža je brza i čista.", "Paneller kenarlarından birbirine bindirilerek geçer. Birleşim yerleri görünmez, montaj hızlı ve temiz olur.", "Panels slot together along overlapping edges. The joints disappear and fitting is quick and clean.")}</p>
+            <p className={styles.text}>{L("Svaki panel se postavlja na zid i preklopnom ivicom naliježe na prethodni. Spojevi se ne vide, a montaža je brza i čista.", "Her panel duvara yerleştirilir ve bindirmeli kenarıyla bir öncekinin üzerine oturur. Birleşim yerleri görünmez, montaj hızlı ve temiz olur.", "Each panel goes onto the wall and its overlapping edge sits over the previous one. The joints disappear and fitting is quick and clean.")}</p>
           </section>
         </div>
       </div>

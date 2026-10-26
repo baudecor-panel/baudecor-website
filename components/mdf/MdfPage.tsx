@@ -92,13 +92,13 @@ export default function MdfPage() {
 
   const choose = (model: MdfModel, finish: MdfFinish) => setSel({ model, finish });
 
-  // galeriden seçilen rengi 3D panellerde göster ("Renk" sahnesi)
+  // galeriden seçilen rengi 3D panellerde göster (giriş sahnesi)
   const tryIn3d = (model: MdfModel, finish: MdfFinish) => {
     choose(model, finish);
     setOpen(null);
     const el = storyRef.current;
     if (!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + window.innerHeight * 2, behavior: "smooth" });
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
   };
 
   const om = open ? MDF_MODELS[open.mi] : null;

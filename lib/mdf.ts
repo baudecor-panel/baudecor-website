@@ -69,7 +69,7 @@ export const MDF_MODELS: MdfModel[] = [
 export const MDF_SIZE = { thickness: 18, length: 2800, perPack: 6 };
 
 /* Kart görselinde (700 × 800) panel yüzü fotoğrafının yeri ve ahşap şeridi */
-export const CARD = { w: 700, h: 800, face: { x: 425, y: 165, w: 255, h: 470 }, strip: { x: 440, y: 180, w: 40, h: 440 } };
+export const CARD = { w: 700, h: 800, face: { x: 425, y: 165, w: 255, h: 470 }, strip: { x: 440, y: 180, w: 52, h: 440 } };
 
 /* Bir alanda kartın yüz fotoğrafını göstermek için CSS arka planı.
    Yüzdeyle verilir; aynı en/boy oranındaki her boyutta (ör. mobil) doğru kırpar. aspect = yükseklik / genişlik */

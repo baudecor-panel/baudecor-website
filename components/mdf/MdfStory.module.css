@@ -17,28 +17,8 @@
 .modelBtn:hover { color: var(--text-primary); background: #fff; }
 .modelActive { border-color: var(--accent); color: var(--text-primary); background: #fff; }
 
-/* Renk seçici: kartlardaki gerçek panel fotoğrafı */
-.finishPick { margin-top: 30px; display: flex; flex-direction: column; align-items: flex-end; gap: 18px; pointer-events: auto; max-width: none !important; }
-.finishes { display: grid; grid-template-columns: repeat(5, 64px); gap: 10px; justify-content: end; }
-.finishBtn {
-  width: 64px; height: 96px; border-radius: 2px; cursor: pointer; background-repeat: no-repeat;
-  border: 2px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 6px 16px rgba(60, 40, 20, 0.16);
-  outline: 1.5px solid transparent; outline-offset: 3px;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), outline-color 0.3s, box-shadow 0.35s;
-}
-.finishBtn:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(60, 40, 20, 0.22); }
-.finishActive { outline-color: var(--accent); transform: translateY(-4px); }
-.finishName { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); text-align: right; }
-.finishName b { display: block; margin-top: 6px; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; font-style: italic; letter-spacing: 0; text-transform: none; color: var(--accent); }
-
 @media (max-width: 768px) {
   .models { justify-content: center; margin-bottom: 14px; }
   .modelBtn { padding: 8px 12px; align-items: center; }
   .modelBtn small { display: none; }
-  .finishPick { align-items: center; margin-top: 14px; gap: 10px; }
-  .finishes { grid-template-columns: repeat(9, 32px); gap: 6px; justify-content: center; }
-  .finishBtn { width: 32px; height: 48px; }
-  .finishName { text-align: center; }
-  .finishName b { font-size: 20px; }
 }
