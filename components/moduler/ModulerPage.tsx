@@ -93,11 +93,12 @@ export default function ModulerPage() {
               <span className={m.cardImg}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={md.cover} alt={md.name} loading="lazy" />
+                {md.isNew && <em className={m.badge}>{L("Novo", "Yeni", "New")}</em>}
               </span>
               <span className={m.cardBody}>
                 <small>{md.shape[lang]}</small>
                 <b>{md.name}</b>
-                <i>{md.size} · {L("dubina", "derinlik", "depth")} {md.depth}</i>
+                {(md.size || md.depth) && <i>{[md.size, md.depth && `${L("dubina", "derinlik", "depth")} ${md.depth}`].filter(Boolean).join(" · ")}</i>}
               </span>
             </button>
           ))}
@@ -166,9 +167,9 @@ export default function ModulerPage() {
               <p className={h.kicker}>{cur.shape[lang]}</p>
               <h2>{cur.name}</h2>
               <dl>
-                <div><dt>{L("Komad", "Karo", "Tile")}</dt><dd>{cur.size}</dd></div>
-                <div><dt>{L("Dubina", "Derinlik", "Depth")}</dt><dd>{cur.depth}</dd></div>
-                <div><dt>{L("Po m²", "m² başına", "Per m²")}</dt><dd>≈ {Math.round(tilesPerM2(cur.lattice))} {L("kom", "adet", "pcs")}</dd></div>
+                {cur.size && <div><dt>{L("Komad", "Karo", "Tile")}</dt><dd>{cur.size}</dd></div>}
+                {cur.depth && <div><dt>{L("Dubina", "Derinlik", "Depth")}</dt><dd>{cur.depth}</dd></div>}
+                {cur.lattice && <div><dt>{L("Po m²", "m² başına", "Per m²")}</dt><dd>≈ {Math.round(tilesPerM2(cur.lattice))} {L("kom", "adet", "pcs")}</dd></div>}
                 <div><dt>{L("Materijal", "Malzeme", "Material")}</dt><dd>{MOD_MATERIAL[lang]}</dd></div>
               </dl>
 

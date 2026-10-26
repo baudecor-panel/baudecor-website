@@ -50,3 +50,6 @@
 
 /* Sayfanın ilk bölümü: üst çubuğun hemen altında */
 .first { padding-top: clamp(48px, 6vw, 84px); }
+
+.cardImg { position: relative; }
+.badge { position: absolute; top: 12px; left: 12px; font-style: normal; background: var(--card); color: var(--ink); padding: 6px 10px; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }

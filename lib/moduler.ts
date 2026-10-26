@@ -1,4 +1,4 @@
-/* Modüler (3D) duvar paneli kataloğu — 8 model, renkler, galeriler, belgeler ve karo dizilimi (m² hesabı için) */
+/* Modüler (3D) duvar paneli kataloğu — 10 model, renkler, galeriler, belgeler ve karo dizilimi (m² hesabı için) */
 import type { Txt } from "./site";
 
 const T = (me: string, tr: string, en: string): Txt => ({ me, tr, en });
@@ -26,14 +26,15 @@ export type Lattice =
 export type ModModel = {
   id: string; name: string;
   shape: Txt;
-  lattice: Lattice;
-  size: string; depth: string;  // karo ölçüsü ve kabartma derinliği (üretici 3D dosyalarından ölçüldü)
+  lattice?: Lattice;            // bilinmiyorsa m² hesabı gösterilmez
+  size?: string; depth?: string;  // karo ölçüsü ve kabartma derinliği (üretici 3D dosyalarından ölçüldü)
   cover: string; info: string;
   desc: Txt;
   colors: { id: ColorId; img: string }[];
   layouts?: string[];           // örnek dizilimler (SOHO, VAVA)
   gallery: string[];
   docs: { teknik?: string; montaj?: string; montajVideo?: boolean; model3d?: string };
+  isNew?: boolean;
 };
 
 const C = (...ids: [ColorId, string][]) => ids.map(([id, file]) => ({ id, img: `/${encodeURI(file)}` }));
@@ -145,6 +146,31 @@ export const MOD_MODELS: ModModel[] = [
     layouts: [1, 2, 3, 4, 5, 6].map((i) => `/VAVA%20MODEL%20${i}.jpg`),
     gallery: G("VAVA", ["1.jpg", "2.jpg", "3.jpg", "4.jpg"]),
     docs: { teknik: "/VAVA-teknik.pdf", model3d: "/VAVA-3d-model.zip.zip" },
+  },
+  {
+    id: "space", name: "SPACE", isNew: true, shape: T("Kvadrat · zaobljeni reljef", "Kare · yuvarlak rölyef", "Square · rounded relief"),
+    lattice: { kind: "square", s: 0.18, rot: "diamond" },
+    size: "18 × 18 cm", cover: "/SPACE-cover.webp", info: "/SPACE-cover.webp",
+    desc: {
+      tr: "SPACE, geometrinin daha akışkan, yumuşak ve süreklilik gösteren karakterinden yola çıkarak tasarlanmış üç boyutlu bir yüzey modülüdür. Işık-gölge ilişkisi SPACE'e statik bir dekoratif desen yerine, gün boyunca algısı değişebilen üç boyutlu bir mimari karakter kazandırır. İç içe ilerleyen kademeli geometrisi ve yumuşatılmış köşe geçişleri, klasik ortogonal yüzey algısını kırarak daha akıcı ve dinamik bir yüzey oluşturur. 4 farklı kotta devam eden yüzey katmanları ışığı farklı açılarda yönlendirir; gün ışığı veya yapay aydınlatmanın geliş açısına bağlı olarak yüzeyde değişken parlak ve gölgeli alanlar oluşur. 18 × 18 cm'lik modüllerin ritmik tekrarıyla geniş yüzeyde bütüncül bir desen ve rölyef etkisi ortaya çıkar.",
+      me: "SPACE je trodimenzionalni površinski modul nastao iz mekše, fluidnije geometrije koja teče bez prekida. Igra svjetla i sjenke daje mu arhitektonski karakter koji se mijenja tokom dana, umjesto statičnog dekorativnog uzorka. Stepenasta geometrija i zaobljeni prelazi uglova razbijaju klasičnu pravougaonu površinu i stvaraju dinamičniju formu. Slojevi na četiri različite visine usmjeravaju svjetlo pod različitim uglovima, pa se na površini smjenjuju osvijetljene i zasjenjene zone. Ritmičnim ponavljanjem modula 18 × 18 cm na velikoj površini nastaje jedinstven uzorak i reljefni efekat.",
+      en: "SPACE is a three-dimensional surface module derived from a geometry characterised by softness and continuity. The interplay of light and shadow gives it an architectural character that shifts throughout the day, rather than a static decorative pattern. Its interlocking stepped geometry and softened corner transitions break away from conventional orthogonal surfaces for a more fluid, dynamic form. Surface layers at four distinct elevations redirect light at varying angles, so highlights and shadows move across the surface with the light. Repeated in 18 × 18 cm modules, the individual form recedes and a unified pattern and relief emerges across large surfaces.",
+    },
+    colors: C(["white", "SPACE-white.webp"], ["mink", "SPACE-mink.webp"], ["black", "SPACE-black.webp"], ["gold", "SPACE-gold.webp"], ["silver", "SPACE-silver.webp"], ["smoke", "SPACE-smoke.webp"]),
+    gallery: G("SPACE", ["1.webp", "2.webp", "3.webp"]),
+    docs: {},
+  },
+  {
+    id: "grid", name: "GRID", isNew: true, shape: T("Kvadrat · stepenasti okvir", "Kare · kademeli çerçeve", "Square · stepped frame"),
+    cover: "/GRID-cover.webp", info: "/GRID-cover.webp",
+    desc: {
+      tr: "GRID, mimari tasarımın temel organizasyon prensiplerinden biri olan grid sistemini üç boyutlu bir yüzey geometrisi olarak yeniden yorumlar. Modüllerin yatay ve düşey akslarda tekrarlanması, geniş yüzeylerde güçlü bir ritim ve görsel süreklilik yaratır. Ortogonal geometrisi; logo, tipografi ve kurumsal kimlik elemanları için kontrollü bir arka plan oluştururken, üç boyutlu yapısı düz tabela yüzeylerine göre daha güçlü bir mimari derinlik sağlar. Ritim, düzen, derinlik: modül üzerindeki kot farklılıkları ışığın geliş açısına göre belirginleşen gölge çizgileri oluşturarak kare geometrinin derinliğini vurgular.",
+      me: "GRID ponovo tumači sistem mreže — jedan od osnovnih principa arhitektonske organizacije — kao trodimenzionalnu geometriju površine. Ponavljanje modula po horizontalnoj i vertikalnoj osi stvara snažan ritam i vizuelni kontinuitet na velikim površinama. Pravougaona geometrija pruža kontrolisanu pozadinu za logotipe, tipografiju i elemente korporativnog identiteta, a trodimenzionalna struktura daje veću arhitektonsku dubinu od ravnih površina. Ritam, red, dubina: razlike u visini na modulu stvaraju linije sjenke koje se mijenjaju sa uglom svjetla i naglašavaju dubinu kvadratne geometrije.",
+      en: "GRID reinterprets the grid system — a fundamental principle of architectural organisation — as a three-dimensional surface geometry. Repeating modules along horizontal and vertical axes creates a strong rhythm and visual continuity across large surfaces. Its orthogonal geometry offers a controlled backdrop for logos, typography and corporate identity, while its three-dimensional structure adds more architectural depth than flat signage surfaces. Rhythm, order, depth: changes in elevation across the module cast shadow lines that shift with the light, accentuating the depth of the square geometry.",
+    },
+    colors: C(["white", "GRID-white.webp"], ["mink", "GRID-mink.webp"], ["black", "GRID-black.webp"], ["gold", "GRID-gold.webp"], ["silver", "GRID-silver.webp"], ["smoke", "GRID-smoke.webp"]),
+    gallery: G("GRID", ["1.webp", "2.webp", "3.webp"]),
+    docs: {},
   },
 ];
 
