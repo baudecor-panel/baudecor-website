@@ -1,0 +1,31 @@
+/* Esnek taş (Clayton) sayfasına özel parçalar — ortak parçalar site/Product.module.css ve moduler/Moduler.module.css'te */
+
+/* ===== Seri kartları: ekrana girince dönerek gelir (lib/useFlipIn) ===== */
+.grid { perspective: 1400px; }
+.card[data-flip] { opacity: 0; }
+.card[data-flip][data-in] { opacity: 1; animation: flipIn 1.4s cubic-bezier(0.22, 0.8, 0.3, 1) backwards; }
+@keyframes flipIn {
+  0% { opacity: 0; transform: translate3d(-120px, 140px, -450px) rotateY(-200deg) rotateZ(-16deg) scale(0.55); }
+  20% { opacity: 1; }
+  72% { transform: translate3d(0, -10px, 0) rotateY(12deg) rotateZ(1deg) scale(1.03); }
+  100% { opacity: 1; transform: none; }
+}
+.count { font-style: normal; font-size: 12px; color: var(--ink-2); }
+
+/* ===== Seri penceresi ===== */
+.swatches { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
+.size { display: block; }
+.hint { font-size: 13px; color: var(--ink-2); margin: 0 0 22px; padding: 14px 16px; border: 1px dashed var(--line); }
+
+/* ===== Montaj adımları ===== */
+.stepsSection { padding-top: 0; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.steps li { display: flex; flex-direction: column; }
+.steps img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin-bottom: 18px; }
+.steps span { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--teal); font-weight: 700; letter-spacing: 1px; }
+.steps h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin: 4px 0 10px; }
+.steps p { font-size: 14px; line-height: 1.7; font-weight: 300; color: var(--ink-2); margin: 0 0 12px; }
+.steps small { margin-top: auto; font-size: 12px; line-height: 1.5; color: var(--ink); padding-top: 10px; border-top: 1px solid var(--line); }
+
+@media (max-width: 1100px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }

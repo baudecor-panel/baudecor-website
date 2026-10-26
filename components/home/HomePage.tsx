@@ -13,7 +13,7 @@ import s from "./Home.module.css";
 type Txt = { tr: string; me: string; en: string };
 
 /* ===== İçerik ===== */
-const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Tapete", "SPC Paneli", "Besplatna Dostava", "Kupovina na Rate"];
+const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Fleksibilni Kamen", "Tapete", "SPC Paneli", "Besplatna Dostava", "Kupovina na Rate"];
 
 const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text: Txt; img: string }[] = [
   {
@@ -44,7 +44,14 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text:
     img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
   },
   {
-    num: "05", href: "/duvar-kagidi",
+    num: "05", href: "/urunler/esnek-tas-panel",
+    badge: { tr: "Yeni", me: "Novo", en: "New" },
+    name: { tr: "Esnek Taş Panel", me: "Fleksibilni Kamen", en: "Flexible Stone" },
+    text: { tr: "Clayton'ın 21 serisi: taş, mermer, arduvaz, tuğla ve ahşap görünümlü hafif, bükülebilen mineral levhalar. İç mekân, banyo ve cepheler için.", me: "21 Clayton serija: lagane mineralne ploče koje se savijaju, sa izgledom kamena, mermera, škriljca, opeke i drveta. Za enterijer, kupatila i fasade.", en: "21 Clayton series: light, bendable mineral sheets with the look of stone, marble, slate, brick and wood. For interiors, bathrooms and façades." },
+    img: "/clayton/oda/traverten-1.webp",
+  },
+  {
+    num: "06", href: "/duvar-kagidi",
     badge: { tr: "1000+ Desen", me: "1000+ Dezena", en: "1000+ Designs" },
     name: { tr: "Duvar Kağıdı", me: "Tapete", en: "Wallpaper" },
     text: { tr: "AdaWall'un 15 koleksiyonundan 1000'i aşkın desen — klasik damasktan modern dokulara, taş ve tuğladan tropik motiflere.", me: "Preko 1000 dezena iz 15 AdaWall kolekcija — od klasičnog damaska do modernih tekstura, kamena, cigle i tropskih motiva.", en: "Over 1000 designs from 15 AdaWall collections — from classic damask to modern textures, stone, brick and tropical motifs." },

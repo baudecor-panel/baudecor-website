@@ -16,6 +16,7 @@ export const PRODUCT_LINKS: { href: string; name: Txt }[] = [
   { href: "/urunler/mdf-paneli", name: { tr: "MDF Paneller", me: "MDF Paneli", en: "MDF Panels" } },
   { href: "/urunler/moduler-duvar-paneli", name: { tr: "Modüler Duvar Paneli", me: "Modularni Zidni Panel", en: "Modular Wall Panel" } },
   { href: "/urunler/akustik-duvar-paneli", name: { tr: "Akustik Duvar Paneli", me: "Akustični Zidni Panel", en: "Acoustic Wall Panel" } },
+  { href: "/urunler/esnek-tas-panel", name: { tr: "Esnek Taş Panel", me: "Fleksibilni Kamen", en: "Flexible Stone" } },
   { href: "/duvar-kagidi", name: { tr: "Duvar Kağıdı", me: "Tapete", en: "Wallpaper" } },
 ];
 
