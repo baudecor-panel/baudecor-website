@@ -392,6 +392,11 @@ button { cursor: pointer; border: none; outline: none; }
 .pp-intro-collage-item:hover img { transform: scale(1.07); filter: brightness(0.95); }
 .pp-intro-collage-label { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.7); pointer-events: none; }
 .pp-models-empty { text-align: center; padding: 60px; color: var(--text-secondary); font-size: 16px; border: 1px solid var(--divider); margin-top: 60px; }
+.ak-model-tabs { display: flex; gap: 0; margin: 40px 0 0; border-bottom: 1px solid var(--divider); overflow-x: auto; scrollbar-width: none; }
+.ak-model-tabs::-webkit-scrollbar { display: none; }
+.ak-model-tab { padding: 14px 28px; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: color 0.3s, border-color 0.3s; margin-bottom: -1px; }
+.ak-model-tab:hover { color: var(--cream); }
+.ak-model-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 .mdf-model-groups { display: flex; flex-direction: column; gap: 60px; margin-top: 60px; }
 .mdf-variants-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: var(--accent-dark) transparent; }
 .mdf-variants-row::-webkit-scrollbar { height: 3px; }

@@ -47,6 +47,14 @@ const PRODUCTS = [
     text:  { tr: "Hafif ABS polimerden üretilen rölyefli Modüler duvar panelleri. Modüler yapısıyla sınırsız kombinasyon — otel, restoran ve konut projelerine mükemmel uyum.", me: "Reljefni modularni zidni paneli izrađeni od laganog ABS polimera. Modularni sistem za beskrajne kombinacije — savršeni za hotele, restorane i stambene projekte.", en: "Relief modular wall panels made from lightweight ABS polymer. Modular system for endless combinations — perfect for hotels, restaurants and residential projects." },
     img: "/KAPAK%20PENTA.jpg",
   },
+  {
+    num: "04",
+    href: "/urunler/akustik-duvar-paneli",
+    badge: { tr: "Yeni", me: "Novo", en: "New" },
+    name:  { tr: "Akustik Duvar Paneli", me: "Akustični Zidni Panel", en: "Acoustic Wall Panel" },
+    text:  { tr: "Ses yutma ve estetik tasarımı bir arada sunan akustik duvar panelleri. Ofis, stüdyo ve konut projelerinde mükemmel ses konforu.", me: "Akustični zidni paneli koji kombinuju apsorpciju zvuka i estetski dizajn. Savršen zvučni komfor za kancelarije, studije i stambene prostore.", en: "Acoustic wall panels combining sound absorption and aesthetic design. Perfect sound comfort for offices, studios and residential spaces." },
+    img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
+  },
 ];
 
 const FEATURES: FeatureItem[] = [
