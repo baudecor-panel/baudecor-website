@@ -17,8 +17,6 @@ export const MOD_COLORS: Record<ColorId, { name: Txt; swatch: string }> = {
 export type ModModel = {
   id: string; name: string;
   shape: Txt;
-  // teknik föyden: ölçü, en yüksek nokta (rölyef), malzeme kalınlığı, karo ağırlığı (g), kg/m²
-  size?: string | Txt; depth?: string; thickness?: string; weight?: number; kgM2?: string;
   cover: string; info: string;
   desc: Txt;
   colors: { id: ColorId; img: string }[];
@@ -34,7 +32,6 @@ const G = (name: string, files: string[]) => files.map((f) => `/${name}-${f}`);
 export const MOD_MODELS: ModModel[] = [
   {
     id: "penta", name: "PENTA", shape: T("Kvadrat · piramida", "Kare · piramit", "Square · pyramid"),
-    size: "18 × 18 cm", depth: "7,25 cm", thickness: "2 mm", weight: 170, kgM2: "5,1",
     cover: "/KAPAK%20PENTA.jpg", info: "/INFO%20PENTA.jpg",
     desc: {
       tr: "Ürün portföyümüzde yer alan dekoratif duvar panellerimizin göz alıcı modellerinden olan Penta, tasarımı itibariyle akılda kalan ve hayret uyandıran modern çizgisiyle uygulandığı mekanı değiştiriyor, kıymetlendiriyor ve özel kılıyor. Asimetrik keskin hatları, içbükey ve dışbükey formları ile realistik üç boyutlu görünüm oluşturan Penta dekoratif duvar paneli, konut ve ticari iç mekan duvar tasarımlarında tercih edilmektedir.",
@@ -47,7 +44,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "zeta", name: "ZETA", shape: T("Šestougao · fasete", "Altıgen · fasetli", "Hexagon · faceted"),
-    size: "16 × 14 cm", depth: "3,8 cm", thickness: "1,5 mm", weight: 45, kgM2: "2,45",
     cover: "/KAPAK%20ZETA.jpg", info: "/INFO%20ZETA.jpg",
     desc: {
       tr: "Üç boyutlu altıgen karolara sahip olan ZETA, hem parlak hem de mat yüzeylerde, farklı renklerde mevcut olan petek yapısının zarif bir versiyonudur. Açılı yüzleri, ışık oyunlarıyla birlikte bir ton senfonisine dönüşür ve zarif görünümler oluşturacak şekilde düzenlenebilir. Çekici poligonal geometrisi, modern ve simetrik keskin çizgileriyle gerçekçi üç boyutlu görünüm yaratan ZETA ile harikalar yaratabilirsiniz. Sade tonların görselliği ve doğal ışık, altıgen duvar panellerine nazikçe yansıtıldığında görsel bir şölen ortaya çıkar.",
@@ -60,7 +56,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "norm", name: "NORM", shape: T("Šestougao · ravan", "Altıgen · düz", "Hexagon · flat"),
-    size: "16 × 14 cm", depth: "4,5 cm", thickness: "2 mm", weight: 90, kgM2: "4,86",
     cover: "/KAPAK%20NORM.jpg", info: "/INFO%20NORM.jpg",
     desc: {
       tr: "Altıgen formların farklı açılar ve renkler ile olan kombinasyonunun oluşturduğu sıradışı bir duvar tasarım ürünü olan NORM; cafe, restoran, otel, plaza ve giriş-karşılama alanları gibi birçok mekânda 3 boyutlu simetrik ve asimetrik gölge oyunları ile görsel zarafet sunmaktadır. Montaj kolaylığı ve kısmen ya da tamamen uygulanabilirliği ile geniş kullanım yelpazesine sahiptir. Tak-çıkar özelliği ile dilediğiniz zaman duvar tasarımınızı farklılaştırabilir ve yeni bir dekor elde edebilirsiniz. Farklı yüksekliklere sahip altıgen geometrik formlardan oluşan NORM, uygulandığı yüzeyde gerçekçi bir üç boyut meydana getirir. 3D duvar kağıtlarının aksine gerçek bir derinlik oluşturarak mekâna canlı bir ruh katar. Pratikliği, hafifliği ve kolay uygulanabilirliği ile hem mukavemet hem de kalite açısından mevcut mekânları farklılaştırmada tercih sebebidir.",
@@ -73,7 +68,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "mabel", name: "MABEL", shape: T("Izduženi šestougao", "Uzun altıgen", "Elongated hexagon"),
-    size: T("Dužina 23,2 cm · ivica 8,5 cm", "Uzunluk 23,2 cm · kenar 8,5 cm", "Length 23.2 cm · edge 8.5 cm"), depth: "3,5 cm", thickness: "2 mm", weight: 88, kgM2: "6,16",
     cover: "/KAPAK%20MABEL.jpg", info: "/INFO%20MABEL.jpg",
     desc: {
       tr: "Karşıt ve benzer yönlerde konumlandırılabilen bu küçük çokgen duvar dekoru ürünü, çok çeşitli iç mimari uygulamalar için geniş bir özgürlük sunar. 3 boyutlu simetrik ve asimetrik gölge oyunları, renk ve desen çeşitliliğiyle birleşerek görsel zarafet yaratır. Işığın doğal yansımasıyla renk tonlarının yarattığı yanılsama, derinlik hissi vererek özgün üç boyutlu duvar tasarımları oluşturmanızı sağlar. Farklı kombinasyonlar uygulayarak birbirinden etkileyici duvar dekorları meydana getirebilirsiniz. Montaj kolaylığı, hafifliği ve tasarım özgürlüğüyle geleneksel ya da modern mimari için pratik çözümler sunar. Ürünler birleşim yerleri belli olmadan tek ya da farklı yönlerde döşenerek bütünlüklü bir görsel sağlar. Montaj aparatlarındaki pimler, ürün içindeki yuvalara geçerek son derece pratik bir uygulama imkânı tanır.",
@@ -86,7 +80,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "spline", name: "SPLINE", shape: T("Pleteni talas", "Örgü dalga", "Woven wave"),
-    size: "26 × 32,1 cm", depth: "6,25 cm", thickness: "2,5 mm", weight: 200, kgM2: "4,8",
     cover: "/KAPAK%20SPLIINE.jpg", info: "/INFO%20SPLINE.jpg",
     desc: {
       tr: "Eğrisel çizgilerin hareketinden ilham alınarak 3 boyutlu örgü görseli kazandırılan SPLINE, zarif, sade ve şık bir duvar kaplama tasarım ürünüdür. Modüler panellerin bir araya gelmesiyle oluşan bu görsel, arkadan uygulanan LED aydınlatmayla duvarlara gerçek bir derinlik duygusu katar. Lobi, resepsiyon ve giriş alanlarında göz alıcı bir karşılama sunan SPLINE ile mekânlarınızda fark yaratın. Farklı renk alternatifleri ve ışık-gölge oyunlarıyla mekânı lüks, asil ve ihtişamlı bir görünüme kavuşturur. Duvar ve tavanda rahatlıkla uygulanabilen bu üründe, arkadan yapılan LED uygulaması ile paneller arasından süzülen ışıklar dekoratif bir aydınlatma etkisi de yaratır.",
@@ -99,7 +92,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "nava", name: "NAVA", shape: T("Trougao · 3 forme", "Üçgen · 3 form", "Triangle · 3 forms"),
-    size: "19,8 × 17,2 cm", depth: "3,8 cm", thickness: "1,5 mm", weight: 65, kgM2: "3,9",
     cover: "/KAPAK%20NAVA.jpg", info: "/INFO%20NAVA.jpg",
     desc: {
       tr: "Bu yeni tasarımla 2. neslin ilk modelini ortaya çıkararak birbirinden bağımsız üç farklı çizginin sonsuz kombinasyon seçeneğini sunuyoruz. Düz, Piramit ve Poligon şeklindeki üç farklı karoyu bir arada ya da bağımsız kullanabileceğiniz bu yeni nesil 3 boyutlu duvar kaplamasıyla mekânınız zarafet, asalet ve ihtişam duygusuna bürünür. Kolay montaj sistemi, farklı renk seçenekleri ve paketleme detaylarıyla birinci jenerasyonun modelleriyle uyum gösterir. Modern çizgileri ve simetrik formlarıyla gerçekçi üç boyutlu görünüm sağlayan NAVA, konut ve ticari projelerinizin duvar dekorunda güvenle tercih edebileceğiniz bir modeldir.",
@@ -112,7 +104,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "soho", name: "SOHO", shape: T("Kvadrat · meke linije", "Kare · yumuşak hat", "Square · soft lines"),
-    size: "18 × 18 cm", depth: "2,8 cm", thickness: "1,5 mm", weight: 75, kgM2: "2,5",
     cover: "/KAPAK%20SOHO.jpg", info: "/INFO%20SOHO.jpg",
     desc: {
       tr: "Modern tasarımın akışkanlığına ve sadeliğine atfedilerek tasarlanan SOHO, kurgu ve kompozisyonlarındaki çeşitlilik sayesinde birçok mekâna uyum sağlamaktadır. Formundaki kararlı ve yumuşak hatlarıyla bulunduğu mekânda son derece sıcak bir ambiyans oluşturur. Kafe, restoran, otel, eğitim binaları, sağlık yapıları ve plaza giriş alanları gibi pek çok mekânda yapay ve doğal ışığın farklı açılardan yüzeyine yansımasıyla oluşan yumuşak gölgeler görsel zarafet sunar.",
@@ -126,7 +117,6 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "vava", name: "VAVA", shape: T("Trougao · dijamant", "Üçgen · elmas", "Triangle · diamond"),
-    size: "19,8 × 17,2 cm", depth: "1,4 cm", thickness: "1,5 mm", weight: 46, kgM2: "2,8",
     cover: "/KAPAK%20VAVA.jpg", info: "/INFO%20VAVA.jpg",
     desc: {
       tr: "VAVA, geometrik hassasiyet ve çağdaş tasarımın buluşma noktasından doğmuştur. Modern mimarinin incelikli simetrisinden ilham alan VAVA, duvar yüzeylerini dinamik bir görsel ritme dönüştürür. Elmas yapılı deseni, ışığı farklı açılardan yakalayarak her iç mekânı zenginleştiren sofistike bir gölge oyunu yaratır.",
@@ -140,7 +130,7 @@ export const MOD_MODELS: ModModel[] = [
   },
   {
     id: "space", name: "SPACE", isNew: true, shape: T("Kvadrat · zaobljeni reljef", "Kare · yuvarlak rölyef", "Square · rounded relief"),
-    size: "18 × 18 cm", cover: "/SPACE-cover.webp", info: "/SPACE-cover.webp",
+    cover: "/SPACE-cover.webp", info: "/SPACE-cover.webp",
     desc: {
       tr: "SPACE, geometrinin daha akışkan, yumuşak ve süreklilik gösteren karakterinden yola çıkarak tasarlanmış üç boyutlu bir yüzey modülüdür. Işık-gölge ilişkisi SPACE'e statik bir dekoratif desen yerine, gün boyunca algısı değişebilen üç boyutlu bir mimari karakter kazandırır. İç içe ilerleyen kademeli geometrisi ve yumuşatılmış köşe geçişleri, klasik ortogonal yüzey algısını kırarak daha akıcı ve dinamik bir yüzey oluşturur. 4 farklı kotta devam eden yüzey katmanları ışığı farklı açılarda yönlendirir; gün ışığı veya yapay aydınlatmanın geliş açısına bağlı olarak yüzeyde değişken parlak ve gölgeli alanlar oluşur. 18 × 18 cm'lik modüllerin ritmik tekrarıyla geniş yüzeyde bütüncül bir desen ve rölyef etkisi ortaya çıkar.",
       me: "SPACE je trodimenzionalni površinski modul nastao iz mekše, fluidnije geometrije koja teče bez prekida. Igra svjetla i sjenke daje mu arhitektonski karakter koji se mijenja tokom dana, umjesto statičnog dekorativnog uzorka. Stepenasta geometrija i zaobljeni prelazi uglova razbijaju klasičnu pravougaonu površinu i stvaraju dinamičniju formu. Slojevi na četiri različite visine usmjeravaju svjetlo pod različitim uglovima, pa se na površini smjenjuju osvijetljene i zasjenjene zone. Ritmičnim ponavljanjem modula 18 × 18 cm na velikoj površini nastaje jedinstven uzorak i reljefni efekat.",
@@ -163,11 +153,5 @@ export const MOD_MODELS: ModModel[] = [
     docs: {},
   },
 ];
-
-/* m² başına karo sayısı — teknik föydeki kg/m² ÷ karo ağırlığı */
-export function pcsPerM2(m: ModModel) {
-  if (!m.weight || !m.kgM2) return null;
-  return Math.round((parseFloat(m.kgM2.replace(",", ".")) * 1000) / m.weight);
-}
 
 export const MOD_MATERIAL = T("ABS polimer, akrilna boja", "ABS polimer, akrilik boya", "ABS polymer, acrylic paint");
