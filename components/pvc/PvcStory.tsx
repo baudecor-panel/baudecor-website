@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import type { Lang } from "@/lib/i18n";
 import { pick } from "@/lib/site";
-import { METAL_NAMES, METAL_SWATCH, PVC_PATTERNS as PATTERNS, type MetalId, type PvcPattern as Pattern } from "@/lib/pvc";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import {
+  METAL_NAMES, METAL_SWATCH, PVC_PATTERNS as PATTERNS, PVC_PROFILES,
+  type MetalId, type ProfileKind, type PvcPattern as Pattern,
+} from "@/lib/pvc";
 import styles from "../PanelShowcase.module.css";
 import pvc from "./PvcStory.module.css";
 
@@ -16,7 +18,14 @@ const SH = 2.8;
 const ST = 0.0028;
 const GHOST_T = 0.02;   // karşılaştırma: doğal mermer plaka
 const GHOST_Z = -0.16;  // levhanın arkasındaki konumu
-const HERO_HOME = new THREE.Vector3(0, SH / 2, ST / 2 + 0.0002);
+
+/* ===== Profil detayı: ölçüler mm, sahnede DS katı büyüklükte ===== */
+const DS = 0.006;                // 1 mm → 6 mm (yakın çekim)
+const DT = 2.8;                  // panel kalınlığı (mm)
+const DW = 45;                   // örnek panel genişliği (mm)
+const DH = 90;                   // örnek yüksekliği (mm)
+const DETAIL = new THREE.Vector3(4.5, 1.1, 2.4); // detay sahnesinin yeri
+const TOP = DETAIL.y + DH * DS;  // örneğin kesik üst ucu
 
 /* ===== Alüminyum profil renkleri ===== */
 type Metal = { id: MetalId; color: string; roughness: number; metalness: number };
@@ -31,17 +40,17 @@ type Pose = {
   cx: number; cy: number; cz: number;   // kamera
   tx: number; ty: number; tz: number;   // kameranın baktığı nokta
   fx: number;                           // mobilde ortalanacak nesne
-  hx: number; hy: number; hz: number; hry: number; // ana levha
-  room: number; ghost: number; water: number;
+  hry: number;                          // ana levha dönüşü
+  ghost: number; water: number; detail: number;
 };
 const P = (o: Pose) => o;
 const POSES: Pose[] = [
-  P({ cx: -1.15, cy: 1.5, cz: 7.6, tx: -1.15, ty: 1.45, tz: 2.4, fx: 0, hx: 0, hy: 1.45, hz: 2.4, hry: -0.35, room: 0, ghost: 0, water: 0 }), // giriş
-  P({ cx: 0.9, cy: 1.9, cz: 4.6, tx: 0.75, ty: 1.7, tz: 2.4, fx: 0, hx: 0, hy: 1.45, hz: 2.4, hry: 0.55, room: 0, ghost: 0, water: 0 }),      // doku
-  P({ cx: 1.3, cy: 1.92, cz: 2.56, tx: 0.61, ty: 1.82, tz: 2.5, fx: 0.61, hx: 0, hy: 1.45, hz: 2.4, hry: 0, room: 0, ghost: 1, water: 0 }), // incelik — kenarlardan bakış
-  P({ cx: 0.75, cy: 1.65, cz: 4.0, tx: 0.65, ty: 1.55, tz: 2.4, fx: 0, hx: 0, hy: 1.45, hz: 2.4, hry: 0.4, room: 0, ghost: 0, water: 1 }),      // su
-  P({ cx: 0.05, cy: 2.4, cz: 1.35, tx: 0.61, ty: 2.35, tz: 0, fx: 0.61, hx: HERO_HOME.x, hy: HERO_HOME.y, hz: HERO_HOME.z, hry: 0, room: 1, ghost: 0, water: 0 }), // profiller
-  P({ cx: 2.5, cy: 1.8, cz: 9.4, tx: -1.65, ty: 1.3, tz: 0.8, fx: 0, hx: HERO_HOME.x, hy: HERO_HOME.y, hz: HERO_HOME.z, hry: 0, room: 1, ghost: 0, water: 0 }),    // sanal banyo
+  P({ cx: -1.15, cy: 1.5, cz: 7.6, tx: -1.15, ty: 1.45, tz: 2.4, fx: 0, hry: -0.35, ghost: 0, water: 0, detail: 0 }),   // giriş
+  P({ cx: 0.9, cy: 1.9, cz: 4.6, tx: 0.75, ty: 1.7, tz: 2.4, fx: 0, hry: 0.55, ghost: 0, water: 0, detail: 0 }),        // doku
+  P({ cx: 1.3, cy: 1.92, cz: 2.56, tx: 0.61, ty: 1.82, tz: 2.5, fx: 0.61, hry: 0, ghost: 1, water: 0, detail: 0 }),     // incelik — kenardan bakış
+  P({ cx: 0.75, cy: 1.65, cz: 4.0, tx: 0.65, ty: 1.55, tz: 2.4, fx: 0, hry: 0.4, ghost: 0, water: 1, detail: 0 }),      // su
+  // profiller — kesik üst uca yukarıdan yakın çekim, kesit okunur
+  P({ cx: DETAIL.x - 0.16, cy: TOP + 0.46, cz: DETAIL.z + 0.36, tx: DETAIL.x - 0.12, ty: TOP - 0.03, tz: DETAIL.z, fx: DETAIL.x, hry: 0.4, ghost: 0, water: 0, detail: 1 }), // profiller
 ];
 
 /* ===== Yardımcılar ===== */
@@ -95,47 +104,6 @@ function loadPatternCanvas(url: string) {
   });
 }
 
-/* Ceviz dolap dokusu */
-function grainTexture() {
-  const c = document.createElement("canvas");
-  c.width = 256; c.height = 256;
-  const ctx = c.getContext("2d")!;
-  ctx.fillStyle = "#6e4c33";
-  ctx.fillRect(0, 0, 256, 256);
-  for (let i = 0; i < 90; i++) {
-    const y0 = Math.random() * 256, amp = 1 + Math.random() * 4, ph = Math.random() * 6;
-    ctx.globalAlpha = 0.1 + Math.random() * 0.25;
-    ctx.strokeStyle = Math.random() > 0.4 ? "#4a3020" : "#8a6446";
-    ctx.lineWidth = 0.5 + Math.random() * 1.5;
-    ctx.beginPath();
-    for (let x = 0; x <= 256; x += 8) {
-      const y = y0 + Math.sin(x * 0.02 + ph) * amp;
-      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-  }
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
-/* Ayna: odayı yansıtıyormuş gibi yumuşak geçiş */
-function mirrorTexture() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 256;
-  const ctx = c.getContext("2d")!;
-  const g = ctx.createLinearGradient(0, 0, 256, 256);
-  g.addColorStop(0, "#f7f8f8");
-  g.addColorStop(0.45, "#dfe4e6");
-  g.addColorStop(0.55, "#eef1f2");
-  g.addColorStop(1, "#c9d0d3");
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, 256, 256);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
 function solidCanvas(color: string) {
   const c = document.createElement("canvas");
   c.width = c.height = 4;
@@ -145,10 +113,41 @@ function solidCanvas(color: string) {
   return c;
 }
 
-/* Kaydırmayla ilerleyen 3D PVC levha hikâyesi. Desen seçimi sayfayla paylaşılır. */
-export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
-  lang: Lang; pattern: Pattern; onPattern: (p: Pattern) => void; onSeeAll: () => void;
-}) {
+/* ===== Profil kesitleri (mm). x: duvar boyunca, f: duvardan öne doğru ===== */
+const t = DT;
+const SECTIONS: Record<ProfileKind, [number, number][]> = {
+  // bitiş: panelin açık kenarını saran U kanal (sağda kapalı)
+  end: [[-8.8, 0], [1.2, 0], [1.2, 1.6 + t], [-8.8, 1.6 + t], [-8.8, 0.8 + t], [0, 0.8 + t], [0, 0.8], [-8.8, 0.8]],
+  // T geçiş: önde 10 mm başlık, iki panelin arasına giren gövde
+  t: [[-5, t + 0.3], [-4.6, t + 1.2], [4.6, t + 1.2], [5, t + 0.3], [5, t], [0.6, t], [0.6, 0], [-0.6, 0], [-0.6, t], [-5, t]],
+  // iç köşe: iki panel yüzeyini birleştiren eğimli köşe
+  inner: [[-12, t], [-12, t + 0.8], [-t - 0.8, t + 12], [-t, t + 12], [-t, t]],
+  // H geçiş: iki paneli önden ve arkadan kavrayan kanal
+  h: [[-6.5, 0], [6.5, 0], [6.5, 0.8], [0.6, 0.8], [0.6, 0.8 + t], [6.5, 0.8 + t], [6.5, 1.6 + t], [-6.5, 1.6 + t], [-6.5, 0.8 + t], [-0.6, 0.8 + t], [-0.6, 0.8], [-6.5, 0.8]],
+  // dış köşe: iki paneli dıştan saran L
+  outer: [[-12, t], [-12, t + 0.9], [t + 0.9, t + 0.9], [t + 0.9, -12], [t, -12], [t, 0], [0, 0], [0, t]],
+};
+/* panel örnekleri: [x0, x1, f0, f1, yön] — yön: z (öne bakar), +x / −x (yana bakar) */
+type Piece = [number, number, number, number, "z" | "+x" | "-x"];
+const PIECES: Record<ProfileKind, Piece[]> = {
+  end: [[-DW, 0, 0.8, 0.8 + t, "z"]],
+  t: [[-DW, -0.6, 0, t, "z"], [0.6, DW, 0, t, "z"]],
+  inner: [[-DW, -t, 0, t, "z"], [-t, 0, t, DW, "-x"]],
+  h: [[-DW, -0.6, 0.8, 0.8 + t, "z"], [0.6, DW, 0.8, 0.8 + t, "z"]],
+  outer: [[-DW, 0, 0, t, "z"], [0, t, -DW, 0, "+x"]],
+};
+/* etiketin işaret ettiği nokta ve kameraya göre dönüş */
+const ANCHOR: Record<ProfileKind, [number, number]> = { end: [-3.8, 1.6 + t], t: [0, t + 1.2], inner: [-7, t + 6], h: [0, 1.6 + t], outer: [t, t] };
+const TURN: Record<ProfileKind, number> = { end: -0.7, t: -0.75, inner: Math.PI / 4, h: -0.75, outer: -Math.PI / 4 - 0.25 };
+
+/* ön yüzün UV'sini desenin bir bölümüne sıkıştırır (BoxGeometry +z yüzü = köşe 16–19) */
+function cropFront(geo: THREE.BoxGeometry, u0: number, v0: number, u1: number, v1: number) {
+  const uv = geo.attributes.uv as THREE.BufferAttribute;
+  for (let i = 16; i < 20; i++) uv.setXY(i, u0 + uv.getX(i) * (u1 - u0), v0 + uv.getY(i) * (v1 - v0));
+  uv.needsUpdate = true;
+}
+
+export default function PvcStory({ lang, pattern, onPattern }: { lang: Lang; pattern: Pattern; onPattern: (p: Pattern) => void }) {
   const L = pick(lang);
   const scrollRef = useRef<HTMLDivElement>(null);
   const canvasHostRef = useRef<HTMLDivElement>(null);
@@ -160,7 +159,10 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
   const labelJointRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<(p: Pattern) => void>(() => {});
   const metalRef = useRef<(m: Metal) => void>(() => {});
+  const kindRef = useRef<(k: ProfileKind) => void>(() => {});
   const [metal, setMetal] = useState<Metal>(METALS[0]);
+  const [kind, setKind] = useState(1); // T geçiş profili ile başlar
+  const profile = PVC_PROFILES[kind];
 
   useEffect(() => {
     const host = canvasHostRef.current!;
@@ -206,9 +208,12 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
     const sweep = new THREE.PointLight(0xffffff, 0, 6, 1.5);
     scene.add(sweep);
 
+    // profil detayı için yakın ışık: metalin parlaması
+    const detailLight = new THREE.PointLight(0xffffff, 0, 3, 1.6);
+    scene.add(detailLight);
+
     /* --- Zemin: yalnızca gölgeyi gösterir, sayfa rengiyle bütünleşir --- */
-    const floorMat = new THREE.ShadowMaterial({ opacity: 0.1 });
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), floorMat);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.ShadowMaterial({ opacity: 0.1 }));
     floor.rotation.x = -Math.PI / 2;
     floor.receiveShadow = true;
     scene.add(floor);
@@ -216,48 +221,37 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
     /* --- Malzemeler --- */
     const edgeMat = new THREE.MeshStandardMaterial({ color: "#d9d2c6", roughness: 0.5 });
     const backMat = new THREE.MeshStandardMaterial({ color: "#d9d5ce", roughness: 0.8 });
-    const metalMat = new THREE.MeshStandardMaterial({ color: METALS[0].color, roughness: METALS[0].roughness, metalness: METALS[0].metalness });
+    const metalMat = new THREE.MeshStandardMaterial({ color: METALS[0].color, roughness: METALS[0].roughness, metalness: METALS[0].metalness, envMapIntensity: 1.8 });
     const placeholder = new THREE.CanvasTexture(solidCanvas("#ece8e2"));
     placeholder.colorSpace = THREE.SRGBColorSpace;
+    const frontMat = new THREE.MeshPhysicalMaterial({ map: placeholder, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.06 });
+    const detailFront = new THREE.MeshPhysicalMaterial({ map: placeholder, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.06 });
 
-    const makeFrontMat = () =>
-      new THREE.MeshPhysicalMaterial({ map: placeholder, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.06 });
-
-    // desen dokuları — her levhada fotoğraftaki desen aynen
+    // desen dokuları — levhada fotoğraftaki desen aynen
     const texCache = new Map<string, Promise<THREE.Texture>>();
     const textureFor = (p: Pattern) => {
       let pr = texCache.get(p.img);
       if (!pr) {
         pr = loadPatternCanvas(p.img).then((c) => {
-          const t = new THREE.CanvasTexture(c);
-          t.colorSpace = THREE.SRGBColorSpace;
-          t.anisotropy = renderer.capabilities.getMaxAnisotropy();
-          return t;
+          const tex = new THREE.CanvasTexture(c);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+          return tex;
         });
         texCache.set(p.img, pr);
       }
       return pr;
     };
 
-    const sheetGeo = new THREE.BoxGeometry(SW, SH, ST);
-    type Sheet = { mesh: THREE.Mesh; front: THREE.MeshPhysicalMaterial; base: THREE.Vector3; normal: THREE.Vector3 };
-    const makeSheet = (base: THREE.Vector3, rotY: number): Sheet => {
-      const front = makeFrontMat();
-      // BoxGeometry yüz sırası: +x, −x, +y, −y, +z (ön), −z (arka)
-      const mesh = new THREE.Mesh(sheetGeo, [edgeMat, edgeMat, edgeMat, edgeMat, front, backMat]);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      mesh.position.copy(base);
-      mesh.rotation.y = rotY;
-      const normal = new THREE.Vector3(Math.sin(rotY), 0, Math.cos(rotY));
-      return { mesh, front, base: base.clone(), normal };
-    };
-
-    /* --- Ana levha (sonunda arka duvarın ortasına yerleşir) --- */
+    /* --- Ana levha --- */
     const heroGroup = new THREE.Group();
+    heroGroup.position.set(0, 1.45, 2.4);
     scene.add(heroGroup);
-    const hero = makeSheet(new THREE.Vector3(), 0);
-    heroGroup.add(hero.mesh);
+    // BoxGeometry yüz sırası: +x, −x, +y, −y, +z (ön), −z (arka)
+    const hero = new THREE.Mesh(new THREE.BoxGeometry(SW, SH, ST), [edgeMat, edgeMat, edgeMat, edgeMat, frontMat, backMat]);
+    hero.castShadow = true;
+    hero.receiveShadow = true;
+    heroGroup.add(hero);
 
     // karşılaştırma için doğal mermer plaka (yarı saydam)
     const ghostFront = new THREE.MeshPhysicalMaterial({ map: placeholder, roughness: 0.35, transparent: true, opacity: 0 });
@@ -269,12 +263,14 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
     /* --- Su damlaları --- */
     const dropMat = new THREE.MeshPhysicalMaterial({ color: "#c9d3d8", roughness: 0.03, clearcoat: 1, transparent: true, opacity: 0, envMapIntensity: 3 });
     const dropGeo = new THREE.SphereGeometry(1, 16, 12);
+    const dropLayer = new THREE.Group();
+    heroGroup.add(dropLayer);
     const drops = Array.from({ length: 22 }, () => {
       const m = new THREE.Mesh(dropGeo, dropMat);
       const s = 0.012 + Math.random() * 0.01;
       m.scale.set(s, s * 1.5, 0.004);
       m.position.set((Math.random() - 0.5) * SW * 0.9, (Math.random() - 0.5) * SH, ST / 2 + 0.002);
-      heroGroup.add(m);
+      dropLayer.add(m);
       return { m, speed: 0.05 + Math.random() * 0.2, phase: Math.random() * 10 };
     });
     for (let i = 0; i < 80; i++) {
@@ -282,79 +278,71 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
       const s = 0.004 + Math.random() * 0.006;
       m.scale.set(s, s, 0.002);
       m.position.set((Math.random() - 0.5) * SW * 0.95, (Math.random() - 0.5) * SH * 0.95, ST / 2 + 0.0012);
-      heroGroup.add(m);
+      dropLayer.add(m);
     }
 
-    /* --- Banyo: duvarlar, profiller, lavabo, ayna --- */
-    const room = new THREE.Group();
-    scene.add(room);
-    const roomSheets: Sheet[] = [
-      makeSheet(new THREE.Vector3(-SW, SH / 2, HERO_HOME.z), 0),
-      makeSheet(new THREE.Vector3(SW, SH / 2, HERO_HOME.z), 0),
-      makeSheet(new THREE.Vector3(-1.5 * SW + HERO_HOME.z, SH / 2, SW / 2), Math.PI / 2),
-      makeSheet(new THREE.Vector3(-1.5 * SW + HERO_HOME.z, SH / 2, SW * 1.5), Math.PI / 2),
-    ];
-    roomSheets.forEach((s) => room.add(s.mesh));
-
-    const profiles = new THREE.Group();
-    const addProfile = (w: number, d: number, x: number, z: number) => {
-      const m = new THREE.Mesh(new THREE.BoxGeometry(w, SH, d), metalMat);
-      m.position.set(x, SH / 2, z);
-      m.castShadow = true;
-      profiles.add(m);
+    /* --- Profil detayı: her profil tipi için kesit + panel örnekleri --- */
+    const detail = new THREE.Group();
+    detail.position.copy(DETAIL);
+    detail.scale.setScalar(DS);
+    scene.add(detail);
+    const kinds = Object.keys(SECTIONS) as ProfileKind[];
+    const kindGroups = {} as Record<ProfileKind, THREE.Group>;
+    kinds.forEach((k) => {
+      const g = new THREE.Group();
+      // profil: kesit şekli DH boyunca yukarı uzatılır (şekil y = −f → dünya z = f)
+      const shape = new THREE.Shape(SECTIONS[k].map(([x, f]) => new THREE.Vector2(x, -f)));
+      const geo = new THREE.ExtrudeGeometry(shape, { depth: DH, bevelEnabled: false, curveSegments: 1 });
+      geo.rotateX(-Math.PI / 2);
+      const prof = new THREE.Mesh(geo, metalMat);
+      prof.castShadow = true;
+      prof.receiveShadow = true;
+      g.add(prof);
+      // panel örnekleri — desenin farklı bölümlerinden kesilmiş gibi
+      PIECES[k].forEach(([x0, x1, f0, f1, dir], i) => {
+        const along = dir === "z" ? x1 - x0 : f1 - f0;
+        const thick = dir === "z" ? f1 - f0 : x1 - x0;
+        const box = new THREE.BoxGeometry(along, DH, thick);
+        const u0 = 0.18 + i * 0.36, span = 0.3;
+        cropFront(box, u0, 0.55, u0 + span, 0.55 + span * (DH / along) * (SW / SH));
+        const m = new THREE.Mesh(box, [edgeMat, edgeMat, edgeMat, edgeMat, detailFront, backMat]);
+        m.position.set((x0 + x1) / 2, DH / 2, (f0 + f1) / 2);
+        if (dir === "+x") m.rotation.y = Math.PI / 2;
+        if (dir === "-x") m.rotation.y = -Math.PI / 2;
+        m.castShadow = true;
+        m.receiveShadow = true;
+        g.add(m);
+      });
+      g.visible = false;
+      detail.add(g);
+      kindGroups[k] = g;
+    });
+    let curKind: ProfileKind = PVC_PROFILES[1].id;
+    let kindStart = performance.now();
+    kindGroups[curKind].visible = true;
+    kindRef.current = (k) => {
+      if (k === curKind) return;
+      kindGroups[curKind].visible = false;
+      curKind = k;
+      kindGroups[k].visible = true;
+      kindStart = performance.now();
     };
-    addProfile(0.01, 0.004, -SW / 2, 0.004);            // T geçiş profilleri
-    addProfile(0.01, 0.004, SW / 2, 0.004);
-    addProfile(0.004, 0.01, -1.5 * SW + 0.004, SW);     // yan duvar geçişi
-    addProfile(0.012, 0.012, -1.5 * SW + 0.006, 0.006); // iç köşe
-    addProfile(0.008, 0.008, 1.5 * SW + 0.004, 0.004);  // bitiş profilleri
-    addProfile(0.008, 0.008, -1.5 * SW + 0.004, 2 * SW + 0.004);
-    room.add(profiles);
 
-    const furniture = new THREE.Group();
-    const woodMat = new THREE.MeshStandardMaterial({ map: grainTexture(), roughness: 0.5 });
-    const ceramicMat = new THREE.MeshPhysicalMaterial({ color: "#fbfaf7", roughness: 0.15, clearcoat: 0.6 });
-    const mirrorMat = new THREE.MeshStandardMaterial({ map: mirrorTexture(), roughness: 0.06, metalness: 0.2 });
-    const stoneMat = new THREE.MeshStandardMaterial({ color: "#e6dfd5", roughness: 0.85 });
-    const roomFloor = new THREE.Mesh(new THREE.PlaneGeometry(3 * SW, 2 * SW), stoneMat);
-    roomFloor.rotation.x = -Math.PI / 2;
-    roomFloor.position.set(0, 0.001, SW);
-    roomFloor.receiveShadow = true;
-    furniture.add(roomFloor);
-    const cabinet = new THREE.Mesh(new RoundedBoxGeometry(1.0, 0.42, 0.48, 4, 0.012), woodMat);
-    cabinet.position.set(0, 0.75, 0.25);
-    const basin = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.16, 0.12, 48), ceramicMat);
-    basin.position.set(0, 1.02, 0.27);
-    const tap = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.16, 16), metalMat);
-    tap.rotation.x = Math.PI / 2;
-    tap.position.set(0, 1.16, 0.08);
-    const mirror = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.012, 64), mirrorMat);
-    mirror.rotation.x = Math.PI / 2;
-    mirror.position.set(0, 1.78, 0.02);
-    const frame = new THREE.Mesh(new THREE.TorusGeometry(0.365, 0.012, 16, 96), metalMat);
-    frame.position.set(0, 1.78, 0.026);
-    [cabinet, basin, tap, mirror, frame].forEach((m) => { m.castShadow = true; m.receiveShadow = true; furniture.add(m); });
-    room.add(furniture);
-
-    const roomMats = [woodMat, ceramicMat, mirrorMat, metalMat, stoneMat];
-
-    /* --- Desen değişimi: levhalar sırayla öne çıkıp yeni desene geçer --- */
-    const allSheets = [hero, ...roomSheets];
-    let swap: { tex: THREE.Texture; start: number; done: boolean[] } | null = null;
-    const applyGhost = (t: THREE.Texture) => { ghostFront.map = t; ghostFront.needsUpdate = true; };
-    textureFor(PATTERNS[0]).then((t) => {
+    /* --- Desen değişimi: levha öne çıkıp yeni desene geçer --- */
+    let swap: { tex: THREE.Texture; start: number; done: boolean } | null = null;
+    const applyTo = (mats: THREE.MeshPhysicalMaterial[], tex: THREE.Texture) => mats.forEach((m) => { m.map = tex; m.needsUpdate = true; });
+    textureFor(PATTERNS[0]).then((tex) => {
       if (disposed) return;
-      allSheets.forEach((s) => { s.front.map = t; s.front.needsUpdate = true; });
-      applyGhost(t);
+      applyTo([frontMat, ghostFront, detailFront], tex);
     });
     let shown = PATTERNS[0].code;
     patternRef.current = (p) => {
       if (p.code === shown) return;
       shown = p.code;
-      textureFor(p).then((t) => {
+      textureFor(p).then((tex) => {
         if (disposed) return;
-        swap = { tex: t, start: performance.now(), done: allSheets.map(() => false) };
-        applyGhost(t);
+        swap = { tex, start: performance.now(), done: false };
+        applyTo([ghostFront, detailFront], tex);
       });
     };
     metalRef.current = (m) => {
@@ -389,10 +377,10 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
     const targetPose = (p: number): Pose => {
       const seg = p * (POSES.length - 1);
       const i = Math.min(POSES.length - 2, Math.floor(seg));
-      const t = smooth(0.2, 0.8, seg - i);
+      const k = smooth(0.2, 0.8, seg - i);
       const a = POSES[i], b = POSES[i + 1];
       const out = {} as Pose;
-      (Object.keys(a) as (keyof Pose)[]).forEach((k) => (out[k] = a[k] + (b[k] - a[k]) * t));
+      (Object.keys(a) as (keyof Pose)[]).forEach((key) => (out[key] = a[key] + (b[key] - a[key]) * k));
       if (isMobile()) {
         const shift = out.fx - out.tx;
         out.tx += shift; out.cx += shift;
@@ -407,6 +395,7 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
 
     const cur: Pose = targetPose(progress);
     let tmx = 0, tmy = 0;
+    let turn = TURN[curKind];
     const clock = new THREE.Clock();
     const v = new THREE.Vector3();
     const tmp = new THREE.Vector3();
@@ -435,18 +424,18 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
       camera.lookAt(cur.tx, cur.ty, cur.tz);
 
       // ışık imleci takip eder
-      key.position.set(2 + tmx * 2.2, 6 - tmy * 1.2, 7);
+      key.position.set(2 + tmx * 2.2 + cur.detail * DETAIL.x, 6 - tmy * 1.2, 7);
+      key.target.position.set(cur.detail * DETAIL.x, 1.2, 1);
 
       // açılış: levha aşağıdan yükselir
       const intro = easeOut(clamp(((now - introStart) / 1000 - 0.2) / 1.4));
-      const floatY = (1 - cur.room) * Math.sin(time * 0.8) * 0.015;
-      heroGroup.position.set(cur.hx, cur.hy + floatY - (1 - intro) * 3.2, cur.hz);
-      heroGroup.rotation.y = cur.hry + (1 - cur.room) * tmx * 0.06;
+      heroGroup.position.y = 1.45 + Math.sin(time * 0.8) * 0.015 - (1 - intro) * 3.2;
+      heroGroup.rotation.y = cur.hry + tmx * 0.06;
 
-      // parlama ışığı levhanın önünden geçer (yalnızca levha havadayken)
+      // parlama ışığı levhanın önünden geçer
       const sw = ((time * 0.18) % 1) * 2 - 0.5;
-      sweep.position.set(cur.hx + (sw - 0.5) * 3.2, cur.hy + 0.8, cur.hz + 0.9);
-      sweep.intensity = (1 - cur.room) * 5;
+      sweep.position.set((sw - 0.5) * 3.2, 2.25, 3.3);
+      sweep.intensity = (1 - cur.detail) * 5;
 
       // karşılaştırma plakası
       ghost.visible = cur.ghost > 0.01;
@@ -455,53 +444,41 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
 
       // su damlaları süzülür
       dropMat.opacity = cur.water * 0.7;
+      dropLayer.visible = cur.water > 0.01;
       drops.forEach((d) => {
-        d.m.visible = cur.water > 0.01;
         const stick = 0.35 + 0.65 * Math.max(0, Math.sin(time * 1.3 + d.phase));
         d.m.position.y -= d.speed * stick * dt * (0.4 + cur.water);
         d.m.position.x += Math.sin(time * 2 + d.phase) * 0.0004;
         if (d.m.position.y < -SH / 2) { d.m.position.y = SH / 2; d.m.position.x = (Math.random() - 0.5) * SW * 0.9; }
       });
-      heroGroup.children.forEach((c) => { if (c !== hero.mesh && c !== ghost && !drops.some((d) => d.m === c)) c.visible = cur.water > 0.01; });
 
-      // banyo öğeleri sırayla belirir
-      roomSheets.forEach((s, i) => {
-        const r = smooth(i * 0.12, 0.55 + i * 0.12, cur.room);
-        s.mesh.visible = r > 0.001;
-        s.front.transparent = r < 0.999;
-        s.front.opacity = r;
-        s.mesh.position.copy(s.base).addScaledVector(s.normal, (1 - r) * 0.4);
-      });
-      const fr = smooth(0.5, 1, cur.room);
-      furniture.visible = profiles.visible = fr > 0.001;
-      roomMats.forEach((m) => { m.transparent = fr < 0.999; m.opacity = fr; });
-      furniture.position.y = (1 - fr) * -0.3;
-      floorMat.opacity = 0.1;
+      // profil detayı: seçilen tip aşağıdan yükselir, kameraya göre döner
+      const rise = easeOut(clamp((now - kindStart) / 700));
+      kindGroups[curKind].position.y = (1 - rise) * -40;
+      turn += (TURN[curKind] - turn) * k;
+      detail.rotation.y = turn + tmx * 0.12;
+      detail.position.y = DETAIL.y + Math.sin(time * 0.9) * 0.002;
+      detail.visible = cur.detail > 0.02;
+      detailLight.intensity = cur.detail * 1.6;
+      detailLight.position.set(DETAIL.x + 0.25 + Math.sin(time * 0.5) * 0.2, TOP + 0.5, DETAIL.z + 0.4);
 
       // desen değişimi
       if (swap) {
-        let finished = true;
-        allSheets.forEach((s, i) => {
-          const t = clamp((now - swap!.start - i * 110) / 650);
-          if (t < 1) finished = false;
-          const pop = Math.sin(t * Math.PI) * 0.06;
-          if (s !== hero) s.mesh.position.addScaledVector(s.normal, pop);
-          else hero.mesh.position.z = pop;
-          if (t >= 0.5 && !swap!.done[i]) {
-            s.front.map = swap!.tex;
-            s.front.needsUpdate = true;
-            swap!.done[i] = true;
-          }
-        });
-        if (finished) { swap = null; hero.mesh.position.z = 0; }
+        const s = clamp((now - swap.start) / 650);
+        hero.position.z = Math.sin(s * Math.PI) * 0.06;
+        if (s >= 0.5 && !swap.done) { applyTo([frontMat], swap.tex); swap.done = true; }
+        if (s >= 1) { swap = null; hero.position.z = 0; }
       }
 
       // 3D etiketler
       const seg = progress * (POSES.length - 1);
       heroGroup.updateMatrixWorld();
-      place(labelPvcRef.current, heroGroup.localToWorld(tmp.set(SW / 2, 0.42, 0)), cur.ghost * (1 - smooth(0.1, 0.35, Math.abs(seg - 2))));
-      place(labelStoneRef.current, heroGroup.localToWorld(tmp.set(SW / 2, 0.3, GHOST_Z)), cur.ghost * (1 - smooth(0.1, 0.35, Math.abs(seg - 2))));
-      place(labelJointRef.current, tmp.set(SW / 2, 2.45, 0.006), 1 - smooth(0.1, 0.35, Math.abs(seg - 4)));
+      detail.updateMatrixWorld();
+      const near = (i: number) => 1 - smooth(0.1, 0.35, Math.abs(seg - i));
+      place(labelPvcRef.current, heroGroup.localToWorld(tmp.set(SW / 2, 0.42, 0)), cur.ghost * near(2));
+      place(labelStoneRef.current, heroGroup.localToWorld(tmp.set(SW / 2, 0.3, GHOST_Z)), cur.ghost * near(2));
+      const [ax, af] = ANCHOR[curKind];
+      place(labelJointRef.current, detail.localToWorld(tmp.set(ax, DH, af)), near(4) * rise);
 
       // bölüm metinleri, arka plan yazıları, menü
       sections.forEach((el, i) => {
@@ -538,7 +515,7 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
         }
       });
       mats.forEach((m) => m.dispose());
-      texCache.forEach((p) => p.then((t) => t.dispose()).catch(() => {}));
+      texCache.forEach((p) => p.then((tex) => tex.dispose()).catch(() => {}));
       placeholder.dispose();
       envTex.dispose();
       pmrem.dispose();
@@ -549,25 +526,22 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
 
   // sayfadaki desen değişince sahne de değişir (galeriden "3D'de dene" dahil)
   useEffect(() => { patternRef.current(pattern); }, [pattern]);
+
   const chooseMetal = (m: Metal) => {
     setMetal(m);
     metalRef.current(m);
   };
-  const nav = [L("Uvod", "Giriş", "Intro"), L("Tekstura", "Doku", "Texture"), L("Debljina", "İncelik", "Slim"), L("Voda", "Su", "Water"), L("Profili", "Profil", "Profiles"), L("Kupatilo", "Banyo", "Bathroom")];
+  const chooseKind = (i: number) => {
+    setKind(i);
+    kindRef.current(PVC_PROFILES[i].id);
+    // seçilen renk bu profilde yoksa kroma döner
+    if (!PVC_PROFILES[i].imgs[metal.id]) chooseMetal(METALS[0]);
+  };
+  const nav = [L("Uvod", "Giriş", "Intro"), L("Tekstura", "Doku", "Texture"), L("Debljina", "İncelik", "Slim"), L("Voda", "Su", "Water"), L("Profili", "Profil", "Profiles")];
   const goTo = (i: number) => {
     const top = scrollRef.current!.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: top + i * window.innerHeight, behavior: "smooth" });
   };
-
-  const metalButtons = (
-    <div className={pvc.metals}>
-      {METALS.map((m) => (
-        <button key={m.id} className={`${pvc.metalBtn} ${m.id === metal.id ? pvc.metalActive : ""}`} onClick={() => chooseMetal(m)}>
-          <span style={{ background: m.color }} />{METAL_NAMES[m.id][lang]}
-        </button>
-      ))}
-    </div>
-  );
 
   return (
     <div className={styles.page}>
@@ -584,7 +558,7 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
             ))}
           </nav>
           <div ref={bgWordsRef} className={styles.bgWords} aria-hidden>
-            <span>PVC</span><span>{L("Tekstura", "Doku", "Texture")}</span><span>2,8</span><span>{L("Voda", "Su", "Water")}</span><span>{L("Profil", "Profil", "Profile")}</span><span>{pattern.code}</span>
+            <span>PVC</span><span>{L("Tekstura", "Doku", "Texture")}</span><span>2,8</span><span>{L("Voda", "Su", "Water")}</span><span>{profile.size}</span>
           </div>
           <div ref={canvasHostRef} className={styles.canvas} />
           <div ref={labelPvcRef} className={styles.label}>
@@ -595,9 +569,9 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
             <span className={styles.labelDot} />
             <span><b>{L("Prirodni mermer", "Doğal mermer", "Natural marble")}</b> · ~20 mm</span>
           </div>
-          <div ref={labelJointRef} className={styles.label}>
+          <div ref={labelJointRef} className={`${styles.label} ${pvc.jointLabel}`}>
             <span className={styles.labelDot} />
-            <span><b>{L("T prelazni profil", "T geçiş profili", "T transition profile")}</b> · {METAL_NAMES[metal.id][lang].toLowerCase()}</span>
+            <span><b>{profile.type[lang]}</b> · {profile.size} · {METAL_NAMES[metal.id][lang].toLowerCase()}</span>
           </div>
         </div>
 
@@ -616,7 +590,21 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
             <p className={styles.kicker}>01 — {L("Tekstura", "Doku", "Texture")}</p>
             <h2 className={styles.title}>{L("Prava tekstura", "Gerçek mermer", "True marble")} <em>{L("mermera", "dokusu", "texture")}</em></h2>
             <p className={styles.text}>{L("Svaki dezen vjerno prenosi žile prirodnog kamena. Sjajna površina hvata svjetlost baš kao polirani mermer.", "Her desen doğal taşın damarlarını aslına uygun yansıtır. Parlak yüzey ışığı tıpkı cilalı mermer gibi yakalar.", "Every design faithfully reproduces the veins of natural stone. The gloss surface catches light just like polished marble.")}</p>
-            <p className={styles.hint}><span className={styles.hintIcon} />{L("Pomjerite kursor — svjetlo vas prati", "İmleci hareket ettirin — ışık sizi takip eder", "Move your cursor — the light follows you")}</p>
+            <div className={pvc.patternPick}>
+              <div className={pvc.patterns}>
+                {PATTERNS.map((p) => (
+                  <button
+                    key={p.code}
+                    className={`${pvc.pattern} ${p.code === pattern.code ? pvc.patternActive : ""}`}
+                    style={{ backgroundImage: `url("${p.img}")` }}
+                    onClick={() => onPattern(p)}
+                    aria-label={p.name}
+                    title={p.name}
+                  />
+                ))}
+              </div>
+              <p className={pvc.patternName}>{pattern.code} · <b>{pattern.name}</b></p>
+            </div>
           </section>
 
           <section className={`${styles.section} ${styles.left}`}>
@@ -638,33 +626,28 @@ export default function PvcStory({ lang, pattern, onPattern, onSeeAll }: {
 
           <section className={`${styles.section} ${styles.left}`}>
             <p className={styles.kicker}>04 — {L("Aluminijumski profili", "Alüminyum profiller", "Aluminium profiles")}</p>
-            <h2 className={styles.title}>{L("Savršen", "Kusursuz", "A perfect")} <em>{L("spoj", "birleşim", "joint")}</em></h2>
-            <p className={styles.text}>{L("Aluminijumski profili spajaju panele i završavaju uglove i ivice čistom linijom.", "Alüminyum profiller levhaları birleştirir; köşeleri ve kenarları temiz bir çizgiyle tamamlar.", "Aluminium profiles join the panels and finish corners and edges with a clean line.")}</p>
-            <div className={pvc.metalsWrap}>{metalButtons}</div>
-          </section>
-
-          <section className={`${styles.section} ${styles.left}`}>
-            <p className={styles.kicker}>05 — {L("Virtuelno kupatilo", "Sanal banyo", "Virtual bathroom")}</p>
-            <h2 className={styles.title}><em>{pattern.name}</em></h2>
+            <h2 className={styles.title}>{L("Profil za", "Her birleşime", "A profile for")} <em>{L("svaki spoj", "bir profil", "every joint")}</em></h2>
             <div className={styles.card}>
-              <p className={styles.cardLabel}>{L("Dezen", "Desen", "Design")} · {PATTERNS.length} {L("opcija", "seçenek", "options")}</p>
-              <div className={pvc.patterns}>
-                {PATTERNS.map((p) => (
-                  <button
-                    key={p.code}
-                    className={`${pvc.pattern} ${p.code === pattern.code ? pvc.patternActive : ""}`}
-                    style={{ backgroundImage: `url("${p.img}")` }}
-                    onClick={() => onPattern(p)}
-                    aria-label={p.name}
-                    title={p.name}
-                  />
+              <p className={styles.cardLabel}>{L("Vrsta profila", "Profil çeşidi", "Profile type")} · {PVC_PROFILES.length}</p>
+              <div className={pvc.kinds}>
+                {PVC_PROFILES.map((p, i) => (
+                  <button key={p.id} className={`${pvc.kindBtn} ${i === kind ? pvc.kindActive : ""}`} onClick={() => chooseKind(i)}>
+                    <b>{p.type[lang]}</b><small>{p.size}</small>
+                  </button>
                 ))}
               </div>
-              <p className={styles.cardLabel}>{L("Boja profila", "Profil rengi", "Profile colour")}</p>
-              {metalButtons}
-              <div className={styles.ctas}>
-                <a href="tel:+38268361700" className={styles.cta}>{L("Pozovite nas", "Bizi arayın", "Call us")}</a>
-                <button onClick={onSeeAll} className={`${styles.ctaOutline} ${pvc.ctaBtn}`}>{L("Svi dezeni", "Tüm desenler", "All designs")} ↓</button>
+              <p className={pvc.kindText}>{profile.text[lang]}</p>
+              <p className={styles.cardLabel}>{L("Boja", "Renk", "Colour")}</p>
+              <div className={pvc.metals}>
+                {METALS.map((m) => {
+                  const ok = Boolean(profile.imgs[m.id]);
+                  return (
+                    <button key={m.id} disabled={!ok} className={`${pvc.metalBtn} ${m.id === metal.id ? pvc.metalActive : ""}`} onClick={() => chooseMetal(m)}
+                      title={ok ? undefined : L("Nije dostupno za ovaj profil", "Bu profilde yok", "Not available for this profile")}>
+                      <span style={{ background: m.color }} />{METAL_NAMES[m.id][lang]}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </section>

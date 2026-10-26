@@ -37,3 +37,36 @@
 /* Yan menü yalnızca 3D bölümünün içinde görünür */
 .sideNav { position: absolute; z-index: 5; }
 .ctaBtn { cursor: pointer; font-family: inherit; background: none; }
+
+/* Doku sahnesi: desen seçici */
+.patternPick { margin-top: 26px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; pointer-events: auto; }
+.patternName { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); }
+.patternName b { color: var(--text-primary); font-weight: 600; }
+
+/* Profil sahnesi: tip seçici */
+.kinds { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.kindBtn {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px; text-align: left;
+  background: rgba(255, 255, 255, 0.5); border: 1px solid var(--divider); padding: 10px 12px;
+  font-family: 'Outfit', sans-serif; color: var(--text-secondary); cursor: pointer;
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+.kindBtn b { font-size: 12px; font-weight: 600; letter-spacing: 0.3px; }
+.kindBtn small { font-size: 10px; letter-spacing: 1px; opacity: 0.8; white-space: nowrap; }
+.kindBtn:hover { color: var(--text-primary); background: #fff; }
+.kindActive { border-color: var(--accent); color: var(--text-primary); background: #fff; }
+.kindText { font-size: 13px; line-height: 1.6; color: var(--text-secondary); min-height: 21px; }
+.metalBtn { cursor: pointer; }
+.metalBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+@media (max-width: 768px) {
+  .patternPick { align-items: center; margin-top: 16px; }
+  /* profil tipleri tek satırda kaydırılır; kart 3D görüntüyü örtmez */
+  .kinds { display: flex; overflow-x: auto; gap: 6px; width: 100%; scrollbar-width: none; }
+  .kinds::-webkit-scrollbar { display: none; }
+  .kindBtn { flex: 0 0 auto; padding: 8px 10px; }
+  .kindBtn b { font-size: 11px; white-space: nowrap; }
+  .kindBtn small, .kindText, .jointLabel { display: none; }
+  .metalBtn { padding: 8px 12px; font-size: 11px; }
+  .metals { flex-wrap: nowrap; }
+}

@@ -90,16 +90,13 @@ export default function PvcPage() {
     return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [open]);
 
-  const seeAll = () => document.getElementById("dezeni")?.scrollIntoView({ behavior: "smooth" });
-
-  // galeriden seçilen deseni 3D banyoda göster
+  // galeriden seçilen deseni 3D levhada göster ("Doku" sahnesi)
   const tryIn3d = (p: PvcPattern) => {
     setPattern(p);
     setOpen(null);
     const el = storyRef.current;
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + el.offsetHeight - window.innerHeight, behavior: "smooth" });
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + window.innerHeight, behavior: "smooth" });
   };
 
   const oi = open ?? 0;
@@ -111,7 +108,7 @@ export default function PvcPage() {
       <PageHeader lang={lang} setLang={setLang} crumbs={[{ href: "/", label: L("Početna", "Ana sayfa", "Home") }, { label: L("PVC paneli", "PVC paneller", "PVC panels") }]} />
 
       <div ref={storyRef}>
-        <PvcStory lang={lang} pattern={pattern} onPattern={setPattern} onSeeAll={seeAll} />
+        <PvcStory lang={lang} pattern={pattern} onPattern={setPattern} />
       </div>
 
       {/* ===== DESENLER ===== */}
@@ -121,7 +118,7 @@ export default function PvcPage() {
             <p className={h.kicker}>{L("Kolekcija dezena", "Desen koleksiyonu", "Design collection")}</p>
             <h2 className={h.h2}>{L("18 dezena", "18 mermer", "18 marble")} <em>{L("mermera", "deseni", "designs")}</em></h2>
           </div>
-          <p className={h.headDesc}>{L("Kliknite na dezen da ga vidite u punoj veličini ili ga isprobajte u 3D kupatilu.", "Tam boyutunu görmek için desene tıklayın ya da 3D banyoda deneyin.", "Click a design to see the full sheet, or try it in the 3D bathroom.")}</p>
+          <p className={h.headDesc}>{L("Kliknite na dezen da ga vidite u punoj veličini ili ga isprobajte na 3D ploči.", "Tam boyutunu görmek için desene tıklayın ya da 3D levhada deneyin.", "Click a design to see the full sheet, or try it on the 3D panel.")}</p>
         </header>
         <div className={s.grid}>
           {PVC_PATTERNS.map((p, i) => (

@@ -45,29 +45,30 @@ export const METAL_NAMES: Record<MetalId, Txt> = {
 export const METAL_SWATCH: Record<MetalId, string> = { krom: "#dcdfe2", altin: "#d2a54e", siyah: "#1d1d1f" };
 
 /* Alüminyum profiller — tip başına mevcut renkler ve ürün fotoğrafları */
-export const PVC_PROFILES: { type: Txt; text: Txt; size: string; imgs: Partial<Record<MetalId, string>> }[] = [
+export type ProfileKind = "end" | "t" | "inner" | "h" | "outer";
+export const PVC_PROFILES: { id: ProfileKind; type: Txt; text: Txt; size: string; imgs: Partial<Record<MetalId, string>> }[] = [
   {
-    type: T("Završni profil", "Bitiş profili", "End profile"), size: "10 mm",
+    id: "end", type: T("Završni profil", "Bitiş profili", "End profile"), size: "10 mm",
     text: T("Čist završetak slobodnih ivica panela.", "Panelin açık kenarlarını temiz bir çizgiyle bitirir.", "A clean finish for exposed panel edges."),
     imgs: { krom: "/10-MM-ALUMINYUM-BITIS-PROFILI.jpg", siyah: "/10-MM-ALUMINYUM-BITIS-PROFILI_SIYAH.jpg" },
   },
   {
-    type: T("T prelazni profil", "T geçiş profili", "T transition profile"), size: "10 mm",
+    id: "t", type: T("T prelazni profil", "T geçiş profili", "T transition profile"), size: "10 mm",
     text: T("Spaja dva panela u ravni u jednu tanku liniju.", "Yan yana iki paneli ince bir çizgiyle birleştirir.", "Joins two panels side by side with a slim line."),
     imgs: { krom: "/10-MM-ALUMINYUM-T-GECIS-PROFILI.jpg", altin: "/10-MM-ALUMINYUM-T-GECIS-PROFILI-ALTIN.jpg", siyah: "/10-MM-ALUMINYUM-T-GECIS-PROFILI_SIYAH.jpg" },
   },
   {
-    type: T("Unutrašnji ugaoni profil", "İç köşe profili", "Inner corner profile"), size: "12 mm",
+    id: "inner", type: T("Unutrašnji ugaoni profil", "İç köşe profili", "Inner corner profile"), size: "12 mm",
     text: T("Za unutrašnje uglove prostorije.", "Odanın iç köşeleri için.", "For the inner corners of a room."),
     imgs: { krom: "/12-MM-ALUMINYUM-IC-KOSE-PROFILI.jpg", altin: "/12-MM-ALUMINYUM-IC-KOSE-PROFILI-ALTIN.jpg", siyah: "/12-MM-ALUMINYUM-IC-KOSE-PROFILI_SIYAH.jpg" },
   },
   {
-    type: T("H prelazni profil", "H geçiş profili", "H transition profile"), size: "13 mm",
+    id: "h", type: T("H prelazni profil", "H geçiş profili", "H transition profile"), size: "13 mm",
     text: T("Nosi i spaja panele sa obje strane.", "Panelleri iki taraftan kavrayarak birleştirir.", "Holds and joins panels from both sides."),
     imgs: { krom: "/13-MM-ALUMINYUM-H-GECIS-PROFILI.jpg", altin: "/13-MM-ALUMINYUM-H-GECIS-PROFILI-ALTIN.jpg", siyah: "/13-MM-ALUMINYUM-H-GECIS-PROFILI_SIYAH.jpg" },
   },
   {
-    type: T("Spoljašnji ugaoni profil", "Dış köşe profili", "Outer corner profile"), size: "16 mm",
+    id: "outer", type: T("Spoljašnji ugaoni profil", "Dış köşe profili", "Outer corner profile"), size: "16 mm",
     text: T("Štiti i oblikuje spoljašnje uglove.", "Dış köşeleri korur ve şekillendirir.", "Protects and shapes outer corners."),
     imgs: { krom: "/16-MM-ALUMINYUM-DIS-KOSE-PROFILI.jpg", altin: "/16-MM-ALUMINYUM-DIS-KOSE-PROFILI-ALTIN.jpg", siyah: "/16-MM-ALUMINYUM-DIS-KOSE-PROFILI_SIYAH.jpg" },
   },
