@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { useLang } from "@/lib/useLang";
 import { PHONE, pick, type Txt } from "@/lib/site";
-import { MDF_MODELS, MDF_SIZE, faceStyle, type MdfFinish, type MdfModel } from "@/lib/mdf";
+import { MDF_MODELS, MDF_SIZE, faceStyle, mdfDefault, type MdfFinish, type MdfModel } from "@/lib/mdf";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
 import MdfStory from "./MdfStory";
@@ -62,7 +62,7 @@ const COUNT = MDF_MODELS.reduce((a, x) => a + x.finishes.length, 0);
 export default function MdfPage() {
   const [lang, setLang] = useLang();
   const L = pick(lang);
-  const [sel, setSel] = useState<{ model: MdfModel; finish: MdfFinish }>({ model: MDF_MODELS[0], finish: MDF_MODELS[0].finishes[0] });
+  const [sel, setSel] = useState<{ model: MdfModel; finish: MdfFinish }>(mdfDefault);
   const [open, setOpen] = useState<{ mi: number; fi: number } | null>(null);
   const storyRef = useRef<HTMLDivElement>(null);
 

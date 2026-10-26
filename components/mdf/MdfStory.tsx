@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import type { Lang } from "@/lib/i18n";
 import { pick } from "@/lib/site";
-import { CARD, MDF_MODELS, MDF_SIZE, type MdfFinish, type MdfModel } from "@/lib/mdf";
+import { CARD, MDF_MODELS, MDF_SIZE, mdfDefault, type MdfFinish, type MdfModel } from "@/lib/mdf";
 import styles from "../PanelShowcase.module.css";
 import mdf from "./MdfStory.module.css";
 
@@ -345,7 +345,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
       b.groove.needsUpdate = true;
     };
 
-    const first = MDF_MODELS[0].finishes[0];
+    const first = mdfDefault().finish;
     baseFor(first).then((c) => {
       if (disposed) return;
       boards.forEach((b, i) => paint(b, first, c, i));
@@ -550,7 +550,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
   }, []);
 
   // sayfadaki seçim değişince sahne de değişir (galeriden "3D'de dene" dahil)
-  const shown = useRef(`${MDF_MODELS[0].id}/${MDF_MODELS[0].finishes[0].id}`);
+  const shown = useRef(`${mdfDefault().model.id}/${mdfDefault().finish.id}`);
   useEffect(() => {
     const key = `${model.id}/${finish.id}`;
     if (key === shown.current) return;

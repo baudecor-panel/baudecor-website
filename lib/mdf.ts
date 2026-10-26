@@ -37,7 +37,7 @@ export const MDF_MODELS: MdfModel[] = [
       grain("light-oak-black", "Light Oak Black", "/mdf-light-oak-black.jpg", "#d8c1ac", "#141414"),
       grain("teak-black", "Teak Black", "/mdf-teak-black.jpg", "#a0795b", "#141414"),
       solid("st-white", "Soft Touch White", "/mdf-soft-touch-white.jpg", "#e4e7ea"),
-      solid("st-anth", "Soft Touch Antrasit", "/mdf-soft-touch-antrasit.jpg", "#47484a"),
+      solid("st-anth", "Soft Touch Antrasit", "/mdf-soft-touch-antrasit.jpg", "#56585b"),
       solid("st-black", "Soft Touch Siyah", "/mdf-soft-touch-siyah.jpg", "#1c1b20"),
     ],
   },
@@ -82,3 +82,10 @@ export function faceStyle(f: MdfFinish, aspect: number) {
     backgroundPosition: `${(face.x / (w - face.w)) * 100}% ${((face.y / face.w) / (ih - aspect)) * 100}%`,
   };
 }
+
+/* 3D görünümün açılış rengi: kanalların net okunduğu düz renk */
+export const MDF_DEFAULT_FINISH = "st-anth";
+export const mdfDefault = () => {
+  const model = MDF_MODELS[0];
+  return { model, finish: model.finishes.find((f) => f.id === MDF_DEFAULT_FINISH) ?? model.finishes[0] };
+};
