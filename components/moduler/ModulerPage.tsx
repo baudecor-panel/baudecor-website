@@ -55,8 +55,11 @@ export default function ModulerPage() {
     const grid = document.querySelector("[data-flip-grid]");
     const flip = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
-      e.target.querySelectorAll("[data-flip]").forEach((el) => el.setAttribute("data-in", ""));
       flip.disconnect();
+      // görseller yüklenmeden başlarsa boş kutular döner; en fazla 1,5 sn bekle
+      const imgs = [...e.target.querySelectorAll("img")].map((img) => img.decode().catch(() => {}));
+      const go = () => e.target.querySelectorAll("[data-flip]").forEach((el) => el.setAttribute("data-in", ""));
+      Promise.race([Promise.all(imgs), new Promise((r) => setTimeout(r, 1500))]).then(go);
     }, { threshold: 0.08 });
     if (grid) flip.observe(grid);
     return () => { io.disconnect(); flip.disconnect(); };
@@ -97,7 +100,7 @@ export default function ModulerPage() {
         </header>
         <div className={m.grid} data-flip-grid>
           {MOD_MODELS.map((md, i) => (
-            <button key={md.id} className={m.card} onClick={() => openModel(i)} data-flip style={{ transitionDelay: `${0.15 + i * 0.11}s` }}>
+            <button key={md.id} className={m.card} onClick={() => openModel(i)} data-flip style={{ animationDelay: `${i * 0.13}s` }}>
               <span className={m.cardImg}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={md.cover} alt={md.name} loading="lazy" />
