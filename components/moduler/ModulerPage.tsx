@@ -51,7 +51,15 @@ export default function ModulerPage() {
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
     document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    // model kartları: ızgara görünür olunca hepsi sırayla dönerek yerine oturur
+    const grid = document.querySelector("[data-flip-grid]");
+    const flip = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll("[data-flip]").forEach((el) => el.setAttribute("data-in", ""));
+      flip.disconnect();
+    }, { threshold: 0.08 });
+    if (grid) flip.observe(grid);
+    return () => { io.disconnect(); flip.disconnect(); };
   }, []);
 
   // model penceresi: klavye ve kaydırma kilidi
@@ -87,9 +95,9 @@ export default function ModulerPage() {
           </div>
           <p className={h.headDesc}>{L("Kliknite na model za opis, boje, galeriju i tehničku dokumentaciju.", "Açıklama, renkler, galeri ve teknik belgeler için bir modele tıklayın.", "Click a model for its description, colours, gallery and technical documents.")}</p>
         </header>
-        <div className={m.grid}>
+        <div className={m.grid} data-flip-grid>
           {MOD_MODELS.map((md, i) => (
-            <button key={md.id} className={m.card} onClick={() => openModel(i)} data-reveal style={{ transitionDelay: `${(i % 4) * 0.06}s` }}>
+            <button key={md.id} className={m.card} onClick={() => openModel(i)} data-flip style={{ transitionDelay: `${0.15 + i * 0.11}s` }}>
               <span className={m.cardImg}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={md.cover} alt={md.name} loading="lazy" />
