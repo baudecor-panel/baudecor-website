@@ -83,9 +83,9 @@ export function faceStyle(f: MdfFinish, aspect: number) {
   };
 }
 
-/* 3D görünümün açılış rengi: kanalların net okunduğu düz renk */
-export const MDF_DEFAULT_FINISH = "st-anth";
+/* 3D görünümün açılış görünümü: kanallı 18121 profil, kanalların net okunduğu açık Water Green.
+   (Kartelasındaki her renk tüm modellere uygulanabildiği için 18118Y rengi 18121 üzerinde gösterilir.) */
 export const mdfDefault = () => {
-  const model = MDF_MODELS[0];
-  return { model, finish: model.finishes.find((f) => f.id === MDF_DEFAULT_FINISH) ?? model.finishes[0] };
+  const finish = MDF_MODELS.flatMap((m) => m.finishes).find((f) => f.id === "water-green") ?? MDF_MODELS[0].finishes[0];
+  return { model: MDF_MODELS[0], finish };
 };

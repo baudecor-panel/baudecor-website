@@ -15,8 +15,6 @@ const LIP = 6;       // bindirme kenarı genişliği
 const LIP_H = 6;     // bindirme kenarı yüksekliği
 const SHOW_L = 1.2;  // sahnede gösterilen boy (m) — gerçek boy 2800 mm
 const BOARDS = 7;    // yan yana panel sayısı
-const INSTALL_N = 3;        // montajda sırayla yerine oturan panel sayısı
-const INSTALL_CYCLE = 6.2;  // montaj döngüsü (sn)
 
 /* Yüzey profili: soldan sağa, 0..P aralığında (P = genişlik − bindirme) */
 function grooveFace(P: number): [number, number][] {
@@ -61,7 +59,7 @@ type Pose = { ry: number; rx: number; x: number; y: number; ex: number; z: numbe
 const POSES: Pose[] = [
   { ry: -0.55, rx: 0.12, x: 0.5, y: 0, ex: 0, z: 2.75 },   // giriş
   { ry: 0.3, rx: 0.8, x: 0.3, y: -0.34, ex: 0, z: 1.8 },   // model — üst kesit
-  { ry: 0.62, rx: 0.08, x: -0.42, y: 0, ex: 1, z: 2.6 },   // montaj — duvara yerleşen paneller
+  { ry: 0.45, rx: 0.1, x: -0.45, y: 0, ex: 1, z: 2.9 },    // montaj
 ];
 
 /* ===== Yardımcılar ===== */
@@ -303,13 +301,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     tilt.add(panel);
     scene.add(tilt);
 
-    // montaj sahnesinde arkada sıva duvar
-    const wallMat = new THREE.MeshStandardMaterial({ color: "#fffaf3", roughness: 1, transparent: true, opacity: 0 });
-    const wall = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), wallMat);
-    wall.position.set(0, 0, -T / 2000 - 0.0008);
-    wall.receiveShadow = true;
-    wall.visible = false;
-    panel.add(wall);
+
 
     let curModel = MDF_MODELS[0];
     const boards = Array.from({ length: BOARDS }, (_, i) => {
@@ -339,7 +331,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
         b.groove.roughness = 0.9;
       } else {
         b.groove.map = textureFor(c, f, i + 3);
-        b.groove.color.set("#ffffff");
+        b.groove.color.set("#b8b8b8"); // kanal içi daha az ışık alır — hatlar belirginleşir
         b.groove.roughness = roughnessFor(f);
       }
       b.groove.needsUpdate = true;
@@ -405,7 +397,6 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
     /* --- Animasyon döngüsü --- */
     const cur: Pose = { ...POSES[0] };
     let tmx = 0, tmy = 0;
-    let installStart: number | null = null;
     const clock = new THREE.Clock();
     const v = new THREE.Vector3();
     let raf = 0;
@@ -454,33 +445,15 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
 
       contact.position.set(cur.x, cur.y - SHOW_L / 2 - 0.02, 0.02);
       contact.rotation.y = tilt.rotation.y;
-      shadowMat.opacity = (1 - smooth(0.15, 0.45, Math.abs(cur.rx))) * (1 - cur.ex) * rise(BOARDS - 1);
+      shadowMat.opacity = (1 - smooth(0.15, 0.45, Math.abs(cur.rx))) * (1 - cur.ex * 0.6) * rise(BOARDS - 1);
 
-      // montaj: son üç panel sırayla önce duvara yaklaşır, sonra yandan kayıp bindirmeyle yerine oturur
+      // montaj: paneller kenarlarından ayrılır, sırayla öne çıkar
       const now = performance.now();
-      if (cur.ex > 0.6 && installStart === null) installStart = now;
-      if (cur.ex < 0.3) installStart = null;
-      const cyc = installStart === null ? -1 : ((now - installStart) / 1000) % INSTALL_CYCLE;
-      const away = smooth(0.1, 0.6, cur.ex); // sahneye girerken paneller dışarı çıkar
       boards.forEach((b, i) => {
-        const j = i - (BOARDS - INSTALL_N);
-        let ox = 0, oz = 0;
-        if (j >= 0) {
-          // 0: duvardan uzakta, 1: yerinde
-          let t = 0;
-          if (cyc >= 0) {
-            const tIn = clamp((cyc - j * 0.85) / 1.1);
-            const tOut = clamp((cyc - (INSTALL_CYCLE - 0.9)) / 0.7);
-            t = tIn * (1 - tOut);
-          }
-          const zIn = easeInOut(clamp(t / 0.55));
-          const xIn = easeInOut(clamp((t - 0.35) / 0.65));
-          ox = (1 - xIn) * 0.16 * away;
-          oz = (1 - zIn) * 0.07 * away;
-        }
-        b.mesh.position.x = b.baseX + ox;
+        const st = easeInOut(clamp(cur.ex * 1.5 - (i / BOARDS) * 0.5));
+        b.mesh.position.x = b.baseX + (i - (BOARDS - 1) / 2) * st * 0.06;
         b.mesh.position.y = (1 - rise(i)) * -1.6;
-        b.mesh.position.z = oz;
+        b.mesh.position.z = st * (i % 2 ? 0.07 : 0.025);
 
         if (swap) {
           const t = clamp((now - swap.start - i * 70) / 650);
@@ -498,15 +471,12 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
           }
         }
       });
-      wall.visible = cur.ex > 0.01;
-      wallMat.opacity = smooth(0.2, 0.9, cur.ex);
-      wallMat.transparent = wallMat.opacity < 0.99; // tam görünürken gölgeleri net alır
 
       // 3D noktalara bağlı etiketler
       const seg = progress * (POSES.length - 1);
       const W = curModel.width / 1000;
       place(labelCoreRef.current, boards[2].mesh, new THREE.Vector3(0, SHOW_L / 2, 0), 1 - smooth(0.12, 0.4, Math.abs(seg - 1)));
-      place(labelJointRef.current, boards[BOARDS - INSTALL_N].mesh, new THREE.Vector3(-W / 2 + 0.004, 0.25, 0), smooth(0.55, 0.95, cur.ex));
+      place(labelJointRef.current, boards[1].mesh, new THREE.Vector3(W / 2, 0.22, 0), smooth(0.55, 0.95, cur.ex));
 
       // bölüm metinleri
       sections.forEach((el, i) => {
@@ -625,7 +595,7 @@ export default function MdfStory({ lang, model, finish, onChoose }: {
           <section className={`${styles.section} ${styles.right} ${mdf.roomy}`}>
             <p className={styles.kicker}>02 — {L("Montaža", "Montaj", "Fitting")}</p>
             <h2 className={styles.title}>{L("Laka", "Kolay", "Easy")} <em>{L("montaža", "montaj", "fitting")}</em></h2>
-            <p className={styles.text}>{L("Svaki panel se postavlja na zid i preklopnom ivicom naliježe na prethodni. Spojevi se ne vide, a montaža je brza i čista.", "Her panel duvara yerleştirilir ve bindirmeli kenarıyla bir öncekinin üzerine oturur. Birleşim yerleri görünmez, montaj hızlı ve temiz olur.", "Each panel goes onto the wall and its overlapping edge sits over the previous one. The joints disappear and fitting is quick and clean.")}</p>
+            <p className={styles.text}>{L("Paneli se spajaju preklapanjem ivica. Spojevi se ne vide, a montaža je brza i čista.", "Paneller kenarlarından birbirine bindirilerek geçer. Birleşim yerleri görünmez, montaj hızlı ve temiz olur.", "Panels slot together along overlapping edges. The joints disappear and fitting is quick and clean.")}</p>
           </section>
         </div>
       </div>
