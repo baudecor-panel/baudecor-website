@@ -137,7 +137,9 @@ export default function AkustikPage() {
       <section className={s.specBand}>
         <div className={k.anatomy} data-reveal>
           <div className={k.closeup}>
-            {layered("closeup", L("Lamele izbliza", "Yakın çekim çıtalar", "Slats up close"))}
+            {/* anatomi renk seçiminden bağımsız: her zaman föydeki Light Oak fotoğrafı */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={akImg("light-oak", "closeup")} alt={L("Lamele izbliza", "Yakın çekim çıtalar", "Slats up close")} className={k.layer} data-on />
             {AK_HOTSPOTS.map((p, i) => (
               <button key={i} className={k.hot} data-on={part === i || undefined} style={{ left: `${p.x}%`, top: `${p.y}%` }}
                 onMouseEnter={() => setPart(i)} onMouseLeave={() => setPart(null)} onFocus={() => setPart(i)} onBlur={() => setPart(null)} aria-label={PARTS[i].title[lang]}>
@@ -151,7 +153,11 @@ export default function AkustikPage() {
             <ol className={k.parts}>
               {PARTS.map((p, i) => (
                 <li key={p.title.en} data-on={part === i || undefined} onMouseEnter={() => setPart(i)} onMouseLeave={() => setPart(null)}>
-                  <span className={k.partImg}>{layered(`d${i + 1}` as "d1", p.title[lang])}<em>{i + 1}</em></span>
+                  <span className={k.partImg}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={akImg("light-oak", `d${i + 1}` as "d1")} alt={p.title[lang]} className={k.layer} data-on />
+                    <em>{i + 1}</em>
+                  </span>
                   <div><h3>{p.title[lang]}</h3><p>{p.text[lang]}</p></div>
                 </li>
               ))}
