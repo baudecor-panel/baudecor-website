@@ -95,8 +95,8 @@
 /* ===== Esneklik ===== */
 .flex { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px, 6vw, 96px); align-items: center; }
 /* çizimin beyaz zemini sayfa rengine karışsın diye kapsayıcı multiply ile harmanlanır */
-.arc { position: relative; aspect-ratio: 505 / 112; mix-blend-mode: multiply; animation: bend 5s ease-in-out infinite; transform-origin: 50% 100%; }
-.arc .layer { object-fit: contain; filter: brightness(1.07) contrast(1.12); -webkit-mask-image: radial-gradient(ellipse 62% 95% at 50% 70%, #000 70%, transparent 100%); mask-image: radial-gradient(ellipse 62% 95% at 50% 70%, #000 70%, transparent 100%); }
+.arc { position: relative; aspect-ratio: 512 / 160; mix-blend-mode: multiply; animation: bend 5s ease-in-out infinite; transform-origin: 50% 100%; }
+.arc .layer { object-fit: contain; filter: brightness(1.07) contrast(1.12); }
 @keyframes bend { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.86); } }
 
 /* ===== Montaj ===== */
@@ -125,6 +125,7 @@
   .room { aspect-ratio: 4 / 5; }
   .dimV { right: -52px; }
   .steps { grid-template-columns: 1fr; }
-  .colors button { grid-template-columns: 56px 1fr; }
+  .colors button { grid-template-columns: 56px 1fr; gap: 10px; }
+  .colors b { font-size: 15px; white-space: nowrap; }
   .colors img { width: 56px; height: 44px; }
 }
