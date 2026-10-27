@@ -106,21 +106,19 @@ export default function AkustikPage() {
           </div>
         </div>
 
-        {/* sahne: üç panel yan yana (180 cm), ölçü çizgileriyle */}
+        {/* sahne: tek panel, föydeki gibi oklu ölçü çizgileriyle */}
         <div className={k.stage}>
           <div className={k.room}>
             <div className={k.wall}>
-              {[0, 1, 2].map((n) => (
-                <div key={n} className={k.panel} style={{ animationDelay: `${0.15 + n * 0.14}s` }}>
-                  {layered("panel", `${L("Akustični panel", "Akustik panel", "Acoustic panel")} ${color.name}`)}
-                </div>
-              ))}
-              <span className={k.dimH}><i />{AK_SIZE.width} cm<i /></span>
-              <span className={k.dimV}><i />{AK_SIZE.height} cm<i /></span>
+              <div className={k.panel}>
+                {layered("panel", `${L("Akustični panel", "Akustik panel", "Acoustic panel")} ${color.name}`)}
+              </div>
+              <span className={k.dimH}><i /><b>{AK_SIZE.width} cm</b></span>
+              <span className={k.dimV}><i /><b>{AK_SIZE.height} cm</b><i /></span>
             </div>
             <span className={k.shade} aria-hidden />
           </div>
-          <p className={k.caption}>{color.name} · {L("tri panela", "üç panel", "three panels")} · {AK_SIZE.width * 3} × {AK_SIZE.height} cm</p>
+          <p className={k.caption}>{color.name} · {L("jedan panel", "bir panel", "one panel")} · {AK_SIZE.width} × {AK_SIZE.height} cm</p>
         </div>
       </section>
 
