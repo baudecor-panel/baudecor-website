@@ -94,10 +94,7 @@
 
 /* ===== Esneklik ===== */
 .flex { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px, 6vw, 96px); align-items: center; }
-/* çizimin beyaz zemini sayfa rengine karışsın diye kapsayıcı multiply ile harmanlanır */
-.arc { position: relative; aspect-ratio: 512 / 160; mix-blend-mode: multiply; animation: bend 5s ease-in-out infinite; transform-origin: 50% 100%; }
-.arc .layer { object-fit: contain; filter: brightness(1.07) contrast(1.12); }
-@keyframes bend { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.86); } }
+.arc { max-width: 620px; justify-self: center; width: 100%; }
 
 /* ===== Montaj ===== */
 .tight { padding-top: 0; }
