@@ -11,8 +11,8 @@ export const AK_COLORS: AkColor[] = [
   { id: "black", name: "Black", tone: { me: "Crna", tr: "Siyah", en: "Black" } },
 ];
 
-/* föylerden kırpılan görseller: tam panel, yakın çekim, 3 detay (MDF, kaplama, keçe), renk kutusu */
-export const akImg = (id: AkColor["id"], part: "panel" | "closeup" | "d1" | "d2" | "d3" | "swatch") => `/akustik/${id}-${part}.webp`;
+/* föylerden kırpılan görseller: tam panel, yakın çekim, 3 detay (MDF, kaplama, keçe), esneklik fotoğrafı, renk kutusu */
+export const akImg = (id: AkColor["id"], part: "panel" | "closeup" | "d1" | "d2" | "d3" | "flex" | "swatch") => `/akustik/${id}-${part}.webp`;
 
 export const AK_SIZE = { width: 60, height: 280 };   // cm
 

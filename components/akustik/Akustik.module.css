@@ -94,7 +94,10 @@
 
 /* ===== Esneklik ===== */
 .flex { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px, 6vw, 96px); align-items: center; }
-.arc { max-width: 620px; justify-self: center; width: 100%; }
+/* fotoğrafın beyaz zemini sayfa rengine karışsın diye kapsayıcı multiply ile harmanlanır; 512 px'ten büyütülmez */
+.arc { width: 100%; max-width: 512px; justify-self: center; mix-blend-mode: multiply; animation: bend 5s ease-in-out infinite; transform-origin: 50% 100%; }
+.arc img { display: block; width: 100%; height: auto; filter: brightness(1.07) contrast(1.12); }
+@keyframes bend { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.86); } }
 
 /* ===== Montaj ===== */
 .tight { padding-top: 0; }

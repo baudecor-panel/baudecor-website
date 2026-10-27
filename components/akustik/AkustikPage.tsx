@@ -6,7 +6,6 @@ import { PHONE, pick, type Txt } from "@/lib/site";
 import { AK_COLORS, AK_HOTSPOTS, AK_SIZE, akImg } from "@/lib/akustik";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
-import FlexArc from "./FlexArc";
 import h from "../home/Home.module.css";
 import s from "@/components/site/Product.module.css";
 import k from "./Akustik.module.css";
@@ -175,7 +174,11 @@ export default function AkustikPage() {
             <h2 className={h.h2}>{L("Prati svaku", "Her kıvrımı", "Follows every")} <em>{L("krivinu", "takip eder", "curve")}</em></h2>
             <p className={k.lead}>{L("Fleksibilna podloga od akustičnog filca savija se zajedno sa lamelama, pa panel može da obavije stub, zaobljen zid ili šank — tamo gdje kruta ploča ne može.", "Akustik keçeden esnek taban çıtalarla birlikte bükülür; panel kolonu, kavisli duvarı ya da bar tezgâhını sarabilir — sert levhanın giremediği yerlerde.", "The flexible acoustic-felt backing bends with the slats, so the panel can wrap a column, a curved wall or a bar counter — where a rigid board can't go.")}</p>
           </div>
-          <div className={k.arc}><FlexArc color={color.id} label={L("Fleksibilna podloga od akustičnog filca", "Akustik keçeden esnek taban", "Flexible acoustic-felt backing")} /></div>
+          {/* föydeki esneklik fotoğrafı — renk seçiminden bağımsız, kendi boyutundan büyütülmez (bulanıklaşmasın) */}
+          <div className={k.arc}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={akImg("light-oak", "flex")} alt={L("Fleksibilna podloga od akustičnog filca", "Akustik keçeden esnek taban", "Flexible acoustic-felt backing")} />
+          </div>
         </div>
       </section>
 
