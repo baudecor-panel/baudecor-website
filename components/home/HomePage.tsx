@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { tx } from "@/lib/i18n";
-import HeroWall from "./HeroWall";
+import HeroAccordion from "./HeroAccordion";
 import { useLang } from "@/lib/useLang";
 import { LANGS } from "@/lib/site";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
@@ -15,17 +15,19 @@ type Txt = { tr: string; me: string; en: string };
 /* ===== İçerik ===== */
 const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Fleksibilni Kamen", "Tapete", "SPC Paneli", "Besplatna Dostava", "Kupovina na Rate"];
 
-const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text: Txt; img: string }[] = [
+const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: Txt; text: Txt; img: string }[] = [
   {
     num: "01", href: "/urunler/pvc-paneli",
     badge: { tr: "Çok Satan", me: "Bestseler", en: "Best Seller" },
     name: { tr: "PVC Paneller", me: "PVC Paneli", en: "PVC Panels" },
+    tag: { tr: "Su geçirmez mermer görünümü", me: "Vodootporni mermer", en: "Waterproof marble" },
     text: { tr: "Su geçirmez parlak yüzeyli paneller. Banyo, mutfak ve ıslak mekanlar için ideal. Mevcut yüzey kaldırılmadan montaj.", me: "Vodootporni paneli sa sjajnom površinom. Idealni za kupatila, kuhinje i vlažne prostorije. Montaža bez uklanjanja postojećeg materijala.", en: "Waterproof panels with glossy surface. Ideal for bathrooms, kitchens and wet areas. Installation without removing existing material." },
     img: "/Wall-Panel-1-27-Kopya.jpg",
   },
   {
     num: "02", href: "/urunler/mdf-paneli", badge: null,
     name: { tr: "MDF Paneller", me: "MDF Paneli", en: "MDF Panels" },
+    tag: { tr: "Ahşabın sıcaklığı", me: "Toplina drveta", en: "The warmth of wood" },
     text: { tr: "Konutları ve ticari alanları güzelleştiren ahşap MDF paneller. Doğal ahşap görünümü, modern dayanıklılık.", me: "Drveni medijapan paneli koji oplemenjuju stambene i poslovne prostore. Prirodan izgled drveta uz modernu izdržljivost.", en: "Wooden MDF panels that enhance residential and commercial spaces. Natural wood look with modern durability." },
     img: "/anasayfa%20mdf.jpg",
   },
@@ -33,6 +35,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text:
     num: "03", href: "/urunler/moduler-duvar-paneli",
     badge: { tr: "Yeni", me: "Novo", en: "New" },
     name: { tr: "Modüler Duvar Paneli", me: "Modularni Zidni Panel", en: "Modular Wall Panel" },
+    tag: { tr: "Işıkla canlanan 3D rölyef", me: "3D reljef koji oživljava svjetlom", en: "3D relief brought alive by light" },
     text: { tr: "Hafif ABS polimerden üretilen rölyefli Modüler duvar panelleri. Modüler yapısıyla sınırsız kombinasyon — otel, restoran ve konut projelerine mükemmel uyum.", me: "Reljefni modularni zidni paneli izrađeni od laganog ABS polimera. Modularni sistem za beskrajne kombinacije — savršeni za hotele, restorane i stambene projekte.", en: "Relief modular wall panels made from lightweight ABS polymer. Modular system for endless combinations — perfect for hotels, restaurants and residential projects." },
     img: "/KAPAK%20PENTA.jpg",
   },
@@ -40,6 +43,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text:
     num: "04", href: "/urunler/akustik-duvar-paneli",
     badge: { tr: "Yeni", me: "Novo", en: "New" },
     name: { tr: "Akustik Duvar Paneli", me: "Akustični Zidni Panel", en: "Acoustic Wall Panel" },
+    tag: { tr: "Şık bir sessizlik", me: "Tišina sa stilom", en: "Silence, with style" },
     text: { tr: "Ses yutma ve estetik tasarımı bir arada sunan akustik duvar panelleri. Ofis, stüdyo ve konut projelerinde mükemmel ses konforu.", me: "Akustični zidni paneli koji kombinuju apsorpciju zvuka i estetski dizajn. Savršen zvučni komfor za kancelarije, studije i stambene prostore.", en: "Acoustic wall panels combining sound absorption and aesthetic design. Perfect sound comfort for offices, studios and residential spaces." },
     img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
   },
@@ -47,6 +51,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text:
     num: "05", href: "/duvar-kagidi",
     badge: { tr: "1000+ Desen", me: "1000+ Dezena", en: "1000+ Designs" },
     name: { tr: "Duvar Kağıdı", me: "Tapete", en: "Wallpaper" },
+    tag: { tr: "1000+ desen, 15 koleksiyon", me: "1000+ dezena, 15 kolekcija", en: "1000+ designs, 15 collections" },
     text: { tr: "AdaWall'un 15 koleksiyonundan 1000'i aşkın desen — klasik damasktan modern dokulara, taş ve tuğladan tropik motiflere.", me: "Preko 1000 dezena iz 15 AdaWall kolekcija — od klasičnog damaska do modernih tekstura, kamena, cigle i tropskih motiva.", en: "Over 1000 designs from 15 AdaWall collections — from classic damask to modern textures, stone, brick and tropical motifs." },
     img: "/duvar-kagidi/oda/seven-7811-serie.webp",
   },
@@ -54,6 +59,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; text:
     num: "06", href: "/urunler/esnek-tas-panel",
     badge: { tr: "Yeni", me: "Novo", en: "New" },
     name: { tr: "Esnek Taş Panel", me: "Fleksibilni Kamen", en: "Flexible Stone" },
+    tag: { tr: "Bükülen taş", me: "Kamen koji se savija", en: "Stone that bends" },
     text: { tr: "Clayton'ın 21 serisi: taş, mermer, arduvaz, tuğla ve ahşap görünümlü hafif, bükülebilen mineral levhalar. İç mekân, banyo ve cepheler için.", me: "21 Clayton serija: lagane mineralne ploče koje se savijaju, sa izgledom kamena, mermera, škriljca, opeke i drveta. Za enterijer, kupatila i fasade.", en: "21 Clayton series: light, bendable mineral sheets with the look of stone, marble, slate, brick and wood. For interiors, bathrooms and façades." },
     img: "/clayton/oda/traverten-1.webp",
   },
@@ -169,8 +175,7 @@ export default function HomePage() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  // 3D duvarın 5 şeridi PRODUCTS'ın ilk 5 ürünüyle aynı sırada (PVC, MDF, modüler, akustik, duvar kağıdı)
-  const wallItems = PRODUCTS.slice(0, 5).map((p) => ({ name: tx(p.name, lang), href: p.href }));
+  const heroPanels = PRODUCTS.map((p) => ({ num: p.num, href: p.href, name: tx(p.name, lang), tag: tx(p.tag, lang), img: p.img }));
 
   return (
     <div className={s.page}>
@@ -212,8 +217,6 @@ export default function HomePage() {
       {/* ===== AÇILIŞ ===== */}
       <section id="hero" className={s.hero}>
         <div className={s.heroGlow} aria-hidden />
-        <div className={s.heroGrid} aria-hidden><span /><span /><span /></div>
-        <HeroWall items={wallItems} />
         <div className={s.heroContent}>
           <p className={`${s.kicker} ${s.fadeUp}`} style={{ animationDelay: "0.2s" }}>
             {L("Premium Zidni Paneli · Crna Gora", "Premium Duvar Panelleri · Karadağ", "Premium Wall Panels · Montenegro")}
@@ -224,18 +227,20 @@ export default function HomePage() {
               : <><span><span>Transform</span></span><span><span>Your Space</span></span><span><span>With <em>Style</em></span></span></>}
           </h1>
           <p className={`${s.heroDesc} ${s.fadeUp}`} style={{ animationDelay: "0.9s" }}>
-            {L("Inovativna rješenja u uređenju enterijera. PVC, MDF i modularni paneli koji spajaju eleganciju, kvalitet i jednostavnost ugradnje.",
-              "İç mekan dekorasyonunda yenilikçi çözümler. Zarafet, kalite ve kolay montajı bir araya getiren PVC, MDF ve modüler paneller.",
-              "Innovative interior design solutions. PVC, MDF and modular panels combining elegance, quality and ease of installation.")}
+            {L("Šest kolekcija za zidove sa karakterom — PVC i MDF paneli, modularni i akustični paneli, tapete i fleksibilni kamen. Pogledajte ih uživo u našem salonu u Ulcinju.",
+              "Karakterli duvarlar için altı koleksiyon — PVC ve MDF paneller, modüler ve akustik paneller, duvar kağıdı ve esnek taş. Ulcinj'deki showroom'umuzda yerinde görün.",
+              "Six collections for walls with character — PVC and MDF panels, modular and acoustic panels, wallpaper and flexible stone. See them in person at our Ulcinj showroom.")}
           </p>
           <div className={`${s.heroBtns} ${s.fadeUp}`} style={{ animationDelay: "1.05s" }}>
             <button className={s.btnPrimary} onClick={() => scrollTo("products")}>{L("Pogledaj Ponudu", "Ürünleri Gör", "View Products")} <span>→</span></button>
             <button className={s.btnGhost} onClick={() => scrollTo("contact")}>{L("Kontaktirajte Nas", "İletişime Geçin", "Contact Us")}</button>
           </div>
         </div>
+        <div className={s.heroStage}>
+          <HeroAccordion items={heroPanels} cta={L("Istraži kolekciju", "Koleksiyonu incele", "Explore collection")} />
+        </div>
         <div className={`${s.heroFoot} ${s.fadeIn}`} style={{ animationDelay: "1.4s" }}>
           <button className={s.scrollHint} onClick={() => scrollTo("products")}><span />{L("Skroluj", "Kaydır", "Scroll")}</button>
-          <p className={s.wallHint}>{L("Pređite mišem preko panela", "Panellerin üzerine gelin", "Hover over the panels")}</p>
           <p>Showroom · Ulcinj</p>
         </div>
       </section>
