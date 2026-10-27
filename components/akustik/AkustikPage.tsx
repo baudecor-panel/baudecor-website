@@ -13,10 +13,9 @@ import k from "./Akustik.module.css";
 
 const T = (me: string, tr: string, en: string): Txt => ({ me, tr, en });
 
-/* ses emme katsayısı (125–4000 Hz) — tedarikçi ölçüm grafiğinden */
+/* ses emme katsayısı (125–4000 Hz), keçeli panel doğrudan duvarda — tedarikçi ölçüm grafiğinden */
 const FREQ = [125, 250, 500, 1000, 2000, 4000];
-const ABS_WALL = [0.05, 0.11, 0.31, 0.7, 0.98, 0.75];
-const ABS_WOOL = [0.3, 0.7, 1.0, 0.95, 0.85, 0.8];
+const ABSORB = [0.05, 0.11, 0.31, 0.7, 0.98, 0.75];
 
 const LAYERS: { title: Txt; text: Txt }[] = [
   { title: T("Akustični filc", "Akustik keçe", "Acoustic felt"),
@@ -168,11 +167,10 @@ export default function AkustikPage() {
         <div className={k.acoustic} data-reveal>
           <div>
             <p className={h.kicker}>{L("Apsorpcija zvuka", "Ses emme", "Sound absorption")}</p>
-            <h2 className={h.h2}>{lang === "me" ? <>Do klase <em>A</em></> : lang === "tr" ? <><em>A</em> sınıfına kadar</> : <>Up to class <em>A</em></>}</h2>
-            <p className={k.lead}>{L("Postavljen direktno na zid, panel dostiže klasu apsorpcije D. Sa mineralnom vunom iza panela dostiže najvišu klasu A — i guta i duboke tonove.", "Doğrudan duvara monte edildiğinde panel D ses emme sınıfına ulaşır. Arkasına taş yünü konduğunda en yüksek A sınıfına çıkar — derin sesleri de yutar.", "Fixed straight to the wall, the panel reaches absorption class D. With mineral wool behind it, it reaches the top class A — swallowing low tones too.")}</p>
+            <h2 className={h.h2}>{L("Odjek", "Yankı", "Echo")} <em>{L("nestaje", "kaybolur", "fades away")}</em></h2>
+            <p className={k.lead}>{L("Crni akustični filc i lamele upijaju zvuk čim se panel postavi na zid. Najjače djeluju od 1000 do 4000 Hz — u opsegu ljudskog glasa, posuđa i televizora, gdje odjek najviše smeta.", "Siyah akustik keçe ve çıtalar, panel duvara takıldığı anda sesi emmeye başlar. En güçlü etki 1000–4000 Hz arasında — insan sesi, tabak çanak ve televizyon seslerinin, yankının en çok rahatsız ettiği aralıkta.", "The black acoustic felt and slats start absorbing sound as soon as the panel is on the wall. They work hardest from 1000 to 4000 Hz — the range of voices, dishes and the TV, where echo bothers most.")}</p>
             <div className={k.legend}>
-              <span><i className={k.lgWool} />{L("Sa mineralnom vunom — klasa A", "Taş yünü ile — A sınıfı", "With mineral wool — class A")}</span>
-              <span><i className={k.lgWall} />{L("Direktno na zid — klasa D", "Doğrudan duvara — D sınıfı", "Straight on the wall — class D")}</span>
+              <span><i className={k.lgLine} />{L("Koeficijent apsorpcije — panel na filcu, direktno na zidu", "Ses emme katsayısı — keçeli panel, doğrudan duvarda", "Absorption coefficient — felt panel, straight on the wall")}</span>
             </div>
           </div>
           <svg className={k.chart} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={L("Koeficijent apsorpcije zvuka", "Ses emme katsayısı", "Sound absorption coefficient")}>
@@ -180,10 +178,10 @@ export default function AkustikPage() {
               <g key={v}><line x1={P} x2={W - P} y1={y(v)} y2={y(v)} className={k.grid} /><text x={P - 8} y={y(v) + 4} textAnchor="end" className={k.svgSmall}>{v.toFixed(1)}</text></g>
             ))}
             {FREQ.map((f, i) => <text key={f} x={x(i)} y={H - 10} textAnchor="middle" className={k.svgSmall}>{f}</text>)}
-            <path d={line(ABS_WOOL)} className={k.lnWool} pathLength={1} />
-            <path d={line(ABS_WALL)} className={k.lnWall} pathLength={1} />
-            {ABS_WOOL.map((v, i) => <circle key={`a${i}`} cx={x(i)} cy={y(v)} r="3.5" className={k.dotWool} />)}
-            {ABS_WALL.map((v, i) => <circle key={`b${i}`} cx={x(i)} cy={y(v)} r="3.5" className={k.dotWall} />)}
+            <rect x={x(3)} y={P} width={x(5) - x(3)} height={H - P * 2} className={k.band} />
+            <path d={`${line(ABSORB)} L${x(5)},${y(0)} L${x(0)},${y(0)} Z`} className={k.area} />
+            <path d={line(ABSORB)} className={k.ln} pathLength={1} />
+            {ABSORB.map((v, i) => <circle key={i} cx={x(i)} cy={y(v)} r="3.5" className={k.dot} />)}
             <text x={W - P} y={P - 14} textAnchor="end" className={k.svgSmall}>Hz</text>
           </svg>
         </div>
