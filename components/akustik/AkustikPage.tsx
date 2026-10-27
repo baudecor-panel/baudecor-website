@@ -41,7 +41,7 @@ const FAQ: { q: Txt; a: Txt }[] = [
   { q: T("Može li oko stuba ili na zaobljen zid?", "Kolona veya kavisli duvara olur mu?", "Can it wrap a column or a curved wall?"),
     a: T("Da — filc je fleksibilan, pa panel prati zaobljene površine.", "Evet — keçe esnek olduğu için panel kavisli yüzeyleri takip eder.", "Yes — the felt is flexible, so the panel follows curved surfaces.") },
   { q: T("Mogu li ga postaviti sam?", "Kendim monte edebilir miyim?", "Can I install it myself?"),
-    a: T("Da. Dovoljni su testera, odvijač i vijci ili ljepilo.", "Evet. Testere, tornavida ve vida ya da yapıştırıcı yeterli.", "Yes. A saw, a screwdriver and screws or adhesive are all you need.") },
+    a: T("Da — dovoljan je jak silikon. Panel se lijepi direktno na zid, bez bušenja i šrafova.", "Evet — güçlü bir silikon yeterli. Panel doğrudan duvara yapıştırılır, delme ve vida gerekmez.", "Yes — strong silicone is all you need. The panel glues straight onto the wall, no drilling or screws.") },
   { q: T("Šta sa utičnicama i prekidačima?", "Prizler ve anahtarlar ne olacak?", "What about sockets and switches?"),
     a: T("Na tom mjestu se izreže otvor, a utičnica se montira na površinu panela.", "O noktada delik açılır, priz panelin yüzeyine monte edilir.", "Cut an opening at that spot and mount the socket on the panel's surface.") },
   { q: T("Kako se održava?", "Nasıl temizlenir?", "How do I clean it?"),
