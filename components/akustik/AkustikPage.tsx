@@ -27,8 +27,8 @@ const USES = [T("Dnevna soba", "Oturma odası", "Living room"), T("TV zid", "TV 
 const STEPS: { title: Txt; text: Txt }[] = [
   { title: T("Izmjerite i isijecite", "Ölçün ve kesin", "Measure and cut"),
     text: T("Panel se skraćuje običnom testerom, a filc se reže skalpelom — npr. oko utičnica i prekidača.", "Panel sıradan bir testereyle kısaltılır, keçe maket bıçağıyla kesilir — örneğin priz ve anahtar çevresinde.", "Shorten the panel with an ordinary saw and cut the felt with a utility knife — e.g. around sockets and switches.") },
-  { title: T("Pričvrstite", "Sabitleyin", "Fix to the wall"),
-    text: T("Vijcima kroz filc između lamela — crni vijci se ne vide — ili montažnim ljepilom.", "Çıtaların arasından keçeye vidalayın — siyah vida görünmez — ya da montaj yapıştırıcısıyla.", "Screw through the felt between the slats — black screws disappear — or use mounting adhesive.") },
+  { title: T("Zalijepite", "Yapıştırın", "Glue it on"),
+    text: T("Nanesite jak silikon na poleđinu panela i pritisnite ga uz zid — bez bušenja i šrafova.", "Panelin arkasına güçlü silikon sürün ve duvara bastırın — delme ve vida gerekmez.", "Apply strong silicone to the back of the panel and press it to the wall — no drilling or screws.") },
   { title: T("Nastavite niz", "Sırayı sürdürün", "Carry on"),
     text: T("Sljedeći panel se stavlja tik uz prethodni, pa se spoj ne primjećuje i zid izgleda kao jedna cjelina.", "Sonraki panel bir öncekinin hemen yanına konur; derz fark edilmez, duvar tek parça görünür.", "Place the next panel right against the last one — the joint disappears and the wall reads as one surface.") },
 ];
