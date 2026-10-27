@@ -44,8 +44,8 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: 
     badge: { tr: "Yeni", me: "Novo", en: "New" },
     name: { tr: "Akustik Duvar Paneli", me: "Akustični Zidni Panel", en: "Acoustic Wall Panel" },
     tag: { tr: "Şık bir sessizlik", me: "Tišina sa stilom", en: "Silence, with style" },
-    text: { tr: "Ses yutma ve estetik tasarımı bir arada sunan akustik duvar panelleri. Ofis, stüdyo ve konut projelerinde mükemmel ses konforu.", me: "Akustični zidni paneli koji kombinuju apsorpciju zvuka i estetski dizajn. Savršen zvučni komfor za kancelarije, studije i stambene prostore.", en: "Acoustic wall panels combining sound absorption and aesthetic design. Perfect sound comfort for offices, studios and residential spaces." },
-    img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
+    text: { tr: "Esnek akustik keçe üzerinde ahşap MDF çıtalar — Light Oak ve Teak, 60 × 280 cm. Yankıyı azaltır, duvara ahşabın sıcaklığını katar.", me: "Drvene MDF lamele na fleksibilnom akustičnom filcu — Light Oak i Teak, 60 × 280 cm. Smanjuju odjek i daju zidu toplinu drveta.", en: "Wooden MDF slats on flexible acoustic felt — Light Oak and Teak, 60 × 280 cm. They cut echo and give the wall the warmth of wood." },
+    img: "/akustik/light-oak-closeup.webp",
   },
   {
     num: "05", href: "/duvar-kagidi",

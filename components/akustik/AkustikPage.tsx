@@ -3,51 +3,47 @@
 import { useEffect, useState } from "react";
 import { useLang } from "@/lib/useLang";
 import { PHONE, pick, type Txt } from "@/lib/site";
-import { AK_SERIES, AK_SLATS } from "@/lib/akustik";
+import { AK_COLORS, AK_HOTSPOTS, AK_SIZE, akImg } from "@/lib/akustik";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
-import SlatWall from "./SlatWall";
 import h from "../home/Home.module.css";
 import s from "@/components/site/Product.module.css";
 import k from "./Akustik.module.css";
 
 const T = (me: string, tr: string, en: string): Txt => ({ me, tr, en });
 
-/* ses emme katsayısı (125–4000 Hz), keçeli panel doğrudan duvarda — tedarikçi ölçüm grafiğinden */
-const FREQ = [125, 250, 500, 1000, 2000, 4000];
-const ABSORB = [0.05, 0.11, 0.31, 0.7, 0.98, 0.75];
-
-const LAYERS: { title: Txt; text: Txt }[] = [
+/* panelin katmanları — föydeki 1-2-3 sırasıyla */
+const PARTS: { title: Txt; text: Txt }[] = [
+  { title: T("MDF", "MDF", "MDF"),
+    text: T("Lamele od MDF-a — za unutrašnje prostore koji nijesu izloženi vlazi.", "MDF çıtalar — neme maruz kalmayan iç mekânlar için.", "MDF slats — for interiors that aren't exposed to moisture.") },
+  { title: T("Završna obloga", "Yüzey kaplaması", "Finish"),
+    text: T("MDF lamele obložene su sa tri strane, pa se ni između lamela ne vidi sirovi materijal.", "MDF çıtalar üç taraftan kaplıdır; çıtaların arasında bile ham malzeme görünmez.", "The MDF slats are wrapped on three sides, so no raw material shows even between them.") },
   { title: T("Akustični filc", "Akustik keçe", "Acoustic felt"),
-    text: T("Crni filc od recikliranih vlakana upija zvučne talase i guši odjek.", "Geri dönüştürülmüş liflerden siyah keçe ses dalgalarını emer, yankıyı söndürür.", "Black felt made from recycled fibres soaks up sound waves and damps echo.") },
-  { title: T("Lamele", "Çıtalar", "Slats"),
-    text: T("MDF lamele razbijaju i raspršuju zvuk koji se odbija od zida.", "MDF çıtalar duvardan yansıyan sesi kırar ve dağıtır.", "MDF slats break up and diffuse the sound bouncing off the wall.") },
-  { title: T("Površina", "Yüzey", "Surface"),
-    text: T("Furnir ili obloga u boji daje panelu izgled pravog drveta ili metala.", "Kaplama veya renkli yüzey panele gerçek ahşap ya da metal görünümü verir.", "Veneer or a coloured wrap gives the panel the look of real wood or metal.") },
+    text: T("100% PET (poliesterska vlakna), sa do 50% recikliranog sadržaja. Upija zvuk i guši odjek.", "%100 PET (polyester lif), %50'ye varan geri dönüştürülmüş içerik. Sesi emer, yankıyı söndürür.", "100% PET (polyester fibre) with up to 50% recycled content. Absorbs sound and damps echo.") },
 ];
 
-const USES = [T("Dnevna soba", "Oturma odası", "Living room"), T("TV zid", "TV duvarı", "TV wall"), T("Spavaća soba", "Yatak odası", "Bedroom"), T("Kancelarija", "Ofis", "Office"), T("Sala za sastanke", "Toplantı odası", "Meeting room"), T("Muzički studio", "Müzik stüdyosu", "Music studio"), T("Restoran i kafić", "Restoran ve kafe", "Restaurant & café"), T("Hotel", "Otel", "Hotel")];
+const USES = [T("Dnevna soba", "Oturma odası", "Living room"), T("TV zid", "TV duvarı", "TV wall"), T("Spavaća soba", "Yatak odası", "Bedroom"), T("Kancelarija", "Ofis", "Office"), T("Sala za sastanke", "Toplantı odası", "Meeting room"), T("Studio", "Stüdyo", "Studio"), T("Restoran i kafić", "Restoran ve kafe", "Restaurant & café"), T("Hotel", "Otel", "Hotel")];
 
 const STEPS: { title: Txt; text: Txt }[] = [
   { title: T("Izmjerite i isijecite", "Ölçün ve kesin", "Measure and cut"),
-    text: T("Lamele se sijeku običnom testerom (najbolje kružnom), a filc skalpelom — npr. oko utičnica.", "Çıtalar sıradan bir testereyle (en iyisi daire testere), keçe maket bıçağıyla kesilir — örneğin priz çevresinde.", "Cut the slats with an ordinary saw (a circular saw is best) and the felt with a utility knife — e.g. around sockets.") },
+    text: T("Panel se skraćuje običnom testerom, a filc se reže skalpelom — npr. oko utičnica i prekidača.", "Panel sıradan bir testereyle kısaltılır, keçe maket bıçağıyla kesilir — örneğin priz ve anahtar çevresinde.", "Shorten the panel with an ordinary saw and cut the felt with a utility knife — e.g. around sockets and switches.") },
   { title: T("Pričvrstite", "Sabitleyin", "Fix to the wall"),
-    text: T("Vijcima kroz filc između lamela — crni vijci se ne vide — ili ljepilom „tečni ekser“. Ide na beton, ciglu, gips-karton i drvo.", "Çıtalar arasından keçeye vidalayın — siyah vida görünmez — ya da sıvı çivi yapıştırıcısıyla. Beton, tuğla, alçıpan ve ahşaba uygundur.", "Screw through the felt between the slats — black screws disappear — or use liquid-nail adhesive. Works on concrete, brick, plasterboard and wood.") },
-  { title: T("Spojite sljedeći panel", "Sonraki paneli birleştirin", "Join the next panel"),
-    text: T("Paneli se nastavljaju jedan uz drugi bez vidljivog spoja, pa zid izgleda kao jedna cjelina.", "Paneller yan yana görünür derz olmadan devam eder; duvar tek parça görünür.", "Panels continue side by side with no visible joint, so the wall reads as one surface.") },
+    text: T("Vijcima kroz filc između lamela — crni vijci se ne vide — ili montažnim ljepilom.", "Çıtaların arasından keçeye vidalayın — siyah vida görünmez — ya da montaj yapıştırıcısıyla.", "Screw through the felt between the slats — black screws disappear — or use mounting adhesive.") },
+  { title: T("Nastavite niz", "Sırayı sürdürün", "Carry on"),
+    text: T("Sljedeći panel se stavlja tik uz prethodni, pa se spoj ne primjećuje i zid izgleda kao jedna cjelina.", "Sonraki panel bir öncekinin hemen yanına konur; derz fark edilmez, duvar tek parça görünür.", "Place the next panel right against the last one — the joint disappears and the wall reads as one surface.") },
 ];
 
 const FAQ: { q: Txt; a: Txt }[] = [
   { q: T("Da li panel zaustavlja buku iz susjednog stana?", "Panel yan daireden gelen gürültüyü keser mi?", "Will the panel stop noise from next door?"),
-    a: T("Ne — akustični panel ne izoluje zvuk između prostorija. On upija zvuk unutar prostorije u kojoj je postavljen i uklanja odjek, pa prostor zvuči mirnije i jasnije.", "Hayır — akustik panel odalar arası ses yalıtımı yapmaz. Kurulduğu odadaki sesi emer ve yankıyı giderir; mekân daha sakin ve net duyulur.", "No — an acoustic panel doesn't block sound between rooms. It absorbs sound inside the room it's in and removes echo, so the space sounds calmer and clearer.") },
-  { q: T("Mogu li ga postaviti sam?", "Kendim monte edebilir miyim?", "Can I install it myself?"),
-    a: T("Da. Dovoljni su testera, odvijač i vijci ili ljepilo. Panel je lagan, pa ga može postaviti i jedna osoba.", "Evet. Testere, tornavida ve vida ya da yapıştırıcı yeterli. Panel hafif olduğu için tek kişi de monte edebilir.", "Yes. A saw, a screwdriver and screws or adhesive are all you need. The panel is light enough for one person to fit.") },
+    a: T("Ne — akustični panel ne izoluje zvuk između prostorija. On upija zvuk unutar prostorije u kojoj je postavljen i smanjuje odjek, pa prostor zvuči mirnije i jasnije.", "Hayır — akustik panel odalar arası ses yalıtımı yapmaz. Kurulduğu odadaki sesi emer ve yankıyı azaltır; mekân daha sakin ve net duyulur.", "No — an acoustic panel doesn't block sound between rooms. It absorbs sound inside the room it's in and reduces echo, so the space sounds calmer and clearer.") },
   { q: T("Može li u kupatilo ili kuhinju?", "Banyo veya mutfağa olur mu?", "Can it go in a bathroom or kitchen?"),
-    a: T("Ne preporučujemo ga na mjestima gdje je u direktnom kontaktu sa vodom — MDF ne voli vlagu. Panel je namijenjen samo za enterijer.", "Suyla doğrudan temas eden yerlerde önermiyoruz — MDF nemi sevmez. Panel yalnızca iç mekân içindir.", "We don't recommend it where it meets water directly — MDF doesn't like moisture. The panel is for interiors only.") },
-  { q: T("Šta sa utičnicama i prekidačima?", "Prizler ve anahtarlar ne olacak?", "What about sockets and switches?"),
-    a: T("Na tom mjestu se izreže otvor, a utičnica se montira na površinu panela. Kablovi mogu da prođu iza panela kroz kanal u filcu.", "O noktada delik açılır, priz panelin yüzeyine monte edilir. Kablolar keçede açılan bir kanaldan panelin arkasından geçebilir.", "Cut an opening at that spot and mount the socket on the panel's surface. Cables can run behind the panel through a channel cut in the felt.") },
+    a: T("Ne preporučujemo ga u prostorima izloženim vlazi — MDF nije otporan na vodu. Panel je namijenjen suvim unutrašnjim prostorima.", "Neme maruz kalan yerlerde önermiyoruz — MDF suya dayanıklı değildir. Panel kuru iç mekânlar içindir.", "We don't recommend it in damp spaces — MDF isn't water-resistant. The panel is meant for dry interiors.") },
   { q: T("Može li oko stuba ili na zaobljen zid?", "Kolona veya kavisli duvara olur mu?", "Can it wrap a column or a curved wall?"),
-    a: T("Da — za to je napravljena Flex serija sa savitljivim filcem.", "Evet — bunun için esnek keçeli Flex serisi var.", "Yes — that's what the Flex series with flexible felt is for.") },
+    a: T("Da — filc je fleksibilan, pa panel prati zaobljene površine.", "Evet — keçe esnek olduğu için panel kavisli yüzeyleri takip eder.", "Yes — the felt is flexible, so the panel follows curved surfaces.") },
+  { q: T("Mogu li ga postaviti sam?", "Kendim monte edebilir miyim?", "Can I install it myself?"),
+    a: T("Da. Dovoljni su testera, odvijač i vijci ili ljepilo.", "Evet. Testere, tornavida ve vida ya da yapıştırıcı yeterli.", "Yes. A saw, a screwdriver and screws or adhesive are all you need.") },
+  { q: T("Šta sa utičnicama i prekidačima?", "Prizler ve anahtarlar ne olacak?", "What about sockets and switches?"),
+    a: T("Na tom mjestu se izreže otvor, a utičnica se montira na površinu panela.", "O noktada delik açılır, priz panelin yüzeyine monte edilir.", "Cut an opening at that spot and mount the socket on the panel's surface.") },
   { q: T("Kako se održava?", "Nasıl temizlenir?", "How do I clean it?"),
     a: T("Usisivačem ili suvom mekom krpom.", "Elektrikli süpürge veya kuru, yumuşak bir bezle.", "With a vacuum cleaner or a dry, soft cloth.") },
 ];
@@ -55,10 +51,9 @@ const FAQ: { q: Txt; a: Txt }[] = [
 export default function AkustikPage() {
   const [lang, setLang] = useLang();
   const L = pick(lang);
-  const [si, setSi] = useState(0);
   const [ci, setCi] = useState(0);
-  const series = AK_SERIES[si];
-  const color = series.colors[Math.min(ci, series.colors.length - 1)];
+  const [part, setPart] = useState<number | null>(null);
+  const color = AK_COLORS[ci];
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -69,125 +64,106 @@ export default function AkustikPage() {
     return () => io.disconnect();
   }, []);
 
-  const pickSeries = (i: number) => {
-    // aynı renk yeni seride de varsa korunur
-    const same = AK_SERIES[i].colors.findIndex((c) => c.id === color.id);
-    setSi(i); setCi(same < 0 ? 0 : same);
-  };
-
-  // grafik: x log ölçek, y 0–1
-  const W = 560, H = 260, P = 34;
-  const x = (i: number) => P + (i * (W - P * 2)) / (FREQ.length - 1);
-  const y = (v: number) => H - P - v * (H - P * 2);
-  const line = (vals: number[]) => vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  // iki rengin görselleri üst üste; seçili olan görünür (yumuşak geçiş)
+  const layered = (partName: Parameters<typeof akImg>[1], alt: string, cls?: string) =>
+    AK_COLORS.map((c, i) => (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img key={c.id} src={akImg(c.id, partName)} alt={i === ci ? alt : ""} aria-hidden={i !== ci} className={`${k.layer} ${cls ?? ""}`} data-on={i === ci || undefined} />
+    ));
 
   return (
     <div className={`${h.page} ${s.page}`}>
       <PageHeader lang={lang} setLang={setLang} crumbs={[{ href: "/", label: L("Početna", "Ana sayfa", "Home") }, { label: L("Akustični paneli", "Akustik paneller", "Acoustic panels") }]} />
 
-      {/* ===== KONFİGÜRATÖR ===== */}
+      {/* ===== RENK SEÇİMİ ===== */}
       <section className={`${h.section} ${s.first} ${k.config}`}>
         <div className={k.configText}>
-          <p className={h.kicker}>{L("Akustični zidni paneli", "Akustik duvar panelleri", "Acoustic wall panels")}</p>
-          <h1 className={h.h2}>{L("Tišina koja", "Görünen", "Silence you")} <em>{L("se vidi", "sessizlik", "can see")}</em></h1>
-          <p className={k.lead}>{L("Drvene lamele na crnom akustičnom filcu: upijaju odjek, a zid dobija toplinu drveta. Izaberite seriju i boju.", "Siyah akustik keçe üzerinde ahşap çıtalar: yankıyı emer, duvara ahşabın sıcaklığını katar. Seri ve renk seçin.", "Wooden slats on black acoustic felt: they soak up echo and give the wall the warmth of wood. Choose a series and colour.")}</p>
+          <p className={h.kicker}>{L("Akustični paneli", "Akustik paneller", "Acoustic panels")}</p>
+          <h1 className={h.h2}>{L("Prirodan izgled.", "Doğal görünüm.", "A natural look.")} <em>{L("Mirniji prostor.", "Daha sakin bir mekân.", "A calmer room.")}</em></h1>
+          <p className={k.lead}>{L("Spoj estetike i funkcionalnosti za moderniji i ugodniji prostor: drvene lamele na crnom akustičnom filcu upijaju odjek i daju zidu toplinu drveta.", "Daha modern ve konforlu bir mekân için estetik ile işlevin birleşimi: siyah akustik keçe üzerindeki ahşap çıtalar yankıyı emer, duvara ahşabın sıcaklığını katar.", "Where looks meet function for a more modern, comfortable room: wooden slats on black acoustic felt soak up echo and give the wall the warmth of wood.")}</p>
 
-          <div className={k.tabs} role="tablist">
-            {AK_SERIES.map((sr, i) => (
-              <button key={sr.id} role="tab" aria-selected={i === si} className={i === si ? k.tabOn : ""} onClick={() => pickSeries(i)}>
-                <b>{sr.name}</b><small>{sr.tag[lang]}</small>
-              </button>
-            ))}
-          </div>
-          <p className={k.desc}>{series.desc[lang]}</p>
-
-          <p className={k.label}>{L("Boja", "Renk", "Colour")} · <b>{color.name[lang]}</b></p>
-          <div className={k.swatches}>
-            {series.colors.map((c, i) => (
-              <button key={c.id} className={c.id === color.id ? k.swOn : ""} onClick={() => setCi(i)} aria-label={c.name[lang]} title={c.name[lang]}>
-                <SlatWall color={c} slats={5} wave={false} className={k.swatchWall} />
+          <p className={k.label}>{L("Odaberite boju", "Renk seçin", "Choose a colour")}</p>
+          <div className={k.colors}>
+            {AK_COLORS.map((c, i) => (
+              <button key={c.id} className={i === ci ? k.colorOn : ""} onClick={() => setCi(i)}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={akImg(c.id, "swatch")} alt="" />
+                <span><b>{c.name}</b><small>{c.tone[lang]}</small></span>
               </button>
             ))}
           </div>
 
           <dl className={k.specs}>
-            <div><dt>{L("Formati", "Ölçüler", "Sizes")}</dt><dd>{series.sizes.map((z) => <span key={z}>{z} cm</span>)}</dd></div>
-            <div><dt>{L("Debljina", "Kalınlık", "Thickness")}</dt><dd>{series.depth} mm</dd></div>
-            <div><dt>{L("Lamele", "Çıtalar", "Slats")}</dt><dd>{AK_SLATS} {L("na 60 cm", "adet / 60 cm", "per 60 cm")}</dd></div>
+            <div><dt>{L("Dimenzije", "Ölçüler", "Size")}</dt><dd>{AK_SIZE.width} × {AK_SIZE.height} cm</dd></div>
+            <div><dt>{L("Lamele", "Çıtalar", "Slats")}</dt><dd>{L("MDF, obložene sa tri strane", "MDF, üç taraftan kaplı", "MDF, wrapped on three sides")}</dd></div>
+            <div><dt>{L("Podloga", "Taban", "Backing")}</dt><dd>{L("Fleksibilni akustični filc, 100% PET", "Esnek akustik keçe, %100 PET", "Flexible acoustic felt, 100% PET")}</dd></div>
+            <div><dt>{L("Primjena", "Kullanım", "Use")}</dt><dd>{L("Unutrašnji prostori bez vlage", "Nemsiz iç mekânlar", "Dry interiors")}</dd></div>
           </dl>
 
           <div className={k.btns}>
-            <a className={h.btnPrimary} href={`${PHONE.wa}?text=${encodeURIComponent(`${L("Akustični panel", "Akustik panel", "Acoustic panel")} ${series.name} — ${color.name[lang]}`)}`} target="_blank" rel="noopener noreferrer">{L("Pitajte na WhatsApp-u", "WhatsApp'tan sorun", "Ask on WhatsApp")} <span>→</span></a>
+            <a className={h.btnPrimary} href={`${PHONE.wa}?text=${encodeURIComponent(`${L("Akustični panel", "Akustik panel", "Acoustic panel")} ${color.name} ${AK_SIZE.width}×${AK_SIZE.height} cm`)}`} target="_blank" rel="noopener noreferrer">{L("Pitajte na WhatsApp-u", "WhatsApp'tan sorun", "Ask on WhatsApp")} <span>→</span></a>
             <a className={h.btnGhost} href={PHONE.href}>{L("Pozovite nas", "Bizi arayın", "Call us")}</a>
           </div>
         </div>
 
+        {/* sahne: üç panel yan yana (180 cm), ölçü çizgileriyle */}
         <div className={k.stage}>
           <div className={k.room}>
-            <SlatWall color={color} slats={AK_SLATS * 2} className={k.bigWall} />
-            <span className={k.light} aria-hidden />
-            <span className={k.floor} aria-hidden />
+            <div className={k.wall}>
+              {[0, 1, 2].map((n) => (
+                <div key={n} className={k.panel} style={{ animationDelay: `${0.15 + n * 0.14}s` }}>
+                  {layered("panel", `${L("Akustični panel", "Akustik panel", "Acoustic panel")} ${color.name}`)}
+                </div>
+              ))}
+              <span className={k.dimH}><i />{AK_SIZE.width} cm<i /></span>
+              <span className={k.dimV}><i />{AK_SIZE.height} cm<i /></span>
+            </div>
+            <span className={k.shade} aria-hidden />
           </div>
-          <p className={k.caption}>{series.name} · {color.name[lang]} · {L("dva panela 60 cm", "iki panel 60 cm", "two 60 cm panels")}</p>
+          <p className={k.caption}>{color.name} · {L("tri panela", "üç panel", "three panels")} · {AK_SIZE.width * 3} × {AK_SIZE.height} cm</p>
         </div>
       </section>
 
-      {/* ===== NASIL ÇALIŞIR ===== */}
+      {/* ===== ANATOMİ ===== */}
       <section className={s.specBand}>
-        <div className={k.how} data-reveal>
+        <div className={k.anatomy} data-reveal>
+          <div className={k.closeup}>
+            {layered("closeup", L("Lamele izbliza", "Yakın çekim çıtalar", "Slats up close"))}
+            {AK_HOTSPOTS.map((p, i) => (
+              <button key={i} className={k.hot} data-on={part === i || undefined} style={{ left: `${p.x}%`, top: `${p.y}%` }}
+                onMouseEnter={() => setPart(i)} onMouseLeave={() => setPart(null)} onFocus={() => setPart(i)} onBlur={() => setPart(null)} aria-label={PARTS[i].title[lang]}>
+                {i + 1}
+              </button>
+            ))}
+          </div>
           <div>
-            <p className={h.kicker}>{L("Kako radi", "Nasıl çalışır", "How it works")}</p>
-            <h2 className={h.h2}>{L("Tri sloja,", "Üç katman,", "Three layers,")} <em>{L("manje odjeka", "daha az yankı", "less echo")}</em></h2>
-            <ol className={k.layers}>
-              {LAYERS.map((l, i) => (
-                <li key={l.title.en}><span>0{i + 1}</span><div><h3>{l.title[lang]}</h3><p>{l.text[lang]}</p></div></li>
+            <p className={h.kicker}>{L("Iz čega se sastoji", "Nelerden oluşur", "What it's made of")}</p>
+            <h2 className={h.h2}>{L("Tri sloja,", "Üç katman,", "Three layers,")} <em>{L("jedan panel", "tek panel", "one panel")}</em></h2>
+            <ol className={k.parts}>
+              {PARTS.map((p, i) => (
+                <li key={p.title.en} data-on={part === i || undefined} onMouseEnter={() => setPart(i)} onMouseLeave={() => setPart(null)}>
+                  <span className={k.partImg}>{layered(`d${i + 1}` as "d1", p.title[lang])}<em>{i + 1}</em></span>
+                  <div><h3>{p.title[lang]}</h3><p>{p.text[lang]}</p></div>
+                </li>
               ))}
             </ol>
           </div>
-          <svg className={k.section} viewBox="0 0 520 300" role="img" aria-label={L("Presjek panela", "Panel kesiti", "Panel cross-section")}>
-            <rect x="0" y="0" width="60" height="300" fill="#d9d2c7" />
-            <text x="30" y="290" textAnchor="middle" className={k.svgSmall}>{L("zid", "duvar", "wall")}</text>
-            <rect x="60" y="0" width="22" height="300" fill="#1c1a19" />
-            {Array.from({ length: 6 }, (_, i) => <rect key={i} x="82" y={14 + i * 48} width="34" height="32" rx="2" fill="#b98f62" />)}
-            {Array.from({ length: 4 }, (_, i) => {
-              const yy = 40 + i * 70;
-              return (
-                <g key={i} className={k.wave} style={{ animationDelay: `${i * 0.35}s` }}>
-                  <path d={`M500 ${yy} C 420 ${yy - 22}, 300 ${yy + 22}, 150 ${yy}`} fill="none" stroke="#087f7d" strokeWidth="2" strokeDasharray="6 6" />
-                  <path d={`M150 ${yy} l10 -6 M150 ${yy} l10 6`} stroke="#087f7d" strokeWidth="2" />
-                </g>
-              );
-            })}
-          </svg>
         </div>
       </section>
 
-      {/* ===== SES EMME ===== */}
+      {/* ===== ESNEKLİK ===== */}
       <section className={h.section}>
-        <div className={k.acoustic} data-reveal>
+        <div className={k.flex} data-reveal>
           <div>
-            <p className={h.kicker}>{L("Apsorpcija zvuka", "Ses emme", "Sound absorption")}</p>
-            <h2 className={h.h2}>{L("Odjek", "Yankı", "Echo")} <em>{L("nestaje", "kaybolur", "fades away")}</em></h2>
-            <p className={k.lead}>{L("Crni akustični filc i lamele upijaju zvuk čim se panel postavi na zid. Najjače djeluju od 1000 do 4000 Hz — u opsegu ljudskog glasa, posuđa i televizora, gdje odjek najviše smeta.", "Siyah akustik keçe ve çıtalar, panel duvara takıldığı anda sesi emmeye başlar. En güçlü etki 1000–4000 Hz arasında — insan sesi, tabak çanak ve televizyon seslerinin, yankının en çok rahatsız ettiği aralıkta.", "The black acoustic felt and slats start absorbing sound as soon as the panel is on the wall. They work hardest from 1000 to 4000 Hz — the range of voices, dishes and the TV, where echo bothers most.")}</p>
-            <div className={k.legend}>
-              <span><i className={k.lgLine} />{L("Koeficijent apsorpcije — panel na filcu, direktno na zidu", "Ses emme katsayısı — keçeli panel, doğrudan duvarda", "Absorption coefficient — felt panel, straight on the wall")}</span>
-            </div>
+            <p className={h.kicker}>{L("Fleksibilnost", "Esneklik", "Flexibility")}</p>
+            <h2 className={h.h2}>{L("Prati svaku", "Her kıvrımı", "Follows every")} <em>{L("krivinu", "takip eder", "curve")}</em></h2>
+            <p className={k.lead}>{L("Fleksibilna podloga od akustičnog filca savija se zajedno sa lamelama, pa panel može da obavije stub, zaobljen zid ili šank — tamo gdje kruta ploča ne može.", "Akustik keçeden esnek taban çıtalarla birlikte bükülür; panel kolonu, kavisli duvarı ya da bar tezgâhını sarabilir — sert levhanın giremediği yerlerde.", "The flexible acoustic-felt backing bends with the slats, so the panel can wrap a column, a curved wall or a bar counter — where a rigid board can't go.")}</p>
           </div>
-          <svg className={k.chart} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={L("Koeficijent apsorpcije zvuka", "Ses emme katsayısı", "Sound absorption coefficient")}>
-            {[0, 0.2, 0.4, 0.6, 0.8, 1].map((v) => (
-              <g key={v}><line x1={P} x2={W - P} y1={y(v)} y2={y(v)} className={k.grid} /><text x={P - 8} y={y(v) + 4} textAnchor="end" className={k.svgSmall}>{v.toFixed(1)}</text></g>
-            ))}
-            {FREQ.map((f, i) => <text key={f} x={x(i)} y={H - 10} textAnchor="middle" className={k.svgSmall}>{f}</text>)}
-            <rect x={x(3)} y={P} width={x(5) - x(3)} height={H - P * 2} className={k.band} />
-            <path d={`${line(ABSORB)} L${x(5)},${y(0)} L${x(0)},${y(0)} Z`} className={k.area} />
-            <path d={line(ABSORB)} className={k.ln} pathLength={1} />
-            {ABSORB.map((v, i) => <circle key={i} cx={x(i)} cy={y(v)} r="3.5" className={k.dot} />)}
-            <text x={W - P} y={P - 14} textAnchor="end" className={k.svgSmall}>Hz</text>
-          </svg>
+          <div className={k.arc}>{layered("flex", L("Fleksibilna podloga od akustičnog filca", "Akustik keçeden esnek taban", "Flexible acoustic-felt backing"))}</div>
         </div>
       </section>
 
-      {/* ===== KULLANIM + MONTAJ ===== */}
+      {/* ===== MONTAJ ===== */}
       <section className={`${h.section} ${k.tight}`}>
         <header className={h.head} data-reveal>
           <div>
@@ -228,7 +204,7 @@ export default function AkustikPage() {
       <ContactSection
         lang={lang}
         title={lang === "me" ? <>Zainteresovani za <em>akustične panele</em>?</> : lang === "tr" ? <><em>Akustik paneller</em> ilginizi mi çekti?</> : <>Interested in <em>acoustic panels</em>?</>}
-        text={L("Pošaljite nam mjere zida — izračunaćemo koliko panela vam treba i pomoći oko izbora serije i boje.", "Duvar ölçülerinizi gönderin — kaç panel gerektiğini hesaplayalım, seri ve renk seçiminde yardımcı olalım.", "Send us your wall measurements — we'll work out how many panels you need and help you choose a series and colour.")}
+        text={L("Pošaljite nam mjere zida — izračunaćemo koliko panela vam treba. Ili nas posjetite u salonu u Ulcinju.", "Duvar ölçülerinizi gönderin — kaç panel gerektiğini hesaplayalım. Ya da Ulcinj'deki showroom'umuza uğrayın.", "Send us your wall measurements — we'll work out how many panels you need. Or visit our showroom in Ulcinj.")}
       />
       <SiteFooter lang={lang} />
     </div>
