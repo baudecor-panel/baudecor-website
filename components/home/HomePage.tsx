@@ -44,7 +44,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: 
     badge: { tr: "Yeni", me: "Novo", en: "New" },
     name: { tr: "Akustik Duvar Paneli", me: "Akustični Zidni Panel", en: "Acoustic Wall Panel" },
     tag: { tr: "Şık bir sessizlik", me: "Tišina sa stilom", en: "Silence, with style" },
-    text: { tr: "Esnek akustik keçe üzerinde ahşap MDF çıtalar — Light Oak ve Teak, 60 × 280 cm. Yankıyı azaltır, duvara ahşabın sıcaklığını katar.", me: "Drvene MDF lamele na fleksibilnom akustičnom filcu — Light Oak i Teak, 60 × 280 cm. Smanjuju odjek i daju zidu toplinu drveta.", en: "Wooden MDF slats on flexible acoustic felt — Light Oak and Teak, 60 × 280 cm. They cut echo and give the wall the warmth of wood." },
+    text: { tr: "Esnek akustik keçe üzerinde MDF çıtalar — Light Oak, Teak, beyaz ve siyah, 60 × 280 cm. Yankıyı azaltır, duvara ahşabın sıcaklığını katar.", me: "MDF lamele na fleksibilnom akustičnom filcu — Light Oak, Teak, bijela i crna, 60 × 280 cm. Smanjuju odjek i daju zidu toplinu drveta.", en: "MDF slats on flexible acoustic felt — Light Oak, Teak, white and black, 60 × 280 cm. They cut echo and give the wall the warmth of wood." },
     img: "/akustik/light-oak-closeup.webp",
   },
   {

@@ -161,6 +161,25 @@ export default function AkustikPage() {
         </div>
       </section>
 
+      {/* ===== RENK KARTELASI ===== */}
+      <section className={`${h.section} ${k.tight}`}>
+        <div className={`${s.feature} ${s.flip}`} data-reveal>
+          <div className={`${s.featureImg} ${s.dark}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/renk%20kartelas%C4%B1.jpg" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
+          </div>
+          <div className={s.featureText}>
+            <p className={h.kicker}>{L("Za veće narudžbe", "Toplu siparişlerde", "For larger orders")}</p>
+            <h2 className={h.h2}>{L("Svaka boja", "Kartelanın", "Every colour")} <em>{L("iz kataloga", "tüm renkleri", "in the catalogue")}</em></h2>
+            <p>{L("Pored četiri standardne boje, za veće narudžbe akustične panele izrađujemo u bilo kojoj boji iz našeg kataloga dekora — onoj koja se najbolje slaže sa vašim enterijerom. Katalog možete pogledati u salonu u Ulcinju.", "Dört standart rengin yanında, toplu siparişlerde akustik panelleri dekor kartelamızdaki dilediğiniz renkte — iç mekânınıza en uygun olanında — üretiyoruz. Kartelayı Ulcinj'deki showroom'umuzda inceleyebilirsiniz.", "Beyond the four standard colours, for larger orders we make acoustic panels in any colour from our decor catalogue — whichever suits your interior best. You can browse the catalogue at our Ulcinj showroom.")}</p>
+            <dl className={s.terms}>
+              <div><dt>{L("Rok isporuke", "Teslim süresi", "Lead time")}</dt><dd>{L("3–4 sedmice", "3–4 hafta", "3–4 weeks")}</dd></div>
+              <div><dt>{L("Narudžba", "Sipariş", "Order")}</dt><dd>{L("Uz minimalnu količinu", "Minimum adetle", "Minimum quantity applies")}</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
       {/* ===== MONTAJ ===== */}
       <section className={`${h.section} ${k.tight}`}>
         <header className={h.head} data-reveal>

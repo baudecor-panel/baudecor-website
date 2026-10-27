@@ -1,11 +1,14 @@
-/* Akustik lamel panel — MDF çıtalar esnek akustik keçe üzerinde; Baudecor ürün föylerinden (Light Oak, Teak) */
+/* Akustik lamel panel — MDF çıtalar esnek akustik keçe üzerinde; Baudecor ürün föylerinden (Light Oak, Teak)
+   White ve Black görselleri Light Oak fotoğraflarından yeniden renklendirildi (yalnızca çıtalar) */
 import type { Txt } from "./site";
 
-export type AkColor = { id: "light-oak" | "teak"; name: string; tone: Txt };
+export type AkColor = { id: "light-oak" | "teak" | "white" | "black"; name: string; tone: Txt };
 
 export const AK_COLORS: AkColor[] = [
   { id: "light-oak", name: "Light Oak", tone: { me: "Svijetli hrast", tr: "Açık meşe", en: "Light oak" } },
   { id: "teak", name: "Teak", tone: { me: "Tikovina", tr: "Tik ağacı", en: "Teak" } },
+  { id: "white", name: "White", tone: { me: "Bijela", tr: "Beyaz", en: "White" } },
+  { id: "black", name: "Black", tone: { me: "Crna", tr: "Siyah", en: "Black" } },
 ];
 
 /* föylerden kırpılan görseller: tam panel, yakın çekim, 3 detay (MDF, kaplama, keçe), esneklik çizimi, renk kutusu */
