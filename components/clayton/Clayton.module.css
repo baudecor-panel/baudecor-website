@@ -1,15 +1,6 @@
 /* Esnek taş (Clayton) sayfasına özel parçalar — ortak parçalar site/Product.module.css ve moduler/Moduler.module.css'te */
 
-/* ===== Seri kartları: ekrana girince dönerek gelir (lib/useFlipIn) ===== */
-.grid { perspective: 1400px; }
-.card[data-flip] { opacity: 0; }
-.card[data-flip][data-in] { opacity: 1; animation: flipIn 1.4s cubic-bezier(0.22, 0.8, 0.3, 1) backwards; }
-@keyframes flipIn {
-  0% { opacity: 0; transform: translate3d(-120px, 140px, -450px) rotateY(-200deg) rotateZ(-16deg) scale(0.55); }
-  20% { opacity: 1; }
-  72% { transform: translate3d(0, -10px, 0) rotateY(12deg) rotateZ(1deg) scale(1.03); }
-  100% { opacity: 1; transform: none; }
-}
+/* ===== Seri kartları (dönerek gelme Product.module.css'te) ===== */
 .count { font-style: normal; font-size: 12px; color: var(--ink-2); }
 
 /* ===== Seri penceresi ===== */

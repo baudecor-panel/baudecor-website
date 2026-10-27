@@ -113,7 +113,7 @@ export default function ClaytonPage() {
       <PageHeader lang={lang} setLang={setLang} crumbs={[{ href: "/", label: L("Početna", "Ana sayfa", "Home") }, { label: L("Fleksibilni kamen", "Esnek taş", "Flexible stone") }]} />
 
       {/* ===== SERİLER ===== */}
-      <section id="kolekcija" className={`${h.section} ${m.first}`}>
+      <section id="kolekcija" className={`${h.section} ${s.first}`}>
         <header className={h.head} data-reveal>
           <div>
             <p className={h.kicker}>Clayton · {L("nova generacija", "yeni nesil", "new generation")}</p>
@@ -121,9 +121,9 @@ export default function ClaytonPage() {
           </div>
           <p className={h.headDesc}>{L("Izgled pravog kamena, mermera i drveta u laganim mineralnim pločama koje se savijaju. Kliknite na seriju za dezene, formate i fotografije.", "Gerçek taş, mermer ve ahşap görünümü; bükülebilen hafif mineral levhalarda. Desenler, ölçüler ve fotoğraflar için bir seriye tıklayın.", "The look of real stone, marble and wood in light mineral sheets that bend. Click a series for its designs, sizes and photos.")}</p>
         </header>
-        <div className={`${s.grid} ${c.grid}`}>
+        <div className={s.grid}>
           {CLAY_FAMILIES.map((f, i) => (
-            <button key={f.id} className={`${s.card} ${c.card}`} onClick={() => openFamily(i)} data-flip>
+            <button key={f.id} className={s.card} onClick={() => openFamily(i)} data-flip>
               <span className={s.cardImg}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={f.rooms[0]} alt={`Clayton ${f.name}`} loading="lazy" />

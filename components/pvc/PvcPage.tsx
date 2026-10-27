@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { useLang } from "@/lib/useLang";
+import { useFlipIn } from "@/lib/useFlipIn";
 import { PHONE, pick, type Txt } from "@/lib/site";
-import { METAL_NAMES, METAL_SWATCH, PVC_PATTERNS, PVC_PROFILES, PVC_SHEET, type MetalId, type PvcPattern } from "@/lib/pvc";
+import { METAL_NAMES, METAL_SWATCH, PVC_PATTERNS, PVC_PROFILES, PVC_SHEET, type MetalId } from "@/lib/pvc";
 import PageHeader from "@/components/site/PageHeader";
 import SiteFooter, { ContactSection } from "@/components/site/SiteFooter";
-import PvcStory from "./PvcStory";
 import h from "../home/Home.module.css";
 import s from "@/components/site/Product.module.css";
 
@@ -61,10 +61,9 @@ const METALS: MetalId[] = ["krom", "altin", "siyah"];
 export default function PvcPage() {
   const [lang, setLang] = useLang();
   const L = pick(lang);
-  const [pattern, setPattern] = useState<PvcPattern>(PVC_PATTERNS[0]);
   const [open, setOpen] = useState<number | null>(null);
   const [metals, setMetals] = useState<MetalId[]>(PVC_PROFILES.map(() => "krom"));
-  const storyRef = useRef<HTMLDivElement>(null);
+  useFlipIn();
 
   // kaydırınca beliren bölümler
   useEffect(() => {
@@ -90,15 +89,6 @@ export default function PvcPage() {
     return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [open]);
 
-  // galeriden seçilen deseni 3D levhada göster ("Doku" sahnesi)
-  const tryIn3d = (p: PvcPattern) => {
-    setPattern(p);
-    setOpen(null);
-    const el = storyRef.current;
-    if (!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + window.innerHeight, behavior: "smooth" });
-  };
-
   const oi = open ?? 0;
   const cur = open === null ? null : PVC_PATTERNS[oi];
   const step = (d: number) => setOpen((i) => (i === null ? i : (i + d + PVC_PATTERNS.length) % PVC_PATTERNS.length));
@@ -107,22 +97,18 @@ export default function PvcPage() {
     <div className={`${h.page} ${s.page}`}>
       <PageHeader lang={lang} setLang={setLang} crumbs={[{ href: "/", label: L("Početna", "Ana sayfa", "Home") }, { label: L("PVC paneli", "PVC paneller", "PVC panels") }]} />
 
-      <div ref={storyRef}>
-        <PvcStory lang={lang} pattern={pattern} onPattern={setPattern} />
-      </div>
-
       {/* ===== DESENLER ===== */}
-      <section id="dezeni" className={h.section}>
+      <section id="dezeni" className={`${h.section} ${s.first}`}>
         <header className={h.head} data-reveal>
           <div>
             <p className={h.kicker}>{L("Kolekcija dezena", "Desen koleksiyonu", "Design collection")}</p>
-            <h2 className={h.h2}>{L("18 dezena", "18 mermer", "18 marble")} <em>{L("mermera", "deseni", "designs")}</em></h2>
+            <h1 className={h.h2}>{L("PVC paneli —", "PVC paneller —", "PVC panels —")} <em>{L("18 dezena mermera", "18 mermer deseni", "18 marble designs")}</em></h1>
           </div>
-          <p className={h.headDesc}>{L("Kliknite na dezen da ga vidite u punoj veličini ili ga isprobajte na 3D ploči.", "Tam boyutunu görmek için desene tıklayın ya da 3D levhada deneyin.", "Click a design to see the full sheet, or try it on the 3D panel.")}</p>
+          <p className={h.headDesc}>{L("Kliknite na dezen da ga vidite u punoj veličini.", "Tam boyutunu görmek için desene tıklayın.", "Click a design to see the full sheet.")}</p>
         </header>
         <div className={s.grid}>
           {PVC_PATTERNS.map((p, i) => (
-            <button key={p.code} className={s.card} onClick={() => setOpen(i)} data-reveal style={{ transitionDelay: `${(i % 6) * 0.05}s` }}>
+            <button key={p.code} className={s.card} onClick={() => setOpen(i)} data-flip>
               <span className={s.cardImg}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.img} alt={p.name} loading="lazy" />
@@ -244,8 +230,8 @@ export default function PvcPage() {
               </dl>
               <p className={s.sheetChips}>{FEATURES.map((f) => <i key={f.en}>{f[lang]}</i>)}</p>
               <div className={s.sheetBtns}>
-                <button className={h.btnPrimary} onClick={() => tryIn3d(cur)}>{L("Isprobaj u 3D", "3D'de dene", "Try in 3D")} <span>→</span></button>
-                <a className={h.btnGhost} href={`${PHONE.wa}?text=${encodeURIComponent(`PVC ${cur.name} (${cur.code})`)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a className={h.btnPrimary} href={`${PHONE.wa}?text=${encodeURIComponent(`PVC ${cur.name} (${cur.code})`)}`} target="_blank" rel="noopener noreferrer">{L("Pitajte na WhatsApp-u", "WhatsApp'tan sorun", "Ask on WhatsApp")} <span>→</span></a>
+                <a className={h.btnGhost} href={PHONE.href}>{L("Pozovite nas", "Bizi arayın", "Call us")}</a>
               </div>
               <div className={s.sheetNav}>
                 <button onClick={() => step(-1)}>← {PVC_PATTERNS[(oi - 1 + PVC_PATTERNS.length) % PVC_PATTERNS.length].name}</button>
