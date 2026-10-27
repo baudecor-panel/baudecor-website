@@ -5,10 +5,11 @@
 .layer[data-on] { opacity: 1; }
 
 /* ===== Renk seçimi ===== */
-.config { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(36px, 5vw, 84px); align-items: start; }
-.lead { font-size: 16px; line-height: 1.8; font-weight: 300; color: var(--ink-2); margin: 22px 0 30px; max-width: 520px; }
+/* sol metin geniş, sağdaki sahne dar ve ekran yüksekliğini aşmaz */
+.config { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(36px, 5vw, 96px); align-items: start; }
+.lead { font-size: 16px; line-height: 1.8; font-weight: 300; color: var(--ink-2); margin: 22px 0 30px; max-width: 640px; }
 .label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-2); margin: 0 0 12px; }
-.colors { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; max-width: 520px; }
+.colors { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; max-width: 640px; }
 .colors button {
   display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: center; padding: 8px; text-align: left;
   border: 1px solid var(--line); background: var(--card); transition: border-color 0.3s, box-shadow 0.3s;
@@ -19,12 +20,12 @@
 .colors small { font-size: 11px; color: var(--ink-2); }
 .colors .colorOn { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
 /* küçük kartela kartı: renk kutularının altında */
-.catalog { display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center; max-width: 520px; margin: -14px 0 30px; padding: 12px; border: 1px dashed var(--line); }
+.catalog { display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center; max-width: 640px; margin: -14px 0 30px; padding: 12px; border: 1px dashed var(--line); }
 .catalog img { width: 92px; height: 92px; object-fit: cover; background: #120d0b; display: block; }
 .catalog b { font-family: 'Playfair Display', serif; font-size: 17px; }
 .catalog p { margin: 4px 0 6px; font-style: normal; font-size: 13px; line-height: 1.6; font-weight: 300; color: var(--ink-2); }
 .catalog small { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); }
-.specs { margin: 0 0 30px; border-top: 1px solid var(--line); max-width: 520px; }
+.specs { margin: 0 0 30px; border-top: 1px solid var(--line); max-width: 640px; }
 .specs div { display: grid; grid-template-columns: 120px 1fr; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .specs dt { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-2); padding-top: 3px; }
 .specs dd { margin: 0; }
@@ -33,7 +34,7 @@
 /* sahne: açık duvar önünde üç panel, ölçü çizgileri */
 .stage { display: flex; flex-direction: column; gap: 14px; }
 .room {
-  position: relative; aspect-ratio: 4 / 5; overflow: hidden; display: grid; place-items: center;
+  position: relative; height: min(calc(100svh - 170px), 760px); min-height: 460px; overflow: hidden; display: grid; place-items: center;
   background: radial-gradient(ellipse 80% 60% at 35% 15%, #f7f3ed, #e6ded2 70%), #e6ded2;
 }
 .wall { position: relative; display: flex; height: 74%; aspect-ratio: 60 / 280; margin: -8% 0 0 -6%; }
@@ -122,7 +123,7 @@
 @media (max-width: 900px) {
   .config, .anatomy, .flex { grid-template-columns: 1fr; }
   .stage { order: -1; }
-  .room { aspect-ratio: 4 / 5; }
+  .room { height: auto; min-height: 0; aspect-ratio: 4 / 5; }
   .dimV { right: -52px; }
   .steps { grid-template-columns: 1fr; }
   .colors button { grid-template-columns: 56px 1fr; gap: 10px; }
