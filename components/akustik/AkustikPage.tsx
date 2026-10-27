@@ -93,6 +93,17 @@ export default function AkustikPage() {
             ))}
           </div>
 
+          {/* toplu siparişte karteladaki tüm renkler */}
+          <div className={k.catalog}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/renk%20kartelas%C4%B1.jpg" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
+            <div>
+              <b>{L("Svaka boja iz kataloga", "Kartelanın tüm renkleri", "Any colour from the catalogue")}</b>
+              <p>{L("Za veće narudžbe panele izrađujemo u bilo kojoj boji iz našeg kataloga dekora. Katalog je u salonu u Ulcinju.", "Toplu siparişlerde panelleri dekor kartelamızdaki dilediğiniz renkte üretiyoruz. Kartela Ulcinj'deki showroom'umuzda.", "For larger orders we make the panels in any colour from our decor catalogue. The catalogue is at our Ulcinj showroom.")}</p>
+              <small>{L("3–4 sedmice · uz minimalnu količinu", "3–4 hafta · minimum adetle", "3–4 weeks · minimum quantity applies")}</small>
+            </div>
+          </div>
+
           <dl className={k.specs}>
             <div><dt>{L("Dimenzije", "Ölçüler", "Size")}</dt><dd>{AK_SIZE.width} × {AK_SIZE.height} cm</dd></div>
             <div><dt>{L("Lamele", "Çıtalar", "Slats")}</dt><dd>{L("MDF, obložene sa tri strane", "MDF, üç taraftan kaplı", "MDF, wrapped on three sides")}</dd></div>
@@ -158,25 +169,6 @@ export default function AkustikPage() {
             <p className={k.lead}>{L("Fleksibilna podloga od akustičnog filca savija se zajedno sa lamelama, pa panel može da obavije stub, zaobljen zid ili šank — tamo gdje kruta ploča ne može.", "Akustik keçeden esnek taban çıtalarla birlikte bükülür; panel kolonu, kavisli duvarı ya da bar tezgâhını sarabilir — sert levhanın giremediği yerlerde.", "The flexible acoustic-felt backing bends with the slats, so the panel can wrap a column, a curved wall or a bar counter — where a rigid board can't go.")}</p>
           </div>
           <div className={k.arc}>{layered("flex", L("Fleksibilna podloga od akustičnog filca", "Akustik keçeden esnek taban", "Flexible acoustic-felt backing"))}</div>
-        </div>
-      </section>
-
-      {/* ===== RENK KARTELASI ===== */}
-      <section className={`${h.section} ${k.tight}`}>
-        <div className={`${s.feature} ${s.flip}`} data-reveal>
-          <div className={`${s.featureImg} ${s.dark}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/renk%20kartelas%C4%B1.jpg" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
-          </div>
-          <div className={s.featureText}>
-            <p className={h.kicker}>{L("Za veće narudžbe", "Toplu siparişlerde", "For larger orders")}</p>
-            <h2 className={h.h2}>{L("Svaka boja", "Kartelanın", "Every colour")} <em>{L("iz kataloga", "tüm renkleri", "in the catalogue")}</em></h2>
-            <p>{L("Pored četiri standardne boje, za veće narudžbe akustične panele izrađujemo u bilo kojoj boji iz našeg kataloga dekora — onoj koja se najbolje slaže sa vašim enterijerom. Katalog možete pogledati u salonu u Ulcinju.", "Dört standart rengin yanında, toplu siparişlerde akustik panelleri dekor kartelamızdaki dilediğiniz renkte — iç mekânınıza en uygun olanında — üretiyoruz. Kartelayı Ulcinj'deki showroom'umuzda inceleyebilirsiniz.", "Beyond the four standard colours, for larger orders we make acoustic panels in any colour from our decor catalogue — whichever suits your interior best. You can browse the catalogue at our Ulcinj showroom.")}</p>
-            <dl className={s.terms}>
-              <div><dt>{L("Rok isporuke", "Teslim süresi", "Lead time")}</dt><dd>{L("3–4 sedmice", "3–4 hafta", "3–4 weeks")}</dd></div>
-              <div><dt>{L("Narudžba", "Sipariş", "Order")}</dt><dd>{L("Uz minimalnu količinu", "Minimum adetle", "Minimum quantity applies")}</dd></div>
-            </dl>
-          </div>
         </div>
       </section>
 

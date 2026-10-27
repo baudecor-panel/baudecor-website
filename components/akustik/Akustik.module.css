@@ -18,6 +18,12 @@
 .colors b { font-family: 'Playfair Display', serif; font-size: 18px; }
 .colors small { font-size: 11px; color: var(--ink-2); }
 .colors .colorOn { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
+/* küçük kartela kartı: renk kutularının altında */
+.catalog { display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center; max-width: 520px; margin: -14px 0 30px; padding: 12px; border: 1px dashed var(--line); }
+.catalog img { width: 92px; height: 92px; object-fit: cover; background: #120d0b; display: block; }
+.catalog b { font-family: 'Playfair Display', serif; font-size: 17px; }
+.catalog p { margin: 4px 0 6px; font-style: normal; font-size: 13px; line-height: 1.6; font-weight: 300; color: var(--ink-2); }
+.catalog small { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); }
 .specs { margin: 0 0 30px; border-top: 1px solid var(--line); max-width: 520px; }
 .specs div { display: grid; grid-template-columns: 120px 1fr; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .specs dt { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-2); padding-top: 3px; }
