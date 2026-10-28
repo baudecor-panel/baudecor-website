@@ -294,7 +294,7 @@ export default function HomePage() {
         <div className={s.aboutText} data-reveal>
           <p className={s.kicker}>{L("O Nama", "Hakkımızda", "About Us")}</p>
           <h2 className={s.h2}>
-            {L("Najveći Izložbeni Salon", "Karadağ'ın En Büyük", "Largest Showroom")} <em>{L("u Crnoj Gori", "Showroom'u", "in Montenegro")}</em>
+            {L("Vaš salon", "Ulcinj'de", "Your wall-panel")} <em>{L("zidnih panela u Ulcinju", "duvar paneli showroom'unuz", "showroom in Ulcinj")}</em>
           </h2>
           <p>{L("Baudecor je vaš pouzdani partner za inovativna i estetski privlačna rješenja u uređenju enterijera. Sa sjedištem u Ulcinju, uspješno poslujemo pružajući visokokvalitetne proizvode u oblasti zidnih panela, MDF panela, PVC panela i akustičnih rješenja.",
             "Baudecor, Ulcinj merkezli iç mekan dekorasyon alanında güvenilir ortağınız. Duvar paneli, MDF panel, PVC panel ve akustik çözümler konusunda yüksek kaliteli ürünler sunuyoruz.",

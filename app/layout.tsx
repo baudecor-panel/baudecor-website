@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Baudecor — Premium Zidni Paneli | Crna Gora",
-  description: "Inovativna rješenja u uređenju enterijera. PVC, MDF i modularni zidni paneli. Najveći izložbeni salon u Crnoj Gori.",
+  description: "Inovativna rješenja u uređenju enterijera. PVC, MDF i modularni zidni paneli. Izložbeni salon u Ulcinju.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
