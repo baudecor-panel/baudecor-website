@@ -71,16 +71,13 @@ export const MDF_SIZE = { thickness: 18, length: 2800, perPack: 6 };
 /* Kart görselinde (700 × 800) panel yüzü fotoğrafının yeri ve ahşap şeridi */
 export const CARD = { w: 700, h: 800, face: { x: 425, y: 165, w: 255, h: 470 }, strip: { x: 440, y: 180, w: 52, h: 440 } };
 
-/* Bir alanda kartın yüz fotoğrafını göstermek için CSS arka planı.
-   Yüzdeyle verilir; aynı en/boy oranındaki her boyutta (ör. mobil) doğru kırpar. aspect = yükseklik / genişlik */
-export function faceStyle(f: MdfFinish, aspect: number) {
-  const { w, h, face } = CARD;
-  const ih = h / face.w;                                  // görsel yüksekliği / alan genişliği
-  return {
-    backgroundImage: `url("${f.card}")`,
-    backgroundSize: `${(w / face.w) * 100}% auto`,
-    backgroundPosition: `${(face.x / (w - face.w)) * 100}% ${((face.y / face.w) / (ih - aspect)) * 100}%`,
-  };
+/* Renk kutusunda kartın yüz fotoğrafı (CSS arka planı).
+   Kartlarda fotoğrafın yeri birkaç piksel oynadığı için sabit kırpma beyaz zemini de alıyordu;
+   yüz fotoğrafları her kart için ayrı ayrı bulunup public/mdf-yuz altına kırpıldı. */
+export const faceImg = (f: MdfFinish) => `/mdf-yuz/${f.card.replace(/^\//, "").replace(/\.(jpe?g|png)$/i, ".webp")}`;
+
+export function faceStyle(f: MdfFinish) {
+  return { backgroundImage: `url("${faceImg(f)}")`, backgroundSize: "cover", backgroundPosition: "center" };
 }
 
 /* 3D görünümün açılış görünümü: kanallı 18121 profil, kanalların net okunduğu açık Water Green.

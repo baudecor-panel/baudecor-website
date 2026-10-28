@@ -125,7 +125,7 @@ export default function MdfPage() {
             <div className={m.finishGrid}>
               {md.finishes.map((f, fi) => (
                 <button key={f.id} className={m.finish} onClick={() => setOpen({ mi, fi })}>
-                  <span className={m.finishImg} style={faceStyle(f, 1.5)} role="img" aria-label={f.name} />
+                  <span className={m.finishImg} style={faceStyle(f)} role="img" aria-label={f.name} />
                   <b>{f.name}</b>
                 </button>
               ))}
