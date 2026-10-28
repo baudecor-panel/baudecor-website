@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
 import Link from "next/link";
 import { tx } from "@/lib/i18n";
 import HeroAccordion from "./HeroAccordion";
@@ -65,42 +64,6 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: 
   },
 ];
 
-const FEATURES: { icon: ReactNode; title: Txt; text: Txt }[] = [
-  { icon: <><path d="M12 2.5c3.5 4.2 6 7.6 6 11a6 6 0 01-12 0c0-3.4 2.5-6.8 6-11z" strokeLinejoin="round" /></>,
-    title: { tr: "Su Geçirmezlik", me: "Vodootpornost", en: "Waterproof" },
-    text: { tr: "Neme dayanıklı — banyo, mutfak ve ıslak mekanlara mükemmel uyum.", me: "Otporni na vlagu — savršeni za kupatila, kuhinje i sve vlažne prostorije.", en: "Resistant to moisture — perfect for bathrooms, kitchens and all wet areas." } },
-  { icon: <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" strokeLinecap="round" strokeLinejoin="round" />,
-    title: { tr: "Kolay Montaj", me: "Laka Montaža", en: "Easy Installation" },
-    text: { tr: "Mevcut yüzeyi kırmadan montaj. Zaman ve maliyet tasarrufu.", me: "Bez lomljenja postojećeg materijala. Jednostavna instalacija koja štedi vrijeme i troškove.", en: "No demolition of existing material. Simple installation that saves time and costs." } },
-  { icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" />,
-    title: { tr: "Sağlıklı", me: "Zdravstveno Sigurni", en: "Health Safe" },
-    text: { tr: "Zararlı madde ve koku içermez. Aileniz ve çocuklarınız için güvenli.", me: "Ne sadrže štetne materije i nemaju mirisa. Potpuno sigurni za vašu porodicu i djecu.", en: "No harmful substances or odors. Completely safe for your family and children." } },
-  { icon: <><rect x="1.5" y="7" width="13" height="10" rx="1" /><path d="M14.5 10h4l3 3.5V17h-7z" strokeLinejoin="round" /><circle cx="6" cy="18" r="1.8" /><circle cx="17.5" cy="18" r="1.8" /></>,
-    title: { tr: "Ücretsiz Teslimat", me: "Besplatna Dostava", en: "Free Delivery" },
-    text: { tr: "Karadağ'ın tüm şehirlerine ücretsiz ve hızlı teslimat.", me: "Besplatna dostava u svim gradovima Crne Gore. Brzo, pouzdano i bez skrivenih troškova.", en: "Free delivery to all cities in Montenegro. Fast, reliable, no hidden costs." } },
-  { icon: <path d="M12 3l2.4 5.6L20 9.3l-4.3 3.9 1.3 5.8L12 16l-5 3 1.3-5.8L4 9.3l5.6-.7z" strokeLinejoin="round" />,
-    title: { tr: "Parlak Görünüm", me: "Sjajan Izgled", en: "Glossy Finish" },
-    text: { tr: "Cilalama gerektirmeyen yüzey. Her zaman ilk günkü gibi.", me: "Sjajna površina koja ne zahtijeva poliranje. Uvijek izgleda kao prvog dana.", en: "Surface that requires no polishing. Always looks like the first day." } },
-  { icon: <><circle cx="12" cy="12" r="9.5" /><path d="M12 6.5V12l3.5 2" strokeLinecap="round" /></>,
-    title: { tr: "Hızlı Kurulum", me: "Brza Ugradnja", en: "Fast Installation" },
-    text: { tr: "Tek günde tamamlanır. DIY ve profesyonel kullanıma uygun.", me: "Kompletna ugradnja u jednom danu. Idealno za DIY projekte i profesionalnu upotrebu.", en: "Complete installation in one day. Ideal for DIY projects and professional use." } },
-  { icon: <><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20M6 15h4" strokeLinecap="round" /></>,
-    title: { tr: "Taksit İmkânı", me: "Kupovina na Rate", en: "Installment Payment" },
-    text: { tr: "Esnek ödeme seçenekleri. Bütçenizi zorlamadan mekanınızı güzelleştirin.", me: "Fleksibilne mogućnosti plaćanja. Uljepšajte prostor bez opterećenja budžeta.", en: "Flexible payment options. Beautify your space without straining your budget." } },
-  { icon: <><path d="M21 12a9 9 0 01-13.5 7.8L3 21l1.2-4.5A9 9 0 1121 12z" strokeLinejoin="round" /><path d="M8.5 11h7M8.5 14h4.5" strokeLinecap="round" /></>,
-    title: { tr: "Uzman Destek", me: "Stručna Podrška", en: "Expert Support" },
-    text: { tr: "Seçimden kuruluma kadar yanınızdayız. Ücretsiz danışmanlık.", me: "Naš tim vam pomaže od odabira do ugradnje. Besplatne konsultacije za vaš projekat.", en: "We support you from selection to installation. Free consultations for your project." } },
-];
-
-const GALLERY = [
-  { src: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1000&q=80", label: { tr: "Oturma Odası", me: "Dnevna Soba", en: "Living Room" }, sub: { tr: "MDF Paneli", me: "MDF Paneli", en: "MDF Panels" } },
-  { src: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80", label: { tr: "Banyo", me: "Kupatilo", en: "Bathroom" }, sub: { tr: "PVC Paneli", me: "PVC Paneli", en: "PVC Panels" } },
-  { src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80", label: { tr: "Mutfak", me: "Kuhinja", en: "Kitchen" }, sub: { tr: "PVC Paneli", me: "PVC Paneli", en: "PVC Panels" } },
-  { src: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80", label: { tr: "Yatak Odası", me: "Spavaća Soba", en: "Bedroom" }, sub: { tr: "MDF Paneli", me: "MDF Paneli", en: "MDF Panels" } },
-  { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80", label: { tr: "Ofis", me: "Kancelarija", en: "Office" }, sub: { tr: "Akustik Paneller", me: "Akustični Paneli", en: "Acoustic Panels" } },
-  { src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000&q=80", label: { tr: "Restoran", me: "Restoran", en: "Restaurant" }, sub: { tr: "Modüler Paneller", me: "Modularni Paneli", en: "Modular Panels" } },
-];
-
 const TESTIMONIALS = [
   { text: { tr: "Oturma odamızı tamamen dönüştürdüler. Panel kalitesi mükemmel, montaj hızlı ve temizdi. Herkese tavsiye ederim!", me: "Potpuno su transformisali naš dnevni boravak. Kvalitet panela je izvanredan, a montaža je bila brza i čista. Preporučujem svima!", en: "They completely transformed our living room. The panel quality is outstanding and the installation was fast and clean. I recommend them to everyone!" }, name: "Marko Petrović", city: "Podgorica" },
   { text: { tr: "Karadağ'daki en geniş panel seçimi. Nazik personel, profesyonel yaklaşım. Restoranımız yenilemeden sonra harika görünüyor.", me: "Najveći izbor panela u Crnoj Gori. Ljubazno osoblje, profesionalan pristup. Naš restoran izgleda fantastično nakon renoviranja.", en: "The largest selection of panels in Montenegro. Friendly staff, professional approach. Our restaurant looks fantastic after the renovation." }, name: "Ana Đurović", city: "Bar" },
@@ -110,8 +73,6 @@ const TESTIMONIALS = [
 const NAV_ITEMS: { id: string; label: Txt }[] = [
   { id: "products", label: { tr: "Ürünler", me: "Proizvodi", en: "Products" } },
   { id: "about", label: { tr: "Hakkımızda", me: "O Nama", en: "About Us" } },
-  { id: "features", label: { tr: "Avantajlar", me: "Prednosti", en: "Advantages" } },
-  { id: "gallery", label: { tr: "Galeri", me: "Galerija", en: "Gallery" } },
   { id: "contact", label: { tr: "İletişim", me: "Kontakt", en: "Contact" } },
 ];
 
@@ -307,46 +268,6 @@ export default function HomePage() {
             <div><strong>{counters.followers}K</strong><span>{L("Hiljada pratilaca", "Takipçi", "Followers")}</span></div>
             <div><strong>{counters.panels}+</strong><span>{L("Vrsta panela", "Panel Çeşidi", "Panel Types")}</span></div>
           </div>
-        </div>
-      </section>
-
-      {/* ===== AVANTAJLAR ===== */}
-      <section id="features" className={`${s.section} ${s.tinted}`}>
-        <header className={s.head} data-reveal>
-          <div>
-            <p className={s.kicker}>{L("Zašto Baudecor", "Neden Baudecor", "Why Baudecor")}</p>
-            <h2 className={s.h2}>{L("Prednosti Koje", "Bizi Öne Çıkaran", "Advantages That")} <em>{L("Nas Izdvajaju", "Avantajlar", "Set Us Apart")}</em></h2>
-          </div>
-        </header>
-        <div className={s.features}>
-          {FEATURES.map((f, i) => (
-            <div key={i} className={s.feature} data-reveal style={{ transitionDelay: `${(i % 4) * 0.07}s` }}>
-              <span className={s.featureNum}>0{i + 1}</span>
-              <svg viewBox="0 0 24 24" className={s.featureIcon}>{f.icon}</svg>
-              <h3>{tx(f.title, lang)}</h3>
-              <p>{tx(f.text, lang)}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ===== GALERİ ===== */}
-      <section id="gallery" className={s.section}>
-        <header className={s.head} data-reveal>
-          <div>
-            <p className={s.kicker}>{L("Inspiracija", "İlham", "Inspiration")}</p>
-            <h2 className={s.h2}>{L("Galerija", "Dönüşüm", "Gallery of")} <em>{L("Transformacija", "Galerisi", "Transformations")}</em></h2>
-          </div>
-          <p className={s.headDesc}>{L("Pogledajte kako naši paneli transformišu prostore — od dnevnih soba do poslovnih enterijera.", "Panellerimizin oturma odalarından ticari alanlara kadar mekanları nasıl dönüştürdüğünü görün.", "See how our panels transform spaces — from living rooms to commercial interiors.")}</p>
-        </header>
-        <div className={s.gallery}>
-          {GALLERY.map((g, i) => (
-            <figure key={i} className={s.galleryItem} data-reveal style={{ transitionDelay: `${(i % 3) * 0.08}s` }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={g.src} alt={tx(g.label, lang)} loading="lazy" />
-              <figcaption><strong>{tx(g.label, lang)}</strong><span>{tx(g.sub, lang)}</span></figcaption>
-            </figure>
-          ))}
         </div>
       </section>
 

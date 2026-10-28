@@ -231,26 +231,6 @@
 .feature h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin: 0 0 10px; }
 .feature p { font-size: 14px; line-height: 1.75; font-weight: 300; color: var(--ink-2); margin: 0; }
 
-/* ===== Galeri ===== */
-.gallery { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(220px, 24vw, 340px); gap: 16px; }
-.galleryItem { position: relative; overflow: hidden; margin: 0; }
-.galleryItem:nth-child(1) { grid-column: 1 / 6; }
-.galleryItem:nth-child(2) { grid-column: 6 / 9; }
-.galleryItem:nth-child(3) { grid-column: 9 / 13; }
-.galleryItem:nth-child(4) { grid-column: 1 / 5; }
-.galleryItem:nth-child(5) { grid-column: 5 / 8; }
-.galleryItem:nth-child(6) { grid-column: 8 / 13; }
-.galleryItem img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-.galleryItem:hover img { transform: scale(1.06); }
-.galleryItem figcaption {
-  position: absolute; left: 16px; bottom: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center;
-  background: rgba(251, 248, 244, 0.92); backdrop-filter: blur(10px); padding: 14px 18px;
-  transform: translateY(calc(100% + 20px)); transition: transform 0.6s var(--ease);
-}
-.galleryItem:hover figcaption { transform: none; }
-.galleryItem figcaption strong { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
-.galleryItem figcaption span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); }
-
 /* ===== Yorumlar ===== */
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .quote { margin: 0; background: var(--card); border: 1px solid var(--line); padding: 40px 36px 34px; display: flex; flex-direction: column; }
@@ -320,10 +300,7 @@
   .aboutBadge { right: 16px; padding: 12px 18px; }
   .aboutBadge strong { font-size: 22px; }
   .aboutImg { margin-bottom: 30px; }
-  .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 220px; }
-  .galleryItem:nth-child(n) { grid-column: auto; }
-  .galleryItem figcaption { transform: none; }
-  .quotes { grid-template-columns: 1fr; }
+        .quotes { grid-template-columns: 1fr; }
   .contactGrid { grid-template-columns: 1fr 1fr; }
   .contactGrid > div:nth-child(3) { border-left: 0; }
   .footerTop { flex-direction: column; }
@@ -336,7 +313,6 @@
   .heroBtns > * { flex: 1; justify-content: center; padding-left: 14px; padding-right: 14px; letter-spacing: 1.5px; white-space: nowrap; }
   .productImg { aspect-ratio: 4 / 3; }
   .stats > div + div { padding-left: 14px; }
-  .gallery { grid-template-columns: 1fr; }
-  .contactGrid { grid-template-columns: 1fr; }
+    .contactGrid { grid-template-columns: 1fr; }
   .contactGrid > div + div { border-left: 0; }
 }
