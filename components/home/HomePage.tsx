@@ -296,12 +296,12 @@ export default function HomePage() {
           <h2 className={s.h2}>
             {L("Vaš salon", "Ulcinj'de", "Your wall décor")} <em>{L("zidnog dekora u Ulcinju", "duvar dekor showroom'unuz", "showroom in Ulcinj")}</em>
           </h2>
-          <p>{L("Baudecor je vaš pouzdani partner za inovativna i estetski privlačna rješenja u uređenju enterijera. Sa sjedištem u Ulcinju, uspješno poslujemo pružajući visokokvalitetne proizvode u oblasti zidnih panela, MDF panela, PVC panela i akustičnih rješenja.",
-            "Baudecor, Ulcinj merkezli iç mekan dekorasyon alanında güvenilir ortağınız. Duvar paneli, MDF panel, PVC panel ve akustik çözümler konusunda yüksek kaliteli ürünler sunuyoruz.",
-            "Baudecor is your trusted partner for innovative and aesthetically appealing interior design solutions. Based in Ulcinj, we provide high-quality products in wall panels, MDF panels, PVC panels and acoustic solutions.")}</p>
-          <p>{L("Kombinujemo funkcionalnost i moderan dizajn kako bismo našim klijentima ponudili jedinstvene mogućnosti za transformaciju prostora — bilo da se radi o stambenim, poslovnim ili ugostiteljskim objektima.",
-            "Fonksiyonellik ve modern tasarımı birleştirerek konut, ticari ve konaklama alanları için benzersiz mekan dönüşüm fırsatları sunuyoruz.",
-            "We combine functionality and modern design to offer unique space transformation opportunities — whether residential, commercial or hospitality.")}</p>
+          <p>{L("Baudecor je vaš partner za uređenje zidova sa sjedištem u Ulcinju. Na jednom mjestu nudimo šest kolekcija: PVC panele sa izgledom mermera, MDF lamele, modularne 3D panele, akustične panele, tapete i fleksibilni kamen.",
+            "Baudecor, Ulcinj merkezli duvar dekorasyonu ortağınız. Tek çatı altında altı koleksiyon sunuyoruz: mermer görünümlü PVC paneller, MDF lameller, modüler 3D paneller, akustik paneller, duvar kağıtları ve esnek taş.",
+            "Baudecor is your wall décor partner based in Ulcinj. Under one roof we offer six collections: marble-look PVC panels, MDF slats, modular 3D panels, acoustic panels, wallpaper and flexible stone.")}</p>
+          <p>{L("Pomažemo vam da izaberete pravu površinu za dom, kancelariju, restoran ili hotel — od vodootpornih zidova za kupatilo do toplih drvenih i reljefnih zidova. Sve uzorke možete vidjeti i dodirnuti u našem salonu.",
+            "Ev, ofis, restoran ya da otel için doğru yüzeyi seçmenize yardımcı oluyoruz — banyo için su geçirmez duvarlardan sıcak ahşap ve rölyefli duvarlara kadar. Tüm numuneleri showroom'umuzda görüp dokunabilirsiniz.",
+            "We help you choose the right surface for your home, office, restaurant or hotel — from waterproof bathroom walls to warm wooden and relief walls. You can see and touch every sample in our showroom.")}</p>
           <div className={s.stats} ref={statsRef}>
             <div><strong>{counters.years}+</strong><span>{L("Godina iskustva", "Yıllık Deneyim", "Years Experience")}</span></div>
             <div><strong>{counters.followers}K</strong><span>{L("Hiljada pratilaca", "Takipçi", "Followers")}</span></div>
