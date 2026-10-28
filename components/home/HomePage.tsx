@@ -12,7 +12,7 @@ import s from "./Home.module.css";
 type Txt = { tr: string; me: string; en: string };
 
 /* ===== İçerik ===== */
-const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Fleksibilni Kamen", "Tapete", "SPC Paneli", "Besplatna Dostava", "Kupovina na Rate"];
+const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Fleksibilni Kamen", "Tapete", "SPC Paneli", "Kupovina na Rate"];
 
 const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: Txt; text: Txt; img: string }[] = [
   {
@@ -67,7 +67,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: 
 const TESTIMONIALS = [
   { text: { tr: "Oturma odamızı tamamen dönüştürdüler. Panel kalitesi mükemmel, montaj hızlı ve temizdi. Herkese tavsiye ederim!", me: "Potpuno su transformisali naš dnevni boravak. Kvalitet panela je izvanredan, a montaža je bila brza i čista. Preporučujem svima!", en: "They completely transformed our living room. The panel quality is outstanding and the installation was fast and clean. I recommend them to everyone!" }, name: "Marko Petrović", city: "Podgorica" },
   { text: { tr: "Karadağ'daki en geniş panel seçimi. Nazik personel, profesyonel yaklaşım. Restoranımız yenilemeden sonra harika görünüyor.", me: "Najveći izbor panela u Crnoj Gori. Ljubazno osoblje, profesionalan pristup. Naš restoran izgleda fantastično nakon renoviranja.", en: "The largest selection of panels in Montenegro. Friendly staff, professional approach. Our restaurant looks fantastic after the renovation." }, name: "Ana Đurović", city: "Bar" },
-  { text: { tr: "Ücretsiz teslimat ve harika fiyatlar. Banyodaki PVC paneller gerçek mermer gibi görünüyor. Oturma odası için de planlıyoruz!", me: "Besplatna dostava i odlične cijene. PVC paneli u kupatilu izgledaju kao pravi mermer. Već planiramo i dnevnu sobu!", en: "Free delivery and excellent prices. The PVC panels in the bathroom look like real marble. We're already planning the living room!" }, name: "Stefan Kovačević", city: "Budva" },
+  { text: { tr: "Harika fiyatlar ve hızlı hizmet. Banyodaki PVC paneller gerçek mermer gibi görünüyor. Oturma odası için de planlıyoruz!", me: "Odlične cijene i brza usluga. PVC paneli u kupatilu izgledaju kao pravi mermer. Već planiramo i dnevnu sobu!", en: "Excellent prices and quick service. The PVC panels in the bathroom look like real marble. We're already planning the living room!" }, name: "Stefan Kovačević", city: "Budva" },
 ];
 
 const NAV_ITEMS: { id: string; label: Txt }[] = [
