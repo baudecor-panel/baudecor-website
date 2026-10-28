@@ -171,6 +171,8 @@
 /* ===== Bölümler ===== */
 .section { padding: clamp(90px, 11vw, 150px) var(--pad); position: relative; }
 .tinted { background: var(--bg-2); }
+/* yorumlar: hakkımızda ile iletişim arasında sıkı */
+.quotesSection { padding-top: clamp(64px, 7vw, 100px); padding-bottom: clamp(64px, 7vw, 100px); }
 .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: clamp(48px, 6vw, 80px); }
 .headDesc { max-width: 380px; font-size: 15px; line-height: 1.8; font-weight: 300; color: var(--ink-2); margin: 0; }
 .headCenter { justify-content: center; text-align: center; }
@@ -200,7 +202,7 @@
 .product:hover .productLink span { transform: translateX(6px); }
 
 /* ===== Hakkımızda ===== */
-.about { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: center; padding: clamp(90px, 11vw, 150px) var(--pad); }
+.about { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: center; padding: clamp(90px, 11vw, 150px) var(--pad) clamp(70px, 8vw, 110px); }
 .aboutImg { position: relative; aspect-ratio: 1538 / 786; }   /* showroom cephesi fotoğrafı (yatay) */
 .aboutImg img { width: 100%; height: 100%; object-fit: cover; }
 .aboutBadge {
@@ -242,7 +244,7 @@
 
 /* ===== İletişim ===== */
 .contact {
-  position: relative; padding: clamp(110px, 13vw, 180px) var(--pad); text-align: center; overflow: hidden;
+  position: relative; padding: clamp(80px, 9vw, 120px) var(--pad); text-align: center; overflow: hidden;
   background:
     linear-gradient(rgba(244, 239, 232, 0.86), rgba(244, 239, 232, 0.94)),
     url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80') center / cover;

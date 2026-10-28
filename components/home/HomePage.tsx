@@ -272,7 +272,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== YORUMLAR ===== */}
-      <section className={`${s.section} ${s.tinted}`}>
+      <section className={`${s.section} ${s.tinted} ${s.quotesSection}`}>
         <header className={`${s.head} ${s.headCenter}`} data-reveal>
           <div>
             <p className={s.kicker}>{L("Utisci", "Görüşler", "Testimonials")}</p>
