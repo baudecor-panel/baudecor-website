@@ -96,7 +96,7 @@ export default function AkustikPage() {
           {/* toplu siparişte karteladaki tüm renkler */}
           <div className={k.catalog}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/renk%20kartelas%C4%B1.jpg" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
+            <img src="/mdf-kartela.webp" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
             <div>
               <b>{L("Svaka boja iz kataloga", "Kartelanın tüm renkleri", "Any colour from the catalogue")}</b>
               <p>{L("Za veće narudžbe panele izrađujemo u bilo kojoj boji iz našeg kataloga dekora. Katalog je u salonu u Ulcinju.", "Toplu siparişlerde panelleri dekor kartelamızdaki dilediğiniz renkte üretiyoruz. Kartela Ulcinj'deki showroom'umuzda.", "For larger orders we make the panels in any colour from our decor catalogue. The catalogue is at our Ulcinj showroom.")}</p>

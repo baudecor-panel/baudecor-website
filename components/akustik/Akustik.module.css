@@ -21,7 +21,7 @@
 .colors .colorOn { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
 /* küçük kartela kartı: renk kutularının altında */
 .catalog { display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center; max-width: 640px; margin: -14px 0 30px; padding: 12px; border: 1px dashed var(--line); }
-.catalog img { width: 92px; height: 92px; object-fit: cover; background: #120d0b; display: block; }
+.catalog img { width: 92px; height: 92px; object-fit: contain; background: #ece5db; display: block; }
 .catalog b { font-family: 'Playfair Display', serif; font-size: 17px; }
 .catalog p { margin: 4px 0 6px; font-style: normal; font-size: 13px; line-height: 1.6; font-weight: 300; color: var(--ink-2); }
 .catalog small { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); }
