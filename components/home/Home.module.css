@@ -201,10 +201,11 @@
 
 /* ===== Hakkımızda ===== */
 .about { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: center; padding: clamp(90px, 11vw, 150px) var(--pad); }
-.aboutImg { position: relative; aspect-ratio: 4 / 5; }
+.aboutImg { position: relative; aspect-ratio: 1538 / 786; }   /* showroom cephesi fotoğrafı (yatay) */
 .aboutImg img { width: 100%; height: 100%; object-fit: cover; }
 .aboutBadge {
-  position: absolute; right: -28px; bottom: 48px; background: var(--card); padding: 22px 28px;
+  /* yatay cephe fotoğrafının altına taşar, vitrini örtmez */
+  position: absolute; right: -28px; bottom: 0; transform: translateY(55%); background: var(--card); padding: 18px 26px;
   box-shadow: 0 30px 60px rgba(60, 40, 20, 0.14); display: flex; flex-direction: column; gap: 4px;
 }
 .aboutBadge strong { font-family: 'Playfair Display', serif; font-size: 28px; font-style: italic; color: var(--teal); font-weight: 400; }
@@ -316,7 +317,9 @@
   .headCenter { align-items: center; }
   .about { grid-template-columns: 1fr; }
   .products { grid-template-columns: repeat(2, 1fr); }
-  .aboutBadge { right: 16px; bottom: 16px; }
+  .aboutBadge { right: 16px; padding: 12px 18px; }
+  .aboutBadge strong { font-size: 22px; }
+  .aboutImg { margin-bottom: 30px; }
   .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 220px; }
   .galleryItem:nth-child(n) { grid-column: auto; }
   .galleryItem figcaption { transform: none; }

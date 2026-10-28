@@ -285,7 +285,7 @@ export default function HomePage() {
       <section id="about" className={s.about}>
         <div className={s.aboutImg} data-reveal>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1400&q=80" alt="Baudecor Showroom" loading="lazy" />
+          <img src="/showroom-ulcinj.webp" alt="Baudecor showroom, Ulcinj" loading="lazy" />
           <div className={s.aboutBadge}>
             <strong>Ulcinj</strong>
             <span>{L("Izložbeni salon", "Showroom", "Showroom")}</span>
