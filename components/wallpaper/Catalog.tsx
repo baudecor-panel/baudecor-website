@@ -24,13 +24,16 @@ export function WpFooter({ lang }: { lang: Lang }) {
 
 type Series = WpSeries & { collectionName: string };
 
+/* kartlarda 1400 px oda fotoğrafı yerine 640×480 küçük kopya (telefonda akıcılık için) */
+const cardImg = (src: string) => src.replace("/duvar-kagidi/oda/", "/duvar-kagidi/oda-kart/");
+
 /* Seri kartı — koleksiyon sayfası ve "diğer seriler" bölümü */
 export function SeriesCard({ x, lang }: { x: Series; lang: Lang }) {
   return (
     <Link href={`/duvar-kagidi/${x.collection}/${x.id}`} className={s.card} data-flip>
       <div className={s.cardImg}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={x.room ?? x.colors[0].img} alt={`${x.collectionName} ${x.code}`} loading="lazy" />      </div>
+        <img src={x.room ? cardImg(x.room) : x.colors[0].thumb} alt={`${x.collectionName} ${x.code}`} loading="lazy" decoding="async" />      </div>
       <div className={s.cardBody}>
         <span className={s.cardCol}>{x.collectionName.replace(/\s*\|\s*/, " ")} · {seriesWord(lang)}</span>
         <h3>{seriesNum(x.code)}</h3>
@@ -70,7 +73,7 @@ export default function Catalog({ data }: { data: WpCatalog }) {
           <Link key={c.id} href={`/duvar-kagidi/${c.id}`} className={`${s.card} ${s.colCard}`} data-flip>
             <div className={s.cardImg}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={cover(c)} alt={`AdaWall ${c.name}`} loading="lazy" />            </div>
+              <img src={cardImg(cover(c))} alt={`AdaWall ${c.name}`} loading="lazy" decoding="async" />            </div>
             <div className={s.cardBody}>
               <h3>{c.name.replace(/\s*\|\s*/, " ")}</h3>
               <p>{c.series.length} {L("serija", "seri", "series")} · {c.series.reduce((a, x) => a + x.colors.length, 0)} {L("dezena", "desen", "designs")} <span>→</span></p>

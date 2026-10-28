@@ -14,7 +14,7 @@ export function useFlipIn(deps: DependencyList = [], step = 0.12) {
       const imgs = els.flatMap((el) => [...el.querySelectorAll("img")].map((img) => img.decode().catch(() => {})));
       Promise.race([Promise.all(imgs), new Promise((r) => setTimeout(r, 1200))]).then(() =>
         els.forEach((el, i) => {
-          el.style.animationDelay = `${i * step}s`;
+          el.style.animationDelay = `${i * (window.innerWidth < 900 ? step * 0.6 : step)}s`;   // telefonda daha kısa sıra
           el.setAttribute("data-in", "");
         })
       );
