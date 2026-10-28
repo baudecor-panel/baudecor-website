@@ -22,7 +22,7 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: 
     name: { tr: "PVC Paneller", me: "PVC Paneli", en: "PVC Panels" },
     tag: { tr: "Su geçirmez mermer görünümü", me: "Vodootporni mermer", en: "Waterproof marble" },
     text: { tr: "Su geçirmez parlak yüzeyli paneller. Banyo, mutfak ve ıslak mekanlar için ideal. Mevcut yüzey kaldırılmadan montaj.", me: "Vodootporni paneli sa sjajnom površinom. Idealni za kupatila, kuhinje i vlažne prostorije. Montaža bez uklanjanja postojećeg materijala.", en: "Waterproof panels with glossy surface. Ideal for bathrooms, kitchens and wet areas. Installation without removing existing material." },
-    img: "/Wall-Panel-1-27-Kopya.jpg",
+    img: "/anasayfa-pvc.webp",
   },
   {
     num: "02", href: "/urunler/mdf-paneli", badge: null,
