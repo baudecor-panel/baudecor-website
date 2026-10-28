@@ -139,7 +139,7 @@ export default function MdfPage() {
         <div className={s.feature} data-reveal>
           <div className={`${s.featureImg} ${m.lightImg} ${m.catalogImg}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/mdf-kartela.webp" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
+            <img src="/mdf-kartela-acik.webp" alt={L("Katalog boja", "Renk kartelası", "Colour catalogue")} loading="lazy" />
           </div>
           <div className={s.featureText}>
             <p className={h.kicker}>{L("Posebna izrada", "Özel üretim", "Made to order")}</p>
@@ -154,7 +154,7 @@ export default function MdfPage() {
         <div className={`${s.feature} ${s.flip}`} data-reveal>
           <div className={`${s.featureImg} ${m.lightImg}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/mdf-profiller.webp" alt={L("Početni i završni profili", "Başlangıç ve bitiş profilleri", "Start and end profiles")} loading="lazy" />
+            <img src="/mdf-profiller-acik.webp" alt={L("Početni i završni profili", "Başlangıç ve bitiş profilleri", "Start and end profiles")} loading="lazy" />
           </div>
           <div className={s.featureText}>
             <p className={h.kicker}>{L("Dodaci", "Aksesuarlar", "Accessories")}</p>

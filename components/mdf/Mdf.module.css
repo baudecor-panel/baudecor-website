@@ -35,7 +35,7 @@
   .finish b { font-size: 13px; }
 }
 
-/* kartela ve profil görselleri: siyah zemin açık beje çevrildi (public/mdf-kartela.webp, mdf-profiller.webp) */
+/* kartela ve profil görselleri: siyah zemin açık beje çevrildi (public/mdf-kartela-acik.webp, mdf-profiller-acik.webp) */
 .lightImg { background: #ece5db; }
 /* kartela küçük bir kart: sütunu doldurmaz, ortalanır */
 .catalogImg { display: grid; place-items: center; width: 100%; max-width: 420px; justify-self: center; padding: clamp(18px, 2.4vw, 32px); }
