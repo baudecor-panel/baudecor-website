@@ -70,9 +70,11 @@ const TESTIMONIALS = [
   { text: { tr: "Harika fiyatlar ve hızlı hizmet. Banyodaki PVC paneller gerçek mermer gibi görünüyor. Oturma odası için de planlıyoruz!", me: "Odlične cijene i brza usluga. PVC paneli u kupatilu izgledaju kao pravi mermer. Već planiramo i dnevnu sobu!", en: "Excellent prices and quick service. The PVC panels in the bathroom look like real marble. We're already planning the living room!" }, name: "Stefan Kovačević", city: "Budva" },
 ];
 
-const NAV_ITEMS: { id: string; label: Txt }[] = [
+/* href olanlar ayrı sayfaya gider, diğerleri ana sayfadaki bölüme kaydırır */
+const NAV_ITEMS: { id: string; label: Txt; href?: string }[] = [
   { id: "products", label: { tr: "Ürünler", me: "Proizvodi", en: "Products" } },
   { id: "about", label: { tr: "Hakkımızda", me: "O Nama", en: "About Us" } },
+  { id: "katalog", label: { tr: "Katalog", me: "Katalog", en: "Catalogue" }, href: "/katalog" },
   { id: "contact", label: { tr: "İletişim", me: "Kontakt", en: "Contact" } },
 ];
 
@@ -150,7 +152,7 @@ export default function HomePage() {
         </button>
         <ul className={s.navLinks}>
           {NAV_ITEMS.map((n) => (
-            <li key={n.id}><button onClick={() => scrollTo(n.id)}>{tx(n.label, lang)}</button></li>
+            <li key={n.id}>{n.href ? <Link href={n.href}>{tx(n.label, lang)}</Link> : <button onClick={() => scrollTo(n.id)}>{tx(n.label, lang)}</button>}</li>
           ))}
         </ul>
         <div className={s.navRight}>
@@ -168,9 +170,15 @@ export default function HomePage() {
 
       <div className={`${s.mobileMenu} ${menuOpen ? s.mobileMenuOn : ""}`}>
         {NAV_ITEMS.map((n, i) => (
-          <button key={n.id} onClick={() => scrollTo(n.id)} style={{ transitionDelay: `${0.05 + i * 0.05}s` }}>
-            <small>0{i + 1}</small>{tx(n.label, lang)}
-          </button>
+          n.href ? (
+            <Link key={n.id} href={n.href} className={s.mobileMenuLink} style={{ transitionDelay: `${0.05 + i * 0.05}s` }}>
+              <small>0{i + 1}</small>{tx(n.label, lang)}
+            </Link>
+          ) : (
+            <button key={n.id} onClick={() => scrollTo(n.id)} style={{ transitionDelay: `${0.05 + i * 0.05}s` }}>
+              <small>0{i + 1}</small>{tx(n.label, lang)}
+            </button>
+          )
         ))}
         <a href="tel:+38268361700" className={s.mobileMenuTel}>+382 68 361 700</a>
       </div>

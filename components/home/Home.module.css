@@ -65,17 +65,17 @@
 .logo { height: 46px; width: auto; transition: height 0.4s var(--ease); }
 .navScrolled .logo { height: 38px; }
 .navLinks { display: flex; justify-content: center; gap: 36px; list-style: none; margin: 0; padding: 0; }
-.navLinks button {
+.navLinks button, .navLinks a {
   background: none; border: 0; cursor: pointer; position: relative; padding: 6px 0;
   font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
   color: var(--ink-2); transition: color 0.3s;
 }
-.navLinks button::after {
+.navLinks button::after, .navLinks a::after {
   content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: var(--teal);
   transform: scaleX(0); transform-origin: right; transition: transform 0.45s var(--ease);
 }
-.navLinks button:hover { color: var(--ink); }
-.navLinks button:hover::after { transform: scaleX(1); transform-origin: left; }
+.navLinks button:hover, .navLinks a:hover { color: var(--ink); }
+.navLinks button:hover::after, .navLinks a:hover::after { transform: scaleX(1); transform-origin: left; }
 .navRight { display: flex; align-items: center; gap: 18px; grid-column: 3; justify-self: end; }
 .langs { display: flex; border: 1px solid var(--line); }
 .langs button {
@@ -102,13 +102,13 @@
   opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
 }
 .mobileMenuOn { opacity: 1; pointer-events: auto; }
-.mobileMenu button {
+.mobileMenu button, .mobileMenuLink {
   background: none; border: 0; text-align: left; cursor: pointer; display: flex; align-items: baseline; gap: 16px;
   font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: var(--ink); padding: 6px 0;
   opacity: 0; transform: translateY(20px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
 }
-.mobileMenu button small { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--teal); }
-.mobileMenuOn button { opacity: 1; transform: none; }
+.mobileMenu button small, .mobileMenuLink small { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--teal); }
+.mobileMenuOn button, .mobileMenuOn .mobileMenuLink { opacity: 1; transform: none; }
 .mobileMenuTel { margin-top: 30px; font-size: 13px; letter-spacing: 3px; color: var(--ink-2); }
 
 /* ===== Açılış ===== */
