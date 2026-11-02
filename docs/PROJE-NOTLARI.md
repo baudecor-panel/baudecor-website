@@ -45,6 +45,9 @@ Ortak parçalar: `components/site/PageHeader.tsx`, `components/site/SiteFooter.t
 - MDF: renk kartelası modellerin hemen altında, sonra başlangıç/bitiş profilleri; görsellerin siyah arka planı **orijinal haliyle** kalır (açık renkli deneme beğenilmedi).
 - SPC parke (2 Kasım 2026): 7 koleksiyonun hepsi (Authentic, Diamonds, Originals, Wood, Grande, Elegant, Stone — 71 desen), düz tahta + balıksırtı.
   Sayfada marka adı yok, sadece "SPC parke/parket". SPC duvar panelleri (Wall Panel XL, Wall Tiles) **kullanılmıyor**. Ana sayfa kayan yazısında "SPC Paneli" → "SPC Parket".
+  **SPC bilgileri yalnızca üretici belgelerine dayanır** (katalog, Uniclic montaj kılavuzu, bakım rehberi, garanti belgesi, DoP, M1/FloorScore/ISO 22196 raporları).
+  Belgede olmayan iddia yazılmaz: "ftalat içermez", "renk solmaz", "aynı gün kullanıma hazır", "8–10 mm genleşme payı", fiyat yorumları **kaldırıldı**.
+  Doğrulanmış: 48 saat aklimatizasyon (14–30 °C), fire %5–10 düz / %10–20 balıksırtı, yerden ısıtma sulu sistem + yüzey ≤27 °C, garanti yalnızca iç mekân, su baskını/sızıntı hariç.
   Görseller üreticinin kataloğundan otomatik kesildi (sayfa = tek raster; beyaz çerçeveli kareler aranarak). Wood garantisi 15/3, diğerleri 20/7 yıl.
 - Katalog sayfası: PDF'i olmayan gruplarda "PDF katalog · Hazırlanıyor" satırı var.
 

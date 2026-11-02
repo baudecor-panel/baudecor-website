@@ -23,70 +23,76 @@ const KIND: Record<SpcFormat["kind"], Txt> = {
   xl: T("Ploča XL", "Karo XL", "Tile XL"),
 };
 
-const LAYERS: { cls: string; slices: number; title: Txt; text: Txt }[] = [
-  { cls: p.lUv, slices: 1, title: T("UV zaštitni sloj", "UV koruma katmanı", "UV coating"),
-    text: T("Štiti od sunca, ogrebotina i mrlja; boja ne bledi.", "Güneşe, çizilmeye ve lekeye karşı korur; renk solmaz.", "Protects against sunlight, scratches and stains; the colour won't fade.") },
-  { cls: p.lWear, slices: 1, title: T("Habajući sloj 0,3–0,5 mm", "Aşınma tabakası 0,3–0,5 mm", "Wear layer 0.3–0.5 mm"),
-    text: T("Providan i tvrd — nosi svakodnevno hodanje, stolice i šape.", "Şeffaf ve sert — günlük yürüyüşü, sandalyeleri ve patileri taşır.", "Clear and hard — takes daily foot traffic, chairs and paws.") },
-  { cls: p.lDecor, slices: 1, title: T("Dekorativni film", "Desen filmi", "Décor film"),
-    text: T("Fotografija drveta ili kamena visoke rezolucije, sa usklađenom strukturom površine.", "Yüksek çözünürlüklü ahşap veya taş görüntüsü; yüzey dokusu desenle uyumlu.", "A high-resolution wood or stone image, with a matching surface texture.") },
-  { cls: p.lCore, slices: 9, title: T("SPC jezgro", "SPC çekirdek", "SPC rigid core"),
-    text: T("Kameni prah i PVC: 100% vodootporno, ne bubri i ne mijenja dimenzije.", "Taş tozu ve PVC: %100 su geçirmez, şişmez, ölçüsü değişmez.", "Stone powder and PVC: 100% waterproof, never swells or changes size.") },
-  { cls: p.lIxpe, slices: 3, title: T("IXPE podloga 1–1,5 mm", "IXPE alt katman 1–1,5 mm", "IXPE underlay 1–1.5 mm"),
-    text: T("Integrisana podloga — prigušuje korake i izravnava sitne neravnine.", "Hazır yapışık alt katman — adım sesini keser, küçük pürüzleri dengeler.", "Built-in underlay — softens footsteps and evens out small bumps.") },
+/* Katman bilgileri üreticinin kataloğundan (s. 13, 18). t: çizimdeki kalınlık (px, abartılı) */
+const LAYERS: { cls: string; t: number; title: Txt; text: Txt }[] = [
+  { cls: p.lUv, t: 3, title: T("Ultra mat UV sloj", "Ultra mat UV katmanı", "Ultra-matt UV coating"),
+    text: T("Gornji zaštitni sloj — štiti pod od sunčevih zraka, ogrebotina i mrlja.", "En üstteki koruma katmanı — zemini güneş ışığına, çizilmeye ve lekeye karşı korur.", "The top protective layer — shields the floor from sunlight, scratches and stains.") },
+  { cls: p.lWear, t: 4, title: T("Habajući sloj 0,3–0,5 mm", "Aşınma tabakası 0,3–0,5 mm", "Wear layer 0.3–0.5 mm"),
+    text: T("Providan sloj koji povećava izdržljivost i otpornost na habanje.", "Dayanıklılığı ve aşınmaya karşı direnci artıran şeffaf katman.", "A clear layer that adds durability and resistance to wear.") },
+  { cls: p.lDecor, t: 3, title: T("Dekorativni film", "Desen filmi", "Décor film"),
+    text: T("Daje podu prirodan izgled drveta ili kamena.", "Zemine doğal ahşap veya taş görünümü verir.", "Gives the floor a natural wood or stone look.") },
+  { cls: p.lCore, t: 26, title: T("SPC kruto jezgro", "SPC sert çekirdek", "SPC rigid core"),
+    text: T("Glavno tijelo od kompozita kamena i plastike — daje čvrstinu i vodootpornost. U ivice je urezan klik profil.", "Taş-plastik kompozitten ana gövde — sağlamlık ve su geçirmezlik sağlar. Kenarlarında tıklamalı kilit profili bulunur.", "The main body, a stone-plastic composite — gives strength and waterproofing. The click profile is milled into its edges.") },
+  { cls: p.lIxpe, t: 9, title: T("IXPE podloga 1–1,5 mm", "IXPE alt katman 1–1,5 mm", "IXPE underlay 1–1.5 mm"),
+    text: T("Podloga visoke gustine, već zalijepljena — bolja zvučna izolacija i udobniji korak.", "Hazır yapışık, yüksek yoğunluklu alt katman — daha iyi ses yalıtımı ve konfor.", "A high-density underlay, already bonded — better sound insulation and comfort.") },
 ];
 
+/* Avantajlar: katalogdaki özellik listesi (s. 7, 18) ve belgeler (DoP, M1, FloorScore, ISO 22196, bakım rehberi) */
 const ADVANTAGES: { icon: ReactNode; title: Txt; text: Txt }[] = [
   { icon: <path d="M12 2.5c3.5 4.2 6 7.6 6 11a6 6 0 01-12 0c0-3.4 2.5-6.8 6-11z" strokeLinejoin="round" />,
     title: T("100% vodootporan", "%100 su geçirmez", "100% waterproof"),
-    text: T("Za kuhinje, kupatila i hodnike — voda ne prodire u jezgro.", "Mutfak, banyo ve koridorlar için — su çekirdeğe işlemez.", "For kitchens, bathrooms and hallways — water can't get into the core.") },
+    text: T("Jezgro ne upija vodu i ne bubri — pogodan i za kuhinje i kupatila.", "Çekirdek su çekmez ve şişmez — mutfak ve banyoya da uygundur.", "The core doesn't absorb water or swell — suitable for kitchens and bathrooms too.") },
   { icon: <path d="M4 20h16M7 16c0-2 2-2 2-4s-2-2-2-4M12 16c0-2 2-2 2-4s-2-2-2-4M17 16c0-2 2-2 2-4s-2-2-2-4" strokeLinecap="round" />,
-    title: T("Za podno grijanje", "Yerden ısıtmaya uygun", "Underfloor heating"),
-    text: T("Tanko i gusto jezgro dobro provodi toplotu.", "İnce ve yoğun çekirdek ısıyı iyi iletir.", "The thin, dense core conducts heat well.") },
+    title: T("Podno grijanje i hlađenje", "Yerden ısıtma ve soğutma", "Underfloor heating & cooling"),
+    text: T("Za sisteme na vodu; temperatura površine do 27 °C.", "Sulu sistemlere uygun; yüzey sıcaklığı en fazla 27 °C.", "For water-based systems; surface temperature up to 27 °C.") },
   { icon: <path d="M4 14h7l2-4h7M4 10h5M15 14h5" strokeLinecap="round" strokeLinejoin="round" />,
-    title: T("Montaža na klik", "Tıklamalı montaj", "Click installation"),
-    text: T("Bez ljepila — plivajuće polaganje, pod je spreman isti dan.", "Yapıştırıcı yok — yüzer döşeme, zemin aynı gün kullanıma hazır.", "No glue — a floating floor, ready to use the same day.") },
+    title: T("Laka montaža na klik", "Kolay tıklamalı montaj", "Easy click installation"),
+    text: T("Plivajuće polaganje bez ljepila — daske se spajaju na klik.", "Yapıştırıcısız yüzer döşeme — tahtalar tıklayarak birleşir.", "A floating floor without glue — the planks simply click together.") },
   { icon: <path d="M3 12h3l2-5 3 10 3-7 2 2h5" strokeLinecap="round" strokeLinejoin="round" />,
-    title: T("Tih korak", "Sessiz adım", "Quiet underfoot"),
-    text: T("Integrisana IXPE podloga prigušuje zvuk koraka.", "Hazır IXPE alt katman adım sesini azaltır.", "The built-in IXPE underlay muffles footsteps.") },
+    title: T("Manje buke", "Daha az gürültü", "Reduces noise"),
+    text: T("Integrisana podloga visoke gustine upija zvuk koraka.", "Yüksek yoğunluklu hazır alt katman adım sesini emer.", "The built-in high-density underlay absorbs the sound of footsteps.") },
   { icon: <><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" strokeLinejoin="round" /><path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" /></>,
-    title: T("Otporan na ogrebotine", "Çizilmeye dayanıklı", "Scratch-resistant"),
-    text: T("Habajući i UV sloj — idealno uz djecu i kućne ljubimce.", "Aşınma ve UV katmanı — çocuklu ve evcil hayvanlı evler için ideal.", "Wear and UV layers — ideal with children and pets.") },
-  { icon: <path d="M4 8h16M4 16h16M8 4v16M16 4v16" strokeLinecap="round" />,
-    title: T("Stabilne dimenzije", "Ölçü kararlılığı", "Dimensionally stable"),
-    text: T("Ne širi se i ne skuplja sa toplotom i vlagom.", "Isı ve nemle genleşmez, büzülmez.", "Doesn't expand or shrink with heat and humidity.") },
-  { icon: <><circle cx="12" cy="12" r="8.5" /><path d="M8 8l8 8M16 8l-8 8" strokeLinecap="round" /></>,
-    title: T("Antibakterijski", "Antibakteriyel", "Antibacterial"),
-    text: T("Površina testirana po ISO 22196 — lako se održava higijenskom.", "Yüzey ISO 22196'ya göre test edildi — hijyeni kolay korunur.", "Surface tested to ISO 22196 — easy to keep hygienic.") },
+    title: T("Otporan na habanje", "Aşınmaya dayanıklı", "Wear-resistant"),
+    text: T("Habajući sloj 0,3–0,5 mm i ultra mat UV zaštita.", "0,3–0,5 mm aşınma tabakası ve ultra mat UV koruma.", "A 0.3–0.5 mm wear layer and an ultra-matt UV finish.") },
+  { icon: <><circle cx="7" cy="9" r="1.8" /><circle cx="17" cy="9" r="1.8" /><circle cx="10" cy="5.5" r="1.8" /><circle cx="14" cy="5.5" r="1.8" /><path d="M12 12c-3 0-5 3.5-5 5.5 0 1.5 1.5 2 2.5 2 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c1 0 2.5-.5 2.5-2 0-2-2-5.5-5-5.5z" strokeLinejoin="round" /></>,
+    title: T("Za kućne ljubimce", "Evcil hayvan dostu", "Pet-friendly"),
+    text: T("Podnosi svakodnevni život sa ljubimcima; kandže treba redovno podrezivati.", "Evcil hayvanlarla günlük yaşama uygundur; tırnakların düzenli kesilmesi önerilir.", "Handles everyday life with pets; claws should be trimmed regularly.") },
+  { icon: <path d="M13 3L5 14h6l-1 7 8-11h-6z" strokeLinejoin="round" />,
+    title: T("Protivklizan i antistatičan", "Kaymaz ve antistatik", "Anti-slip & antistatic"),
+    text: T("Otpornost na klizanje i električno ponašanje deklarisani po EN 14041.", "Kayma direnci ve elektriksel davranış EN 14041'e göre beyan edilmiştir.", "Slip resistance and electrical behaviour declared to EN 14041.") },
   { icon: <path d="M12 21c-5-3-8-6.5-8-11a8 8 0 0116 0c0 4.5-3 8-8 11zM9 10.5l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />,
-    title: T("Zdrav za dom", "Sağlıklı yaşam", "Healthy home"),
-    text: T("Bez ftalata, niska emisija VOC (M1, FloorScore).", "Ftalat içermez, düşük VOC salımı (M1, FloorScore).", "Phthalate-free, low VOC emissions (M1, FloorScore).") },
+    title: T("Higijenski i zdrav", "Hijyenik ve sağlıklı", "Hygienic & healthy"),
+    text: T("Antibakterijska površina (ispitana po ISO 22196), niska emisija VOC — M1 i FloorScore.", "Antibakteriyel yüzey (ISO 22196'ya göre test edildi), düşük VOC salımı — M1 ve FloorScore.", "Antibacterial surface (tested to ISO 22196), low VOC emissions — M1 and FloorScore.") },
 ];
 
+/* Montaj: üreticinin Uniclic montaj kılavuzu */
 const STEPS: { title: Txt; text: Txt }[] = [
   { title: T("Priprema podloge", "Zemin hazırlığı", "Prepare the base"),
-    text: T("Podloga mora biti ravna, čvrsta i suva. Stare pločice i beton mogu ostati — SPC se postavlja preko njih.", "Zemin düz, sağlam ve kuru olmalı. Eski fayans ve beton kalabilir — SPC üzerine döşenir.", "The base must be flat, solid and dry. Old tiles and concrete can stay — SPC goes right over them.") },
+    text: T("Podloga mora biti suva, ravna i čista — bez masnoće i ostataka ljepila. Meke obloge (npr. tepih) se uklanjaju, a neravnine izravnaju.", "Zemin kuru, düz ve temiz olmalı — yağ ve yapıştırıcı kalıntısı olmamalı. Halı gibi yumuşak kaplamalar kaldırılır, pürüzler düzeltilir.", "The base must be dry, level and clean — free of grease and glue residue. Soft coverings such as carpet come up, and bumps are levelled.") },
   { title: T("Aklimatizacija", "Ortama alıştırma", "Acclimatise"),
-    text: T("Paketi stoje 24–48 sati u prostoriji u kojoj se postavljaju.", "Paketler döşenecekleri odada 24–48 saat bekletilir.", "Leave the packs for 24–48 hours in the room where they'll be laid.") },
+    text: T("Paketi stoje 48 sati u zatvorenim kutijama, u sredini prostorije, na 14–30 °C.", "Paketler kutularında, odanın ortasında, 14–30 °C'de 48 saat bekletilir.", "Leave the packs closed in the middle of the room for 48 hours, at 14–30 °C.") },
   { title: T("Polaganje na klik", "Tıklayarak döşeme", "Click into place"),
-    text: T("Daske se spajaju pod uglom i spuštaju — bez ljepila. Od zidova se ostavlja 8–10 mm dilatacije.", "Tahtalar açıyla birleştirilip indirilir — yapıştırıcı yok. Duvar kenarında 8–10 mm genleşme payı bırakılır.", "Planks join at an angle and drop into place — no glue. Leave an 8–10 mm expansion gap at the walls.") },
-  { title: T("Lajsne", "Süpürgelik", "Skirting"),
-    text: T("Lajsne pokrivaju dilataciju — pod je odmah spreman za korišćenje.", "Süpürgelikler genleşme payını kapatır — zemin hemen kullanıma hazır.", "Skirting covers the gap — the floor is ready to use straight away.") },
+    text: T("Daske se spajaju pod uglom od 20–30° i spuštaju, bez ljepila. Spojevi se smiču najmanje 30 cm; prvi i zadnji red široki su najmanje 5 cm.", "Tahtalar 20–30° açıyla birleştirilip indirilir, yapıştırıcı yok. Birleşimler en az 30 cm kaydırılır; ilk ve son sıra en az 5 cm olur.", "Planks join at 20–30° and are lowered into place, without glue. Stagger the joints by at least 30 cm; the first and last rows are at least 5 cm wide.") },
+  { title: T("Dilatacija i lajsne", "Genleşme payı ve süpürgelik", "Expansion gap & skirting"),
+    text: T("Pod mora moći da „radi“: uz zidove, cijevi i dovratnike ostavlja se razmak koji pokrivaju lajsne, a između većih prostorija postavljaju se prelazni profili.", "Zemin hareket edebilmeli: duvar, boru ve kasa kenarlarında süpürgeliğin kapattığı bir pay bırakılır; büyük odalar arasına geçiş profili konur.", "The floor must be free to move: leave a gap at walls, pipes and door frames for the skirting to cover, and fit transition profiles between larger rooms.") },
 ];
 
+/* SSS: montaj kılavuzu, bakım rehberi ve garanti belgesi */
 const FAQ: { q: Txt; a: Txt }[] = [
   { q: T("Da li je SPC stvarno vodootporan?", "SPC gerçekten su geçirmez mi?", "Is SPC really waterproof?"),
-    a: T("Da. Jezgro od kamenog praha i PVC-a ne upija vodu i ne bubri, pa je pogodan za kuhinje, kupatila i hodnike. Prolivenu vodu samo obrišite.", "Evet. Taş tozu ve PVC çekirdek su çekmez, şişmez; mutfak, banyo ve koridorlar için uygundur. Dökülen suyu silmeniz yeterli.", "Yes. The stone-powder and PVC core doesn't absorb water or swell, so it suits kitchens, bathrooms and hallways. Just wipe up any spills.") },
-  { q: T("Može li se postaviti preko pločica?", "Fayansın üzerine döşenebilir mi?", "Can it go over tiles?"),
-    a: T("Može, ako su pločice ravne i čvrste. Duboke fuge i veće neravnine prvo se izravnaju. Nema rušenja, prašine ni šuta.", "Evet, fayanslar düz ve sağlamsa. Derin derzler ve büyük pürüzler önce düzeltilir. Kırım, toz ve moloz yok.", "Yes, if the tiles are flat and solid. Deep grout lines and bigger bumps are levelled first. No demolition, dust or rubble.") },
+    a: T("Da — proizvođač ga deklariše kao 100% vodootporan: jezgro ne upija vodu i ne bubri, pa se postavlja i u kuhinjama i kupatilima. Prolivenu tečnost obrišite što prije. Pod je samo za unutrašnje prostore, a garancija ne pokriva poplave ni curenje instalacija.", "Evet — üretici %100 su geçirmez olarak beyan ediyor: çekirdek su çekmez, şişmez; mutfak ve banyolarda da kullanılır. Dökülen sıvıyı en kısa sürede silin. Yalnızca iç mekân içindir; garanti su baskını ve tesisat sızıntısını kapsamaz.", "Yes — the manufacturer declares it 100% waterproof: the core doesn't absorb water or swell, so it is used in kitchens and bathrooms too. Wipe up spills promptly. It is for indoor use only, and the warranty doesn't cover floods or plumbing leaks.") },
+  { q: T("Može li se postaviti preko postojećeg poda?", "Mevcut zeminin üzerine döşenebilir mi?", "Can it go over an existing floor?"),
+    a: T("Može, ako je postojeći pod tvrd, suv, ravan i čist — npr. beton ili pločice. Meke obloge poput tepiha se uklanjaju, a neravnine i dublje fuge prethodno izravnaju.", "Evet, mevcut zemin sert, kuru, düz ve temizse — örneğin beton veya fayans. Halı gibi yumuşak kaplamalar kaldırılır, pürüzler ve derin derzler önceden düzeltilir.", "Yes, if the existing floor is hard, dry, level and clean — concrete or tiles, for example. Soft coverings such as carpet come up, and bumps and deeper grout lines are levelled first.") },
   { q: T("Da li ide uz podno grijanje?", "Yerden ısıtmayla kullanılır mı?", "Does it work with underfloor heating?"),
-    a: T("Da, sve kolekcije su pogodne za podno grijanje na vodu.", "Evet, tüm koleksiyonlar sulu yerden ısıtmaya uygundur.", "Yes, every collection suits water-based underfloor heating.") },
+    a: T("Da, uz podno grijanje na vodu (EN 1264-2). Sistem radi na 18–22 °C najmanje 72 sata prije, tokom i poslije ugradnje, a temperatura površine pri korišćenju ne smije preći 27 °C.", "Evet, sulu yerden ısıtmayla (EN 1264-2). Sistem montajdan önce, montaj sırasında ve sonrasında en az 72 saat 18–22 °C'de çalıştırılır; kullanımda yüzey sıcaklığı 27 °C'yi geçmemelidir.", "Yes, with water-based underfloor heating (EN 1264-2). Run the system at 18–22 °C for at least 72 hours before, during and after installation; in use, the surface temperature must not exceed 27 °C.") },
   { q: T("Treba li posebna podloga?", "Ayrıca altlık gerekir mi?", "Do I need a separate underlay?"),
-    a: T("Ne. IXPE podloga od 1–1,5 mm je već zalijepljena ispod svake daske.", "Hayır. 1–1,5 mm IXPE alt katman her tahtanın altına hazır yapışıktır.", "No. A 1–1.5 mm IXPE underlay is already bonded under every plank.") },
+    a: T("Ne. Podloga od 1–1,5 mm je već zalijepljena ispod svake daske, pa dodatna podloga nije potrebna.", "Hayır. 1–1,5 mm alt katman her tahtanın altına hazır yapışıktır; ayrıca altlık gerekmez.", "No. A 1–1.5 mm underlay is already bonded under every plank, so no extra underlay is needed.") },
+  { q: T("Kako se održava?", "Nasıl temizlenir?", "How do I look after it?"),
+    a: T("Svakodnevno meka metla ili usisivač, a jednom sedmično dobro iscijeđen mop sa pH neutralnim sredstvom. Ne koristite abrazivna sredstva ni rastvarače. Ispod nogu namještaja stavite filc, a jako sunce ublažite zavjesama — kao svaki pod, i SPC vremenom može izblijedjeti na suncu.", "Günlük yumuşak süpürge veya elektrikli süpürge, haftada bir iyi sıkılmış paspas ve pH nötr temizleyici. Aşındırıcı ve solventli ürün kullanmayın. Mobilya ayaklarına keçe koyun, güçlü güneşi perdeyle kesin — her zemin gibi SPC de zamanla güneşte solabilir.", "A soft broom or vacuum daily, and a well-wrung mop with a pH-neutral cleaner once a week. Avoid abrasive or solvent cleaners. Put felt pads under furniture legs and soften strong sunlight with curtains — like any floor, SPC can fade in the sun over time.") },
   { q: T("Koja je razlika između kolekcija?", "Koleksiyonlar arasındaki fark ne?", "What's the difference between collections?"),
-    a: T("Debljina (5–6,5 mm), habajući sloj (0,3 ili 0,5 mm), format i izgled. Za kuću i stan dovoljna je svaka kolekcija; za poslovne prostore preporučujemo habajući sloj od 0,5 mm.", "Kalınlık (5–6,5 mm), aşınma tabakası (0,3 veya 0,5 mm), ebat ve görünüm. Ev ve daire için her koleksiyon yeterli; iş yerleri için 0,5 mm aşınma tabakası öneriyoruz.", "Thickness (5–6.5 mm), wear layer (0.3 or 0.5 mm), format and look. Any collection is fine for homes; for commercial spaces we recommend the 0.5 mm wear layer.") },
+    a: T("Debljina (5–6,5 mm), habajući sloj (0,3 ili 0,5 mm), format i izgled. Za poslovne prostore birajte habajući sloj od 0,5 mm — uz njega je i duža garancija.", "Kalınlık (5–6,5 mm), aşınma tabakası (0,3 veya 0,5 mm), ebat ve görünüm. İş yerleri için 0,5 mm aşınma tabakasını seçin — garantisi de daha uzundur.", "Thickness (5–6.5 mm), wear layer (0.3 or 0.5 mm), format and look. For commercial spaces choose the 0.5 mm wear layer — it also carries the longer warranty.") },
   { q: T("Koliko traje garancija?", "Garanti süresi ne kadar?", "How long is the warranty?"),
-    a: T("20 godina za stambene i 7 godina za poslovne prostore; za kolekciju Wood 15 i 3 godine.", "Konutta 20, ticari alanda 7 yıl; Wood koleksiyonunda 15 ve 3 yıl.", "20 years residential and 7 years commercial; 15 and 3 years for the Wood collection.") },
+    a: T("Uz habajući sloj 0,5 mm: 20 godina za stambene i 7 za poslovne prostore; uz 0,3 mm (kolekcija Wood): 15 i 3 godine. Garancija je proizvođačeva, važi za unutrašnje prostore uz pravilnu ugradnju i održavanje, a iznos naknade se smanjuje svake godine.", "0,5 mm aşınma tabakasında: konutta 20, ticari alanda 7 yıl; 0,3 mm'de (Wood koleksiyonu): 15 ve 3 yıl. Garanti üreticinindir; iç mekânda, doğru montaj ve bakımla geçerlidir ve tazminat oranı her yıl azalır.", "With a 0.5 mm wear layer: 20 years residential and 7 commercial; with 0.3 mm (Wood collection): 15 and 3 years. It is the manufacturer's warranty, valid indoors with correct installation and care, and the compensation reduces each year.") },
 ];
 
 export default function SpcPage() {
@@ -217,11 +223,11 @@ export default function SpcPage() {
           <div className={s.specIntro}>
             <p className={h.kicker}>{L("Šta je SPC", "SPC nedir", "What is SPC")}</p>
             <h2 className={h.h2}>{L("Kamen u jezgru,", "Çekirdeği taş,", "Stone at the core,")} <em>{L("drvo na površini", "yüzeyi ahşap", "wood on the surface")}</em></h2>
-            <p>{L("SPC (Stone Plastic Composite) je pod nove generacije: kruto jezgro od kamenog praha i PVC-a, na njemu dekor drveta ili kamena i zaštitni slojevi, a ispod integrisana podloga. Ima toplinu parketa, a otpornost pločica.", "SPC (Stone Plastic Composite) yeni nesil bir zemin kaplamasıdır: taş tozu ve PVC'den sert bir çekirdek, üzerinde ahşap veya taş deseni ve koruma katmanları, altında hazır alt katman. Parkenin sıcaklığına, fayansın dayanıklılığına sahiptir.", "SPC (Stone Plastic Composite) is a new-generation floor: a rigid core of stone powder and PVC, a wood or stone décor with protective layers on top, and a built-in underlay below. The warmth of parquet with the toughness of tiles.")}</p>
+            <p>{L("SPC (Stone Plastic Composite) je pod nove generacije: kruto jezgro od kamenog praha i PVC-a, na njemu dekor drveta ili kamena i zaštitni slojevi, a ispod integrisana podloga. Izgleda kao parket, a ne boji se vode.", "SPC (Stone Plastic Composite) yeni nesil bir zemin kaplamasıdır: taş tozu ve PVC'den sert bir çekirdek, üzerinde ahşap veya taş deseni ve koruma katmanları, altında hazır alt katman. Parke gibi görünür, sudan etkilenmez.", "SPC (Stone Plastic Composite) is a new-generation floor: a rigid core of stone powder and PVC, a wood or stone décor with protective layers on top, and a built-in underlay below. It looks like parquet but isn't afraid of water.")}</p>
           </div>
           <dl className={s.specNums}>
             <div><dt>{L("Vodootpornost", "Su geçirmezlik", "Waterproof")}</dt><dd>100<small>%</small></dd></div>
-            <div><dt>{L("Garancija", "Garanti", "Warranty")}</dt><dd>20<small>{L("god.", "yıl", "yrs")}</small></dd></div>
+            <div><dt>{L("Garancija do", "Garanti", "Warranty up to")}</dt><dd>20<small>{L("god.", "yıla kadar", "yrs")}</small></dd></div>
             <div><dt>{L("Debljina", "Kalınlık", "Thickness")}</dt><dd>5–{num(6.5)}<small>mm</small></dd></div>
             <div><dt>{L("Dezeni", "Desen", "Designs")}</dt><dd>{SPC_COUNT}</dd></div>
           </dl>
@@ -234,11 +240,16 @@ export default function SpcPage() {
           <div data-reveal>
           <div ref={stageRef} className={`${p.stage} ${spread ? p.spread : ""}`} aria-hidden>
             <div className={p.stack}>
-              {LAYERS.map((l, i) => (
-                <div key={l.title.en} className={`${p.layer} ${l.cls} ${layer === i ? p.layerOn : ""}`} style={{ "--i": i } as CSSProperties}>
-                  {Array.from({ length: l.slices }, (_, j) => <span key={j} style={{ "--j": j } as CSSProperties} />)}
-                </div>
-              ))}
+              <span className={p.shadow} />
+              {LAYERS.map((l, i) => {
+                const z = LAYERS.slice(i + 1).reduce((n, x) => n + x.t, 0);   // alttaki katmanların toplam kalınlığı
+                return (
+                  <div key={l.title.en} className={`${p.layer} ${l.cls} ${layer === i ? p.layerOn : ""}`}
+                    style={{ "--i": i, "--t": `${l.t}px`, "--z": `${z}px`, "--s": `${(LAYERS.length - 1 - i) * 36}px` } as CSSProperties}>
+                    <span className={p.top} /><span className={p.front} /><span className={p.side} />
+                  </div>
+                );
+              })}
             </div>
           </div>
           </div>
@@ -336,7 +347,7 @@ export default function SpcPage() {
           <div>
             <p className={h.kicker}>{L("Kalkulator", "Hesaplayıcı", "Calculator")}</p>
             <h2 className={h.h2}>{L("Koliko paketa", "Kaç paket", "How many packs")} <em>{L("vam treba?", "gerekir?", "do you need?")}</em></h2>
-            <p>{L("Unesite mjere prostorije. Dodajemo rezervu za sječenje: 5–7% za daske, 10–15% za riblju kost.", "Oda ölçülerini girin. Kesim payı ekliyoruz: düz tahtada %5–7, balıksırtında %10–15.", "Enter the room size. We add a cutting allowance: 5–7% for planks, 10–15% for herringbone.")}</p>
+            <p>{L("Unesite mjere prostorije. Dodajemo rezervu za sječenje prema uputstvu proizvođača: 5–10% za daske, 10–20% za riblju kost.", "Oda ölçülerini girin. Üreticinin kılavuzuna göre kesim payı ekliyoruz: düz tahtada %5–10, balıksırtında %10–20.", "Enter the room size. We add a cutting allowance per the manufacturer's guide: 5–10% for planks, 10–20% for herringbone.")}</p>
           </div>
           <div className={p.calcBox}>
             <div className={p.calcRow}>
@@ -346,7 +357,7 @@ export default function SpcPage() {
                 </select>
               </label>
               <label>{L("Format", "Ebat", "Format")}
-                <select value={cf} onChange={(e) => { setCf(+e.target.value); setWaste(coll.formats[+e.target.value].kind === "hb" ? 12 : 7); }}>
+                <select value={cf} onChange={(e) => { setCf(+e.target.value); setWaste(coll.formats[+e.target.value].kind === "hb" ? 15 : 7); }}>
                   {coll.formats.map((x, i) => <option key={x.kind} value={i}>{KIND[x.kind][lang]} {x.w}×{x.l}</option>)}
                 </select>
               </label>
@@ -356,7 +367,7 @@ export default function SpcPage() {
               <label>{L("Dužina (m)", "Boy (m)", "Length (m)")}<input inputMode="decimal" value={cl} onChange={(e) => setCl(e.target.value)} /></label>
               <label>{L("Rezerva", "Fire payı", "Allowance")}
                 <select value={waste} onChange={(e) => setWaste(+e.target.value)}>
-                  {[5, 7, 10, 12, 15].map((w) => <option key={w} value={w}>{w}%</option>)}
+                  {[5, 7, 10, 15, 20].map((w) => <option key={w} value={w}>{w}%</option>)}
                 </select>
               </label>
             </div>
@@ -376,9 +387,9 @@ export default function SpcPage() {
         <header className={h.head} data-reveal>
           <div>
             <p className={h.kicker}>{L("Montaža", "Montaj", "Installation")}</p>
-            <h2 className={h.h2}>{L("Bez ljepila,", "Yapıştırıcısız,", "No glue,")} <em>{L("bez rušenja", "kırımsız", "no demolition")}</em></h2>
+            <h2 className={h.h2}>{L("Bez ljepila,", "Yapıştırıcısız,", "No glue,")} <em>{L("samo klik", "sadece tık", "just click")}</em></h2>
           </div>
-          <p className={h.headDesc}>{L("Plivajuće polaganje na klik — prostorija je spremna za korišćenje isti dan.", "Tıklamalı yüzer döşeme — oda aynı gün kullanıma hazır.", "A floating click floor — the room is ready to use the same day.")}</p>
+          <p className={h.headDesc}>{L("Plivajuće polaganje na klik, prema uputstvu proizvođača. Dodatna podloga nije potrebna.", "Üreticinin kılavuzuna göre tıklamalı yüzer döşeme. Ayrıca altlık gerekmez.", "A floating click floor, laid to the manufacturer's instructions. No extra underlay needed.")}</p>
         </header>
         <ol className={`${k.steps} ${p.steps}`}>
           {STEPS.map((st, i) => (
