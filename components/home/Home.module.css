@@ -200,6 +200,12 @@
 .productLink { font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); display: inline-flex; gap: 10px; }
 .productLink span { transition: transform 0.35s var(--ease); }
 .product:hover .productLink span { transform: translateX(6px); }
+/* son satırda tek kalan kart (7. ürün) tüm satırı kaplar: görsel solda, metin sağda */
+@media (min-width: 561px) {
+  .product:last-child:nth-child(3n + 1) { grid-column: 1 / -1; flex-direction: row; }
+  .product:last-child:nth-child(3n + 1) .productImg { flex: 0 0 calc((100% - 44px) * 2 / 3 + 22px); aspect-ratio: 16 / 7; }
+  .product:last-child:nth-child(3n + 1) .productBody { justify-content: center; padding: 34px 36px; }
+}
 
 /* ===== Hakkımızda ===== */
 .about { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: center; padding: clamp(90px, 11vw, 150px) var(--pad) clamp(70px, 8vw, 110px); }
@@ -299,6 +305,7 @@
   .headCenter { align-items: center; }
   .about { grid-template-columns: 1fr; }
   .products { grid-template-columns: repeat(2, 1fr); }
+  .product:last-child:nth-child(3n + 1) .productImg { flex-basis: 50%; aspect-ratio: 4 / 3; }
   .aboutBadge { right: 16px; padding: 12px 18px; }
   .aboutBadge strong { font-size: 22px; }
   .aboutImg { margin-bottom: 30px; }

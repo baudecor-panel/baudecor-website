@@ -12,7 +12,7 @@ import s from "./Home.module.css";
 type Txt = { tr: string; me: string; en: string };
 
 /* ===== İçerik ===== */
-const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Fleksibilni Kamen", "Tapete", "SPC Paneli", "Kupovina na Rate"];
+const MARQUEE_ITEMS = ["PVC Paneli", "MDF Paneli", "Modularni Paneli", "Akustični Paneli", "Fleksibilni Kamen", "Tapete", "SPC Parket", "Kupovina na Rate"];
 
 const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: Txt; text: Txt; img: string }[] = [
   {
@@ -61,6 +61,14 @@ const PRODUCTS: { num: string; href: string; badge: Txt | null; name: Txt; tag: 
     tag: { tr: "Bükülen taş", me: "Kamen koji se savija", en: "Stone that bends" },
     text: { tr: "Clayton'ın 21 serisi: taş, mermer, arduvaz, tuğla ve ahşap görünümlü hafif, bükülebilen mineral levhalar. İç mekân, banyo ve cepheler için.", me: "21 Clayton serija: lagane mineralne ploče koje se savijaju, sa izgledom kamena, mermera, škriljca, opeke i drveta. Za enterijer, kupatila i fasade.", en: "21 Clayton series: light, bendable mineral sheets with the look of stone, marble, slate, brick and wood. For interiors, bathrooms and façades." },
     img: "/clayton/oda/traverten-1.webp",
+  },
+  {
+    num: "07", href: "/urunler/spc-parke",
+    badge: { tr: "Yeni", me: "Novo", en: "New" },
+    name: { tr: "SPC Parke", me: "SPC Parket", en: "SPC Flooring" },
+    tag: { tr: "%100 su geçirmez zemin", me: "100% vodootporan pod", en: "100% waterproof floor" },
+    text: { tr: "Taş çekirdekli, tıklamalı SPC parke: 7 koleksiyonda 71 ahşap ve taş deseni, düz tahta veya balıksırtı. Yerden ısıtmaya uygun, 20 yıla kadar garanti.", me: "SPC parket sa kamenim jezgrom, na klik: 71 dezen drveta i kamena u 7 kolekcija, u daskama ili kao riblja kost. Za podno grijanje, garancija do 20 godina.", en: "Stone-core click SPC flooring: 71 wood and stone designs in 7 collections, as planks or herringbone. Suits underfloor heating, with up to a 20-year warranty." },
+    img: "/spc-parke/authentic-502-kart.webp",
   },
 ];
 
@@ -196,9 +204,9 @@ export default function HomePage() {
               : <><span><span>Transform</span></span><span><span>Your Space</span></span><span><span>With <em>Style</em></span></span></>}
           </h1>
           <p className={`${s.heroDesc} ${s.fadeUp}`} style={{ animationDelay: "0.9s" }}>
-            {L("Šest kolekcija za zidove sa karakterom — PVC i MDF paneli, modularni i akustični paneli, tapete i fleksibilni kamen. Pogledajte ih uživo u našem salonu u Ulcinju.",
-              "Karakterli duvarlar için altı koleksiyon — PVC ve MDF paneller, modüler ve akustik paneller, duvar kağıdı ve esnek taş. Ulcinj'deki showroom'umuzda yerinde görün.",
-              "Six collections for walls with character — PVC and MDF panels, modular and acoustic panels, wallpaper and flexible stone. See them in person at our Ulcinj showroom.")}
+            {L("Sedam kolekcija za zidove i podove sa karakterom — PVC i MDF paneli, modularni i akustični paneli, tapete, fleksibilni kamen i SPC parket. Pogledajte ih uživo u našem salonu u Ulcinju.",
+              "Karakterli duvarlar ve zeminler için yedi koleksiyon — PVC ve MDF paneller, modüler ve akustik paneller, duvar kağıdı, esnek taş ve SPC parke. Ulcinj'deki showroom'umuzda yerinde görün.",
+              "Seven collections for walls and floors with character — PVC and MDF panels, modular and acoustic panels, wallpaper, flexible stone and SPC flooring. See them in person at our Ulcinj showroom.")}
           </p>
           <div className={`${s.heroBtns} ${s.fadeUp}`} style={{ animationDelay: "1.05s" }}>
             <button className={s.btnPrimary} onClick={() => scrollTo("products")}>{L("Pogledaj Ponudu", "Ürünleri Gör", "View Products")} <span>→</span></button>
@@ -265,9 +273,9 @@ export default function HomePage() {
           <h2 className={s.h2}>
             {L("Vaš salon", "Ulcinj'de", "Your wall décor")} <em>{L("zidnog dekora u Ulcinju", "duvar dekor showroom'unuz", "showroom in Ulcinj")}</em>
           </h2>
-          <p>{L("Baudecor je vaš partner za uređenje zidova sa sjedištem u Ulcinju. Na jednom mjestu nudimo šest kolekcija: PVC panele sa izgledom mermera, MDF lamele, modularne 3D panele, akustične panele, tapete i fleksibilni kamen.",
-            "Baudecor, Ulcinj merkezli duvar dekorasyonu ortağınız. Tek çatı altında altı koleksiyon sunuyoruz: mermer görünümlü PVC paneller, MDF lameller, modüler 3D paneller, akustik paneller, duvar kağıtları ve esnek taş.",
-            "Baudecor is your wall décor partner based in Ulcinj. Under one roof we offer six collections: marble-look PVC panels, MDF slats, modular 3D panels, acoustic panels, wallpaper and flexible stone.")}</p>
+          <p>{L("Baudecor je vaš partner za uređenje zidova sa sjedištem u Ulcinju. Na jednom mjestu nudimo sedam kolekcija: PVC panele sa izgledom mermera, MDF lamele, modularne 3D panele, akustične panele, tapete, fleksibilni kamen i SPC parket.",
+            "Baudecor, Ulcinj merkezli duvar dekorasyonu ortağınız. Tek çatı altında yedi koleksiyon sunuyoruz: mermer görünümlü PVC paneller, MDF lameller, modüler 3D paneller, akustik paneller, duvar kağıtları, esnek taş ve SPC parke.",
+            "Baudecor is your wall décor partner based in Ulcinj. Under one roof we offer seven collections: marble-look PVC panels, MDF slats, modular 3D panels, acoustic panels, wallpaper, flexible stone and SPC flooring.")}</p>
           <p>{L("Pomažemo vam da izaberete pravu površinu za dom, kancelariju, restoran ili hotel — od vodootpornih zidova za kupatilo do toplih drvenih i reljefnih zidova. Sve uzorke možete vidjeti i dodirnuti u našem salonu.",
             "Ev, ofis, restoran ya da otel için doğru yüzeyi seçmenize yardımcı oluyoruz — banyo için su geçirmez duvarlardan sıcak ahşap ve rölyefli duvarlara kadar. Tüm numuneleri showroom'umuzda görüp dokunabilirsiniz.",
             "We help you choose the right surface for your home, office, restaurant or hotel — from waterproof bathroom walls to warm wooden and relief walls. You can see and touch every sample in our showroom.")}</p>

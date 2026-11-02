@@ -18,6 +18,7 @@ export const PRODUCT_LINKS: { href: string; name: Txt }[] = [
   { href: "/urunler/akustik-duvar-paneli", name: { tr: "Akustik Duvar Paneli", me: "Akustični Zidni Panel", en: "Acoustic Wall Panel" } },
   { href: "/urunler/esnek-tas-panel", name: { tr: "Esnek Taş Panel", me: "Fleksibilni Kamen", en: "Flexible Stone" } },
   { href: "/duvar-kagidi", name: { tr: "Duvar Kağıdı", me: "Tapete", en: "Wallpaper" } },
+  { href: "/urunler/spc-parke", name: { tr: "SPC Parke", me: "SPC Parket", en: "SPC Flooring" } },
 ];
 
 export const SOCIAL = [

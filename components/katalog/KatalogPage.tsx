@@ -47,6 +47,9 @@ const GROUPS: Group[] = [
       ONLINE(T("Online katalog — 21 serija", "Çevrim içi katalog — 21 seri", "Online catalogue — 21 series")),
       { label: T("Clayton katalog 2026", "Clayton kataloğu 2026", "Clayton catalogue 2026"), href: "/katalog/clayton-katalog-2026.pdf", kind: "pdf", size: "33 str. · 7 MB" },
     ] },
+  { num: "07", name: T("SPC parket", "SPC parke", "SPC flooring"), img: "/spc-parke/authentic-502-kart.webp", href: "/urunler/spc-parke",
+    text: T("7 kolekcija i 71 dezen drveta i kamena, u daskama i kao riblja kost. 100% vodootporno, montaža na klik.", "7 koleksiyon ve 71 ahşap ve taş deseni, düz tahta ve balıksırtı. %100 su geçirmez, tıklamalı montaj.", "7 collections and 71 wood and stone designs, as planks and herringbone. 100% waterproof, click installation."),
+    docs: [ONLINE(T("Online katalog — 71 dezen", "Çevrim içi katalog — 71 desen", "Online catalogue — 71 designs")), SOON] },
 ];
 
 const KIND: Record<Doc["kind"], Txt> = { pdf: T("PDF", "PDF", "PDF"), web: T("Stranica", "Sayfa", "Page"), soon: T("U pripremi", "Hazırlanıyor", "Coming soon") };

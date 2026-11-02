@@ -1,0 +1,136 @@
+/* SPC parke sayfasına özel parçalar — ortak parçalar site/Product, moduler/Moduler ve akustik/Akustik'te */
+
+.tight { padding-top: 0; }
+
+/* ===== Koleksiyon sekmeleri ===== */
+.tabs { display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid var(--line); margin-bottom: 28px; }
+.tabs button {
+  display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border: 0; border-right: 1px solid var(--line);
+  background: none; text-align: left; color: var(--ink-2); transition: background 0.3s, color 0.3s;
+}
+.tabs button:last-child { border-right: 0; }
+.tabs button:hover { background: var(--bg-2); color: var(--ink); }
+.tabs b { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; }
+.tabs small { font-size: 11px; letter-spacing: 1px; }
+.tabs .tabOn { background: var(--ink); color: #f6f1ea; }
+.tabs .tabOn:hover { background: var(--ink); color: #f6f1ea; }
+
+.collInfo { display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px 48px; align-items: center; margin-bottom: 36px; animation: fadeUp 0.5s var(--ease); }
+.collInfo > div p:last-child { margin: 8px 0 0; font-size: 15px; line-height: 1.75; font-weight: 300; color: var(--ink-2); max-width: 520px; }
+.collInfo dl { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; border-left: 1px solid var(--line); }
+.collInfo dl div { padding: 6px 18px; border-right: 1px solid var(--line); }
+.collInfo dt { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; }
+.collInfo dd { margin: 0; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+.collInfo dd span { display: block; font-size: 16px; }
+.collInfo dd span + span { margin-top: 2px; }
+
+/* ===== Desen kartları ===== */
+.grid { grid-template-columns: repeat(4, 1fr); }
+.cardName { font-size: 22px !important; letter-spacing: 0 !important; }
+.swatch {
+  position: absolute; right: 12px; bottom: 12px; width: 52px; height: 52px; border: 3px solid var(--card);
+  background-size: cover; background-position: center; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.5s var(--ease);
+}
+.grid button:hover .swatch { transform: scale(1.15) rotate(-4deg); }
+.swatches { grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); }
+
+/* penceredeki düz / balıksırtı seçimi */
+.fmtToggle { display: inline-flex; border: 1px solid var(--line); margin: -10px 0 22px; align-self: flex-start; }
+.fmtToggle button { padding: 10px 18px; border: 0; background: none; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-2); }
+.fmtToggle button + button { border-left: 1px solid var(--line); }
+.fmtToggle .fmtOn { background: var(--ink); color: #f6f1ea; }
+
+/* ===== Katmanlar: eğik açılmış tahta ===== */
+.layers { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+.stage { height: clamp(320px, 38vw, 480px); display: grid; place-items: center; perspective: 1600px; }
+.stack { position: relative; width: min(78%, 440px); aspect-ratio: 1.9; transform-style: preserve-3d; transform: rotateX(58deg) rotateZ(-32deg); }
+.layer { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.9s var(--ease); transform: translateZ(calc((4 - var(--i)) * 6px)); }
+.spread .layer { transform: translateZ(calc((4 - var(--i)) * 46px)); transition-delay: calc(var(--i) * 0.08s); }
+.layer span { position: absolute; inset: 0; transform: translateZ(calc(var(--j) * -2px)); }
+.layerOn { filter: drop-shadow(0 0 0 transparent); }
+.layerOn span:first-child { outline: 2px solid var(--amber); outline-offset: 4px; }
+.lUv span { background: linear-gradient(120deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.12) 45%, rgba(255, 255, 255, 0.4)); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 0 0 1px rgba(60, 40, 20, 0.08); }
+.lWear span { background: rgba(214, 228, 232, 0.45); border: 1px solid rgba(255, 255, 255, 0.7); box-shadow: 0 0 0 1px rgba(60, 40, 20, 0.08); }
+.lDecor span { background: url('/spc-parke/authentic-502-pl.webp') center / cover; }
+.lCore span { background: linear-gradient(135deg, #b4b2ab, #8f8d87); }
+.lCore span:not(:first-child) { background: #7b7974; }
+.lIxpe span { background: #232120; }
+.lIxpe span:not(:first-child) { background: #111; }
+
+.layerList { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.layerList li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 16px 8px; border-bottom: 1px solid var(--line); transition: background 0.3s; cursor: default; }
+.layerList li span { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--teal); padding-top: 2px; }
+.layerList b { font-size: 15px; font-weight: 600; }
+.layerList p { margin: 4px 0 0; font-size: 14px; line-height: 1.65; font-weight: 300; color: var(--ink-2); }
+.layerList .liOn { background: var(--bg-2); }
+
+/* ===== Düz / balıksırtı ===== */
+.ways { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
+.ways figure { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; background: var(--card); border: 1px solid var(--line); padding: 18px; }
+.ways img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.ways b { display: block; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; }
+.ways small { display: block; font-size: 11px; letter-spacing: 2px; color: var(--teal); font-weight: 600; margin: 6px 0 12px; }
+.ways p { margin: 0; font-size: 14px; line-height: 1.7; font-weight: 300; color: var(--ink-2); }
+
+/* ===== Karşılaştırma tablosu ===== */
+.tableWrap { overflow-x: auto; border: 1px solid var(--line); background: var(--card); }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 760px; }
+.table th { text-align: left; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; color: var(--ink-2); padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.table td { padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.table tr:last-child td { border-bottom: 0; }
+.table tbody tr { cursor: pointer; transition: background 0.25s; }
+.table tbody tr:hover { background: var(--bg-2); }
+.table td b { display: block; font-family: 'Playfair Display', serif; font-size: 18px; }
+.table td small { font-size: 12px; color: var(--ink-2); }
+.table td span { display: block; white-space: nowrap; }
+.tableNote { margin: 10px 0 0; font-size: 12px; color: var(--ink-2); }
+
+/* ===== Hesaplayıcı ===== */
+.calc { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px clamp(40px, 6vw, 100px); align-items: center; }
+.calc > div:first-child p:last-child { font-size: 15px; line-height: 1.8; font-weight: 300; color: var(--ink-2); margin: 20px 0 0; max-width: 460px; }
+.calcBox { background: var(--card); border: 1px solid var(--line); padding: clamp(22px, 3vw, 34px); display: flex; flex-direction: column; gap: 16px; }
+.calcRow { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+.calcRow label { display: flex; flex-direction: column; gap: 6px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-2); }
+.calcRow input, .calcRow select {
+  font: inherit; font-size: 15px; letter-spacing: 0; text-transform: none; color: var(--ink); padding: 11px 12px;
+  border: 1px solid var(--line); background: var(--bg); border-radius: 0; width: 100%;
+}
+.calcRow input:focus, .calcRow select:focus { outline: none; border-color: var(--teal); }
+.calcOut { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.calcOut div { padding: 16px 0; }
+.calcOut div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.calcOut small { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6px; }
+.calcOut b { font-family: 'Playfair Display', serif; font-size: clamp(24px, 2.6vw, 34px); }
+.calcNote { margin: -4px 0 0; font-size: 12px; color: var(--ink-2); }
+.calcBox a { align-self: flex-start; }
+
+.steps { grid-template-columns: repeat(4, 1fr); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 1200px) {
+  .tabs { grid-template-columns: repeat(4, 1fr); }
+  .tabs button:nth-child(4) { border-right: 0; }
+  .tabs button:nth-child(-n+4) { border-bottom: 1px solid var(--line); }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .collInfo { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .tabs { display: flex; overflow-x: auto; scrollbar-width: none; border-left: 0; border-right: 0; margin-left: calc(var(--pad) * -1); margin-right: calc(var(--pad) * -1); }
+  .tabs button { flex: 0 0 auto; border-bottom: 0 !important; border-right: 1px solid var(--line) !important; padding: 12px 16px; }
+  .tabs b { font-size: 17px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .cardName { font-size: 17px !important; }
+  .swatch { width: 38px; height: 38px; right: 8px; bottom: 8px; border-width: 2px; }
+  .collInfo dl { grid-template-columns: 1fr 1fr; border-left: 0; border-top: 1px solid var(--line); }
+  .collInfo dl div { padding: 12px 12px 12px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .layers, .calc { grid-template-columns: 1fr; }
+  .stage { height: 300px; }
+  .ways { grid-template-columns: 1fr; }
+  .ways figure { grid-template-columns: 120px 1fr; gap: 16px; padding: 12px; }
+  .ways b { font-size: 21px; }
+  .steps { grid-template-columns: 1fr; }
+  .fmtToggle { margin-top: -14px; }
+}

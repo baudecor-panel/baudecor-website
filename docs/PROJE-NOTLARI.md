@@ -3,7 +3,7 @@
 Bu dosya, site üzerinde Claude ile yapılan çalışmaların kalıcı kaydıdır. Her yeni oturumda önce bunu oku,
 iş bittikçe güncelle. (Şifre, token gibi gizli bilgiler buraya **yazılmaz**.)
 
-Son güncelleme: 31 Ekim 2026
+Son güncelleme: 2 Kasım 2026
 
 ---
 
@@ -27,6 +27,7 @@ Son güncelleme: 31 Ekim 2026
 | Modüler 3D paneller | `/urunler/moduler-duvar-paneli` | `components/moduler/*`, `lib/moduler.ts` |
 | Akustik paneller | `/urunler/akustik-duvar-paneli` | `components/akustik/*`, `lib/akustik.ts`, `public/akustik/` |
 | Esnek taş (Clayton) | `/urunler/esnek-tas-panel` | `components/clayton/*`, `lib/clayton.ts`, `public/clayton/` |
+| SPC parke | `/urunler/spc-parke` | `components/spc/SpcPage.tsx`, `Spc.module.css`, `lib/spc.ts`, `public/spc-parke/` |
 | Duvar kağıdı | `/duvar-kagidi` | `components/wallpaper/Catalog.tsx` (kart görselleri `public/duvar-kagidi/oda-kart/`) |
 | Katalog | `/katalog` | `components/katalog/KatalogPage.tsx`, `Katalog.module.css` |
 
@@ -42,6 +43,9 @@ Ortak parçalar: `components/site/PageHeader.tsx`, `components/site/SiteFooter.t
 - Akustik panel: yalnızca **keçe** (taşyünü yok); tek panel 60 × 280 cm, renkler light-oak, teak, beyaz, siyah.
   Montaj: "sadece güçlü bir silikonla". "Nelerden oluşur" bölümü renk seçimine göre değişmez. Esnek bükülme görseli orijinal fotoğraf (SVG versiyonu beğenilmedi).
 - MDF: renk kartelası modellerin hemen altında, sonra başlangıç/bitiş profilleri; görsellerin siyah arka planı **orijinal haliyle** kalır (açık renkli deneme beğenilmedi).
+- SPC parke (2 Kasım 2026): 7 koleksiyonun hepsi (Authentic, Diamonds, Originals, Wood, Grande, Elegant, Stone — 71 desen), düz tahta + balıksırtı.
+  Sayfada marka adı yok, sadece "SPC parke/parket". SPC duvar panelleri (Wall Panel XL, Wall Tiles) **kullanılmıyor**. Ana sayfa kayan yazısında "SPC Paneli" → "SPC Parket".
+  Görseller üreticinin kataloğundan otomatik kesildi (sayfa = tek raster; beyaz çerçeveli kareler aranarak). Wood garantisi 15/3, diğerleri 20/7 yıl.
 - Katalog sayfası: PDF'i olmayan gruplarda "PDF katalog · Hazırlanıyor" satırı var.
 
 ## 4. Değişiklik ve yayın akışı
@@ -74,9 +78,9 @@ Teknik notlar:
 
 ## 6. Bekleyen işler
 
-- [ ] **Kataloglar:** kullanıcı PDF'leri gönderince `KatalogPage.tsx` içindeki `SOON` satırlarını `{ kind: "pdf", href: "/katalog/....pdf", size }` ile değiştir (PVC, MDF, modüler, akustik, duvar kağıdı).
+- [ ] **Kataloglar:** kullanıcı PDF'leri gönderince `KatalogPage.tsx` içindeki `SOON` satırlarını `{ kind: "pdf", href: "/katalog/....pdf", size }` ile değiştir (PVC, MDF, modüler, akustik, duvar kağıdı, SPC parke).
 - [ ] **Facebook Pixel:** eski sitede vardı, yenide yok — kullanıcı pixel ID'sini gönderirse ekle.
 - [ ] **Güvenlik ("sonra bir ara yapalım" dedi):** GitHub, Vercel, Namecheap, Romarg/cPanel hesaplarında 2FA + güçlü şifre; Namecheap Domain Lock kontrolü; önizleme korumasını (Vercel Deployment Protection) isteğe bağlı tekrar açma.
 - [ ] **Eski WordPress:** 1–2 hafta sorunsuz geçince yedekleyip cPanel'den silmeyi öner (e-postaya ve claytonmontenegro.me'ye dokunmadan).
-- [ ] Cevap bekleyen sorular: ana sayfa kayan yazıdaki "SPC Paneli" ve "Kupovina na Rate" kalsın mı? Hero için alternatif tasarım ("liste + büyük görsel" / "mozaik") istenecek mi?
+- [ ] Cevap bekleyen sorular: ana sayfa kayan yazıdaki "Kupovina na Rate" kalsın mı? Hero için alternatif tasarım ("liste + büyük görsel" / "mozaik") istenecek mi?
 - `lib/supabase.ts` kullanılmıyor (Supabase env değişkenleri boş); ileride temizlenebilir.
