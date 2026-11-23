@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Baudecor — Premium Zidni Paneli | Crna Gora",
-  description: "Inovativna rješenja u uređenju enterijera. PVC, MDF i modularni zidni paneli. Izložbeni salon u Ulcinju.",
+  title: "Baudecor — Zidni paneli, tapete i SPC parket | Ulcinj, Crna Gora",
+  description: "Zidni paneli (PVC, MDF, modularni i akustični), fleksibilni kamen, tapete i SPC parket. Izložbeni salon u Ulcinju, Crna Gora.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
