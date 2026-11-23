@@ -50,6 +50,7 @@ Ortak parçalar: `components/site/PageHeader.tsx`, `components/site/SiteFooter.t
   Doğrulanmış: 48 saat aklimatizasyon (14–30 °C), fire %5–10 düz / %10–20 balıksırtı, yerden ısıtma sulu sistem + yüzey ≤27 °C, garanti yalnızca iç mekân, su baskını/sızıntı hariç.
   Görseller üreticinin kataloğundan otomatik kesildi (sayfa = tek raster; beyaz çerçeveli kareler aranarak). Wood garantisi 15/3, diğerleri 20/7 yıl.
 - Katalog sayfası: PDF'i olmayan gruplarda "PDF katalog · Hazırlanıyor" satırı var.
+- Site simgesi (favicon, 23 Kasım 2026): Next.js'in varsayılan üçgeni yerine "BD" simgesi — turkuaz B + kahverengi D, logo renkleri (#099f9d / #91735e). Dosyalar: app/icon.svg (asıl), app/favicon.ico (16/32/48), app/apple-icon.png (180). Google'da güncellenmesi birkaç gün–birkaç hafta sürebilir.
 
 ## 4. Değişiklik ve yayın akışı
 
